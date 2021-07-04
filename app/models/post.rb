@@ -71,3 +71,36 @@ class Post < ActiveRecord::Base
   def self.parse_date(date_string)
     DateTime.strptime(date_string, "posted: %B %e, %Y, %I:%M %p").to_time if !date_string.blank?
   end
+
+  # TODO need to regex out Location:
+  def self.parse_location(posting_text_with_meta)
+    m = /Location: (.*)$/.match(posting_text_with_meta)
+    m[1].strip if m
+  end
+
+  # TODO need to regex out Poster's age:
+  def self.parse_age(posting_text_with_meta)
+    m = /Poster's age: (\d+)/.match(posting_text_with_meta)
+    m[1] if m
+  end
+
+  def self.parse_category(category_name)
+    basedir = "#{BASE_POST_FILE_PATH}#{category_name}"
+    Dir.new(basedir).each do |slug|
+      slug_path = File.join(basedir, slug)
+      if File.directory?(slug_path) && slug != ".." && slug != "."
+        Dir.new(slug_path).each do |post_id|
+          post_path = File.join(slug_path, post_id)
+          if File.file?(post_path)
+            post = Post.new(:category => category_name,
+                             :slug => slug,
+                             :post_id => post_id)
+            post.parse_file!
+          end
+        end
+      else
+        logger.info "File: #{slug} is a file not a slug"
+      end
+    end
+  end
+end

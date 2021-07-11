@@ -31,4 +31,5 @@ TrafficReport::Application.configure do
   # config.active_record.schema_format = :sql
 
   # Print deprecation notices to the stderr
-  config.active_support.deprecation 
+  config.active_support.deprecation = :stderr
+end

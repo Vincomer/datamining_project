@@ -16,3 +16,16 @@ ActiveRecord::Schema.define(:version => 20110717144357) do
     t.string   "url"
     t.string   "category"
     t.integer  "post_id"
+    t.string   "slug"
+    t.string   "title"
+    t.text     "body"
+    t.datetime "posted_at"
+    t.string   "location"
+    t.integer  "age"
+    t.string   "phone"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "report_url"
+  end
+
+end

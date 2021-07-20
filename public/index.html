@@ -165,4 +165,17 @@
         list-style-type: none;
       }
       #sidebar ul.links li {
-        margin-bottom: 
+        margin-bottom: 5px;
+      }
+
+    </style>
+    <script type="text/javascript">
+      function about() {
+        info = document.getElementById('about-content');
+        if (window.XMLHttpRequest)
+          { xhr = new XMLHttpRequest(); }
+        else
+          { xhr = new ActiveXObject("Microsoft.XMLHTTP"); }
+        xhr.open("GET","rails/info/properties",false);
+        xhr.send("");
+        info.inn

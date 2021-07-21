@@ -178,4 +178,17 @@
           { xhr = new ActiveXObject("Microsoft.XMLHTTP"); }
         xhr.open("GET","rails/info/properties",false);
         xhr.send("");
-        info.inn
+        info.innerHTML = xhr.responseText;
+        info.style.display = 'block'
+      }
+    </script>
+  </head>
+  <body>
+    <div id="page">
+      <div id="sidebar">
+        <ul id="sidebar-items">
+          <li>
+            <h3>Browse the documentation</h3>
+            <ul class="links">
+              <li><a href="http://api.rubyonrails.org/">Rails API</a></li>
+              <li><a href="http:

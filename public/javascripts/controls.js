@@ -565,3 +565,376 @@ Ajax.InPlaceEditor = Class.create({
       var text = ipe.options['text' + mode + 'Controls'];
       if (!text || condition === false) return;
       ipe._form.appendChild(document.createTextNode(text));
+    };
+    this._form = $(document.createElement('form'));
+    this._form.id = this.options.formId;
+    this._form.addClassName(this.options.formClassName);
+    this._form.onsubmit = this._boundSubmitHandler;
+    this.createEditField();
+    if ('textarea' == this._controls.editor.tagName.toLowerCase())
+      this._form.appendChild(document.createElement('br'));
+    if (this.options.onFormCustomization)
+      this.options.onFormCustomization(this, this._form);
+    addText('Before', this.options.okControl || this.options.cancelControl);
+    this.createControl('ok', this._boundSubmitHandler);
+    addText('Between', this.options.okControl && this.options.cancelControl);
+    this.createControl('cancel', this._boundCancelHandler, 'editor_cancel');
+    addText('After', this.options.okControl || this.options.cancelControl);
+  },
+  destroy: function() {
+    if (this._oldInnerHTML)
+      this.element.innerHTML = this._oldInnerHTML;
+    this.leaveEditMode();
+    this.unregisterListeners();
+  },
+  enterEditMode: function(e) {
+    if (this._saving || this._editing) return;
+    this._editing = true;
+    this.triggerCallback('onEnterEditMode');
+    if (this.options.externalControl)
+      this.options.externalControl.hide();
+    this.element.hide();
+    this.createForm();
+    this.element.parentNode.insertBefore(this._form, this.element);
+    if (!this.options.loadTextURL)
+      this.postProcessEditField();
+    if (e) Event.stop(e);
+  },
+  enterHover: function(e) {
+    if (this.options.hoverClassName)
+      this.element.addClassName(this.options.hoverClassName);
+    if (this._saving) return;
+    this.triggerCallback('onEnterHover');
+  },
+  getText: function() {
+    return this.element.innerHTML.unescapeHTML();
+  },
+  handleAJAXFailure: function(transport) {
+    this.triggerCallback('onFailure', transport);
+    if (this._oldInnerHTML) {
+      this.element.innerHTML = this._oldInnerHTML;
+      this._oldInnerHTML = null;
+    }
+  },
+  handleFormCancellation: function(e) {
+    this.wrapUp();
+    if (e) Event.stop(e);
+  },
+  handleFormSubmission: function(e) {
+    var form = this._form;
+    var value = $F(this._controls.editor);
+    this.prepareSubmission();
+    var params = this.options.callback(form, value) || '';
+    if (Object.isString(params))
+      params = params.toQueryParams();
+    params.editorId = this.element.id;
+    if (this.options.htmlResponse) {
+      var options = Object.extend({ evalScripts: true }, this.options.ajaxOptions);
+      Object.extend(options, {
+        parameters: params,
+        onComplete: this._boundWrapperHandler,
+        onFailure: this._boundFailureHandler
+      });
+      new Ajax.Updater({ success: this.element }, this.url, options);
+    } else {
+      var options = Object.extend({ method: 'get' }, this.options.ajaxOptions);
+      Object.extend(options, {
+        parameters: params,
+        onComplete: this._boundWrapperHandler,
+        onFailure: this._boundFailureHandler
+      });
+      new Ajax.Request(this.url, options);
+    }
+    if (e) Event.stop(e);
+  },
+  leaveEditMode: function() {
+    this.element.removeClassName(this.options.savingClassName);
+    this.removeForm();
+    this.leaveHover();
+    this.element.style.backgroundColor = this._originalBackground;
+    this.element.show();
+    if (this.options.externalControl)
+      this.options.externalControl.show();
+    this._saving = false;
+    this._editing = false;
+    this._oldInnerHTML = null;
+    this.triggerCallback('onLeaveEditMode');
+  },
+  leaveHover: function(e) {
+    if (this.options.hoverClassName)
+      this.element.removeClassName(this.options.hoverClassName);
+    if (this._saving) return;
+    this.triggerCallback('onLeaveHover');
+  },
+  loadExternalText: function() {
+    this._form.addClassName(this.options.loadingClassName);
+    this._controls.editor.disabled = true;
+    var options = Object.extend({ method: 'get' }, this.options.ajaxOptions);
+    Object.extend(options, {
+      parameters: 'editorId=' + encodeURIComponent(this.element.id),
+      onComplete: Prototype.emptyFunction,
+      onSuccess: function(transport) {
+        this._form.removeClassName(this.options.loadingClassName);
+        var text = transport.responseText;
+        if (this.options.stripLoadedTextTags)
+          text = text.stripTags();
+        this._controls.editor.value = text;
+        this._controls.editor.disabled = false;
+        this.postProcessEditField();
+      }.bind(this),
+      onFailure: this._boundFailureHandler
+    });
+    new Ajax.Request(this.options.loadTextURL, options);
+  },
+  postProcessEditField: function() {
+    var fpc = this.options.fieldPostCreation;
+    if (fpc)
+      $(this._controls.editor)['focus' == fpc ? 'focus' : 'activate']();
+  },
+  prepareOptions: function() {
+    this.options = Object.clone(Ajax.InPlaceEditor.DefaultOptions);
+    Object.extend(this.options, Ajax.InPlaceEditor.DefaultCallbacks);
+    [this._extraDefaultOptions].flatten().compact().each(function(defs) {
+      Object.extend(this.options, defs);
+    }.bind(this));
+  },
+  prepareSubmission: function() {
+    this._saving = true;
+    this.removeForm();
+    this.leaveHover();
+    this.showSaving();
+  },
+  registerListeners: function() {
+    this._listeners = { };
+    var listener;
+    $H(Ajax.InPlaceEditor.Listeners).each(function(pair) {
+      listener = this[pair.value].bind(this);
+      this._listeners[pair.key] = listener;
+      if (!this.options.externalControlOnly)
+        this.element.observe(pair.key, listener);
+      if (this.options.externalControl)
+        this.options.externalControl.observe(pair.key, listener);
+    }.bind(this));
+  },
+  removeForm: function() {
+    if (!this._form) return;
+    this._form.remove();
+    this._form = null;
+    this._controls = { };
+  },
+  showSaving: function() {
+    this._oldInnerHTML = this.element.innerHTML;
+    this.element.innerHTML = this.options.savingText;
+    this.element.addClassName(this.options.savingClassName);
+    this.element.style.backgroundColor = this._originalBackground;
+    this.element.show();
+  },
+  triggerCallback: function(cbName, arg) {
+    if ('function' == typeof this.options[cbName]) {
+      this.options[cbName](this, arg);
+    }
+  },
+  unregisterListeners: function() {
+    $H(this._listeners).each(function(pair) {
+      if (!this.options.externalControlOnly)
+        this.element.stopObserving(pair.key, pair.value);
+      if (this.options.externalControl)
+        this.options.externalControl.stopObserving(pair.key, pair.value);
+    }.bind(this));
+  },
+  wrapUp: function(transport) {
+    this.leaveEditMode();
+    // Can't use triggerCallback due to backward compatibility: requires
+    // binding + direct element
+    this._boundComplete(transport, this.element);
+  }
+});
+
+Object.extend(Ajax.InPlaceEditor.prototype, {
+  dispose: Ajax.InPlaceEditor.prototype.destroy
+});
+
+Ajax.InPlaceCollectionEditor = Class.create(Ajax.InPlaceEditor, {
+  initialize: function($super, element, url, options) {
+    this._extraDefaultOptions = Ajax.InPlaceCollectionEditor.DefaultOptions;
+    $super(element, url, options);
+  },
+
+  createEditField: function() {
+    var list = document.createElement('select');
+    list.name = this.options.paramName;
+    list.size = 1;
+    this._controls.editor = list;
+    this._collection = this.options.collection || [];
+    if (this.options.loadCollectionURL)
+      this.loadCollection();
+    else
+      this.checkForExternalText();
+    this._form.appendChild(this._controls.editor);
+  },
+
+  loadCollection: function() {
+    this._form.addClassName(this.options.loadingClassName);
+    this.showLoadingText(this.options.loadingCollectionText);
+    var options = Object.extend({ method: 'get' }, this.options.ajaxOptions);
+    Object.extend(options, {
+      parameters: 'editorId=' + encodeURIComponent(this.element.id),
+      onComplete: Prototype.emptyFunction,
+      onSuccess: function(transport) {
+        var js = transport.responseText.strip();
+        if (!/^\[.*\]$/.test(js)) // TODO: improve sanity check
+          throw('Server returned an invalid collection representation.');
+        this._collection = eval(js);
+        this.checkForExternalText();
+      }.bind(this),
+      onFailure: this.onFailure
+    });
+    new Ajax.Request(this.options.loadCollectionURL, options);
+  },
+
+  showLoadingText: function(text) {
+    this._controls.editor.disabled = true;
+    var tempOption = this._controls.editor.firstChild;
+    if (!tempOption) {
+      tempOption = document.createElement('option');
+      tempOption.value = '';
+      this._controls.editor.appendChild(tempOption);
+      tempOption.selected = true;
+    }
+    tempOption.update((text || '').stripScripts().stripTags());
+  },
+
+  checkForExternalText: function() {
+    this._text = this.getText();
+    if (this.options.loadTextURL)
+      this.loadExternalText();
+    else
+      this.buildOptionList();
+  },
+
+  loadExternalText: function() {
+    this.showLoadingText(this.options.loadingText);
+    var options = Object.extend({ method: 'get' }, this.options.ajaxOptions);
+    Object.extend(options, {
+      parameters: 'editorId=' + encodeURIComponent(this.element.id),
+      onComplete: Prototype.emptyFunction,
+      onSuccess: function(transport) {
+        this._text = transport.responseText.strip();
+        this.buildOptionList();
+      }.bind(this),
+      onFailure: this.onFailure
+    });
+    new Ajax.Request(this.options.loadTextURL, options);
+  },
+
+  buildOptionList: function() {
+    this._form.removeClassName(this.options.loadingClassName);
+    this._collection = this._collection.map(function(entry) {
+      return 2 === entry.length ? entry : [entry, entry].flatten();
+    });
+    var marker = ('value' in this.options) ? this.options.value : this._text;
+    var textFound = this._collection.any(function(entry) {
+      return entry[0] == marker;
+    }.bind(this));
+    this._controls.editor.update('');
+    var option;
+    this._collection.each(function(entry, index) {
+      option = document.createElement('option');
+      option.value = entry[0];
+      option.selected = textFound ? entry[0] == marker : 0 == index;
+      option.appendChild(document.createTextNode(entry[1]));
+      this._controls.editor.appendChild(option);
+    }.bind(this));
+    this._controls.editor.disabled = false;
+    Field.scrollFreeActivate(this._controls.editor);
+  }
+});
+
+//**** DEPRECATION LAYER FOR InPlace[Collection]Editor! ****
+//**** This only  exists for a while,  in order to  let ****
+//**** users adapt to  the new API.  Read up on the new ****
+//**** API and convert your code to it ASAP!            ****
+
+Ajax.InPlaceEditor.prototype.initialize.dealWithDeprecatedOptions = function(options) {
+  if (!options) return;
+  function fallback(name, expr) {
+    if (name in options || expr === undefined) return;
+    options[name] = expr;
+  };
+  fallback('cancelControl', (options.cancelLink ? 'link' : (options.cancelButton ? 'button' :
+    options.cancelLink == options.cancelButton == false ? false : undefined)));
+  fallback('okControl', (options.okLink ? 'link' : (options.okButton ? 'button' :
+    options.okLink == options.okButton == false ? false : undefined)));
+  fallback('highlightColor', options.highlightcolor);
+  fallback('highlightEndColor', options.highlightendcolor);
+};
+
+Object.extend(Ajax.InPlaceEditor, {
+  DefaultOptions: {
+    ajaxOptions: { },
+    autoRows: 3,                                // Use when multi-line w/ rows == 1
+    cancelControl: 'link',                      // 'link'|'button'|false
+    cancelText: 'cancel',
+    clickToEditText: 'Click to edit',
+    externalControl: null,                      // id|elt
+    externalControlOnly: false,
+    fieldPostCreation: 'activate',              // 'activate'|'focus'|false
+    formClassName: 'inplaceeditor-form',
+    formId: null,                               // id|elt
+    highlightColor: '#ffff99',
+    highlightEndColor: '#ffffff',
+    hoverClassName: '',
+    htmlResponse: true,
+    loadingClassName: 'inplaceeditor-loading',
+    loadingText: 'Loading...',
+    okControl: 'button',                        // 'link'|'button'|false
+    okText: 'ok',
+    paramName: 'value',
+    rows: 1,                                    // If 1 and multi-line, uses autoRows
+    savingClassName: 'inplaceeditor-saving',
+    savingText: 'Saving...',
+    size: 0,
+    stripLoadedTextTags: false,
+    submitOnBlur: false,
+    textAfterControls: '',
+    textBeforeControls: '',
+    textBetweenControls: ''
+  },
+  DefaultCallbacks: {
+    callback: function(form) {
+      return Form.serialize(form);
+    },
+    onComplete: function(transport, element) {
+      // For backward compatibility, this one is bound to the IPE, and passes
+      // the element directly.  It was too often customized, so we don't break it.
+      new Effect.Highlight(element, {
+        startcolor: this.options.highlightColor, keepBackgroundImage: true });
+    },
+    onEnterEditMode: null,
+    onEnterHover: function(ipe) {
+      ipe.element.style.backgroundColor = ipe.options.highlightColor;
+      if (ipe._effect)
+        ipe._effect.cancel();
+    },
+    onFailure: function(transport, ipe) {
+      alert('Error communication with the server: ' + transport.responseText.stripTags());
+    },
+    onFormCustomization: null, // Takes the IPE and its generated form, after editor, before controls.
+    onLeaveEditMode: null,
+    onLeaveHover: function(ipe) {
+      ipe._effect = new Effect.Highlight(ipe.element, {
+        startcolor: ipe.options.highlightColor, endcolor: ipe.options.highlightEndColor,
+        restorecolor: ipe._originalBackground, keepBackgroundImage: true
+      });
+    }
+  },
+  Listeners: {
+    click: 'enterEditMode',
+    keydown: 'checkForEscapeOrReturn',
+    mouseover: 'enterHover',
+    mouseout: 'leaveHover'
+  }
+});
+
+Ajax.InPlaceCollectionEditor.DefaultOptions = {
+  loadingCollectionText: 'Loading options...'

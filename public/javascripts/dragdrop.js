@@ -5,4 +5,18 @@
 // script.aculo.us is freely distributable under the terms of an MIT-style license.
 // For details, see the script.aculo.us web site: http://script.aculo.us/
 
-if(Object.
+if(Object.isUndefined(Effect))
+  throw("dragdrop.js requires including script.aculo.us' effects.js library");
+
+var Droppables = {
+  drops: [],
+
+  remove: function(element) {
+    this.drops = this.drops.reject(function(d) { return d.element==$(element) });
+  },
+
+  add: function(element) {
+    element = $(element);
+    var options = Object.extend({
+      greedy:     true,
+      hoverclass

@@ -19,4 +19,19 @@ var Droppables = {
     element = $(element);
     var options = Object.extend({
       greedy:     true,
-      hoverclass
+      hoverclass: null,
+      tree:       false
+    }, arguments[1] || { });
+
+    // cache containers
+    if(options.containment) {
+      options._containers = [];
+      var containment = options.containment;
+      if(Object.isArray(containment)) {
+        containment.each( function(c) { options._containers.push($(c)) });
+      } else {
+        options._containers.push($(containment));
+      }
+    }
+
+    if(opti

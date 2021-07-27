@@ -52,4 +52,17 @@ var Droppables = {
     return deepest;
   },
 
-  isContained: fun
+  isContained: function(element, drop) {
+    var containmentNode;
+    if(drop.tree) {
+      containmentNode = element.treeNode;
+    } else {
+      containmentNode = element.parentNode;
+    }
+    return drop._containers.detect(function(c) { return containmentNode == c });
+  },
+
+  isAffected: function(point, element, drop) {
+    return (
+      (drop.element!=element) &&
+    

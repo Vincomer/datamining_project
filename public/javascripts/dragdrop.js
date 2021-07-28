@@ -75,4 +75,19 @@ var Droppables = {
 
   deactivate: function(drop) {
     if(drop.hoverclass)
-      Element.removeClassName(
+      Element.removeClassName(drop.element, drop.hoverclass);
+    this.last_active = null;
+  },
+
+  activate: function(drop) {
+    if(drop.hoverclass)
+      Element.addClassName(drop.element, drop.hoverclass);
+    this.last_active = drop;
+  },
+
+  show: function(point, element) {
+    if(!this.drops.length) return;
+    var drop, affected = [];
+
+    this.drops.each( function(drop) {
+      if(Droppables.isAffected

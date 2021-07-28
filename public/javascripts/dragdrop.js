@@ -65,4 +65,14 @@ var Droppables = {
   isAffected: function(point, element, drop) {
     return (
       (drop.element!=element) &&
-    
+      ((!drop._containers) ||
+        this.isContained(element, drop)) &&
+      ((!drop.accept) ||
+        (Element.classNames(element).detect(
+          function(v) { return drop.accept.include(v) } ) )) &&
+      Position.within(drop.element, point[0], point[1]) );
+  },
+
+  deactivate: function(drop) {
+    if(drop.hoverclass)
+      Element.removeClassName(

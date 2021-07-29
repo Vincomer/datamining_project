@@ -90,4 +90,15 @@ var Droppables = {
     var drop, affected = [];
 
     this.drops.each( function(drop) {
-      if(Droppables.isAffected
+      if(Droppables.isAffected(point, element, drop))
+        affected.push(drop);
+    });
+
+    if(affected.length>0)
+      drop = Droppables.findDeepestChild(affected);
+
+    if(this.last_active && this.last_active != drop) this.deactivate(this.last_active);
+    if (drop) {
+      Position.within(drop.element, point[0], point[1]);
+      if(drop.onHover)
+        drop.onHover(element, drop.element, Position.o

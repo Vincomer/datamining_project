@@ -101,4 +101,16 @@ var Droppables = {
     if (drop) {
       Position.within(drop.element, point[0], point[1]);
       if(drop.onHover)
-        drop.onHover(element, drop.element, Position.o
+        drop.onHover(element, drop.element, Position.overlap(drop.overlap, drop.element));
+
+      if (drop != this.last_active) Droppables.activate(drop);
+    }
+  },
+
+  fire: function(event, element) {
+    if(!this.last_active) return;
+    Position.prepare();
+
+    if (this.isAffected([Event.pointerX(event), Event.pointerY(event)], element, this.last_active))
+      if (this.last_active.onDrop) {
+   

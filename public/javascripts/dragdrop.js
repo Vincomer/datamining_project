@@ -130,4 +130,12 @@ var Draggables = {
 
   register: function(draggable) {
     if(this.drags.length == 0) {
-      this.eventMouseUp   = this.endDrag.bindAsEvent
+      this.eventMouseUp   = this.endDrag.bindAsEventListener(this);
+      this.eventMouseMove = this.updateDrag.bindAsEventListener(this);
+      this.eventKeypress  = this.keyPress.bindAsEventListener(this);
+
+      Event.observe(document, "mouseup", this.eventMouseUp);
+      Event.observe(document, "mousemove", this.eventMouseMove);
+      Event.observe(document, "keypress", this.eventKeypress);
+    }
+    this.drags.push(draggable);

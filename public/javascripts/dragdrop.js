@@ -113,4 +113,21 @@ var Droppables = {
 
     if (this.isAffected([Event.pointerX(event), Event.pointerY(event)], element, this.last_active))
       if (this.last_active.onDrop) {
-   
+        this.last_active.onDrop(element, this.last_active.element, event);
+        return true;
+      }
+  },
+
+  reset: function() {
+    if(this.last_active)
+      this.deactivate(this.last_active);
+  }
+};
+
+var Draggables = {
+  drags: [],
+  observers: [],
+
+  register: function(draggable) {
+    if(this.drags.length == 0) {
+      this.eventMouseUp   = this.endDrag.bindAsEvent

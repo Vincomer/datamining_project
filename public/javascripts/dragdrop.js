@@ -139,3 +139,15 @@ var Draggables = {
       Event.observe(document, "keypress", this.eventKeypress);
     }
     this.drags.push(draggable);
+  },
+
+  unregister: function(draggable) {
+    this.drags = this.drags.reject(function(d) { return d==draggable });
+    if(this.drags.length == 0) {
+      Event.stopObserving(document, "mouseup", this.eventMouseUp);
+      Event.stopObserving(document, "mousemove", this.eventMouseMove);
+      Event.stopObserving(document, "keypress", this.eventKeypress);
+    }
+  },
+
+  activate: function(dr

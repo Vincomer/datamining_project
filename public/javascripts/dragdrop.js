@@ -159,4 +159,17 @@ var Draggables = {
       }.bind(this), draggable.options.delay);
     } else {
       window.focus(); // allows keypress events if window isn't currently focused, fails for Safari
-      this.active
+      this.activeDraggable = draggable;
+    }
+  },
+
+  deactivate: function() {
+    this.activeDraggable = null;
+  },
+
+  updateDrag: function(event) {
+    if(!this.activeDraggable) return;
+    var pointer = [Event.pointerX(event), Event.pointerY(event)];
+    // Mozilla-based browsers fire successive mousemove events with
+    // the same coordinates, prevent needless redrawing (moz bug?)
+    if(this

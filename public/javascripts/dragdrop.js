@@ -150,4 +150,13 @@ var Draggables = {
     }
   },
 
-  activate: function(dr
+  activate: function(draggable) {
+    if(draggable.options.delay) {
+      this._timeout = setTimeout(function() {
+        Draggables._timeout = null;
+        window.focus();
+        Draggables.activeDraggable = draggable;
+      }.bind(this), draggable.options.delay);
+    } else {
+      window.focus(); // allows keypress events if window isn't currently focused, fails for Safari
+      this.active

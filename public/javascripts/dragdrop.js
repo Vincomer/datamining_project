@@ -172,4 +172,17 @@ var Draggables = {
     var pointer = [Event.pointerX(event), Event.pointerY(event)];
     // Mozilla-based browsers fire successive mousemove events with
     // the same coordinates, prevent needless redrawing (moz bug?)
-    if(this
+    if(this._lastPointer && (this._lastPointer.inspect() == pointer.inspect())) return;
+    this._lastPointer = pointer;
+
+    this.activeDraggable.updateDrag(event, pointer);
+  },
+
+  endDrag: function(event) {
+    if(this._timeout) {
+      clearTimeout(this._timeout);
+      this._timeout = null;
+    }
+    if(!this.activeDraggable) return;
+    this._lastPointer = null;
+    this.activeDraggable.endD

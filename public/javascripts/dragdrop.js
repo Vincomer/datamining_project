@@ -185,4 +185,19 @@ var Draggables = {
     }
     if(!this.activeDraggable) return;
     this._lastPointer = null;
-    this.activeDraggable.endD
+    this.activeDraggable.endDrag(event);
+    this.activeDraggable = null;
+  },
+
+  keyPress: function(event) {
+    if(this.activeDraggable)
+      this.activeDraggable.keyPress(event);
+  },
+
+  addObserver: function(observer) {
+    this.observers.push(observer);
+    this._cacheObserverCallbacks();
+  },
+
+  removeObserver: function(element) {  // element instead of observer fixes mem leaks
+    this.observers = this.obse

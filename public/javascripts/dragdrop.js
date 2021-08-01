@@ -200,4 +200,13 @@ var Draggables = {
   },
 
   removeObserver: function(element) {  // element instead of observer fixes mem leaks
-    this.observers = this.obse
+    this.observers = this.observers.reject( function(o) { return o.element==element });
+    this._cacheObserverCallbacks();
+  },
+
+  notify: function(eventName, draggable, event) {  // 'onStart', 'onEnd', 'onDrag'
+    if(this[eventName+'Count'] > 0)
+      this.observers.each( function(o) {
+        if(o[eventName]) o[eventName](eventName, draggable, event);
+      });
+    if(draggable.options[eventName]) dragg

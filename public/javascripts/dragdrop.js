@@ -209,4 +209,18 @@ var Draggables = {
       this.observers.each( function(o) {
         if(o[eventName]) o[eventName](eventName, draggable, event);
       });
-    if(draggable.options[eventName]) dragg
+    if(draggable.options[eventName]) draggable.options[eventName](draggable, event);
+  },
+
+  _cacheObserverCallbacks: function() {
+    ['onStart','onEnd','onDrag'].each( function(eventName) {
+      Draggables[eventName+'Count'] = Draggables.observers.select(
+        function(o) { return o[eventName]; }
+      ).length;
+    });
+  }
+};
+
+/*--------------------------------------------------------------------------*/
+
+var Draggable = Class.create({

@@ -231,4 +231,15 @@ var Draggable = Class.create({
         var dur = Math.sqrt(Math.abs(top_offset^2)+Math.abs(left_offset^2))*0.02;
         new Effect.Move(element, { x: -left_offset, y: -top_offset, duration: dur,
           queue: {scope:'_draggable', position:'end'}
-     
+        });
+      },
+      endeffect: function(element) {
+        var toOpacity = Object.isNumber(element._opacity) ? element._opacity : 1.0;
+        new Effect.Opacity(element, {duration:0.2, from:0.7, to:toOpacity,
+          queue: {scope:'_draggable', position:'end'},
+          afterFinish: function(){
+            Draggable._dragging[element] = false
+          }
+        });
+      },
+      zindex: 1

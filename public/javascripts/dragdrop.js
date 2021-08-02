@@ -224,3 +224,11 @@ var Draggables = {
 /*--------------------------------------------------------------------------*/
 
 var Draggable = Class.create({
+  initialize: function(element) {
+    var defaults = {
+      handle: false,
+      reverteffect: function(element, top_offset, left_offset) {
+        var dur = Math.sqrt(Math.abs(top_offset^2)+Math.abs(left_offset^2))*0.02;
+        new Effect.Move(element, { x: -left_offset, y: -top_offset, duration: dur,
+          queue: {scope:'_draggable', position:'end'}
+     

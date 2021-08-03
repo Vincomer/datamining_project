@@ -242,4 +242,17 @@ var Draggable = Class.create({
           }
         });
       },
-      zindex: 1
+      zindex: 1000,
+      revert: false,
+      quiet: false,
+      scroll: false,
+      scrollSensitivity: 20,
+      scrollSpeed: 15,
+      snap: false,  // false, or xy or [x,y] or function(x,y){ return [x,y] }
+      delay: 0
+    };
+
+    if(!arguments[1] || Object.isUndefined(arguments[1].endeffect))
+      Object.extend(defaults, {
+        starteffect: function(element) {
+          element._opacity = Element.getOpacity(element);

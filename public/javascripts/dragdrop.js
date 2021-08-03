@@ -256,3 +256,16 @@ var Draggable = Class.create({
       Object.extend(defaults, {
         starteffect: function(element) {
           element._opacity = Element.getOpacity(element);
+          Draggable._dragging[element] = true;
+          new Effect.Opacity(element, {duration:0.2, from:element._opacity, to:0.7});
+        }
+      });
+
+    var options = Object.extend(defaults, arguments[1] || { });
+
+    this.element = $(element);
+
+    if(options.handle && Object.isString(options.handle))
+      this.handle = this.element.down('.'+options.handle, 0);
+
+    if(!this.h

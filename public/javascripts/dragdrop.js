@@ -268,4 +268,14 @@ var Draggable = Class.create({
     if(options.handle && Object.isString(options.handle))
       this.handle = this.element.down('.'+options.handle, 0);
 
-    if(!this.h
+    if(!this.handle) this.handle = $(options.handle);
+    if(!this.handle) this.handle = this.element;
+
+    if(options.scroll && !options.scroll.scrollTo && !options.scroll.outerHTML) {
+      options.scroll = $(options.scroll);
+      this._isScrollChild = Element.childOf(this.element, options.scroll);
+    }
+
+    Element.makePositioned(this.element); // fix IE
+
+    this.options  = opti

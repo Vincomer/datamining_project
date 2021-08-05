@@ -294,4 +294,13 @@ var Draggable = Class.create({
 
   currentDelta: function() {
     return([
-      p
+      parseInt(Element.getStyle(this.element,'left') || '0'),
+      parseInt(Element.getStyle(this.element,'top') || '0')]);
+  },
+
+  initDrag: function(event) {
+    if(!Object.isUndefined(Draggable._dragging[this.element]) &&
+      Draggable._dragging[this.element]) return;
+    if(Event.isLeftClick(event)) {
+      // abort on form elements, fixes a Firefox issue
+      var src = Event.element(event

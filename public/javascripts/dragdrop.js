@@ -278,4 +278,20 @@ var Draggable = Class.create({
 
     Element.makePositioned(this.element); // fix IE
 
-    this.options  = opti
+    this.options  = options;
+    this.dragging = false;
+
+    this.eventMouseDown = this.initDrag.bindAsEventListener(this);
+    Event.observe(this.handle, "mousedown", this.eventMouseDown);
+
+    Draggables.register(this);
+  },
+
+  destroy: function() {
+    Event.stopObserving(this.handle, "mousedown", this.eventMouseDown);
+    Draggables.unregister(this);
+  },
+
+  currentDelta: function() {
+    return([
+      p

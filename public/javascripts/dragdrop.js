@@ -313,4 +313,21 @@ var Draggable = Class.create({
 
       var pointer = [Event.pointerX(event), Event.pointerY(event)];
       var pos     = this.element.cumulativeOffset();
-      this.offset = [0,1].map( function(i) { return (pointer[i] - pos[i]) 
+      this.offset = [0,1].map( function(i) { return (pointer[i] - pos[i]) });
+
+      Draggables.activate(this);
+      Event.stop(event);
+    }
+  },
+
+  startDrag: function(event) {
+    this.dragging = true;
+    if(!this.delta)
+      this.delta = this.currentDelta();
+
+    if(this.options.zindex) {
+      this.originalZ = parseInt(Element.getStyle(this.element,'z-index') || 0);
+      this.element.style.zIndex = this.options.zindex;
+    }
+
+    if(this.opt

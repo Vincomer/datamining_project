@@ -303,4 +303,14 @@ var Draggable = Class.create({
       Draggable._dragging[this.element]) return;
     if(Event.isLeftClick(event)) {
       // abort on form elements, fixes a Firefox issue
-      var src = Event.element(event
+      var src = Event.element(event);
+      if((tag_name = src.tagName.toUpperCase()) && (
+        tag_name=='INPUT' ||
+        tag_name=='SELECT' ||
+        tag_name=='OPTION' ||
+        tag_name=='BUTTON' ||
+        tag_name=='TEXTAREA')) return;
+
+      var pointer = [Event.pointerX(event), Event.pointerY(event)];
+      var pos     = this.element.cumulativeOffset();
+      this.offset = [0,1].map( function(i) { return (pointer[i] - pos[i]) 

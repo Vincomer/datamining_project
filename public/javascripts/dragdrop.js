@@ -330,4 +330,14 @@ var Draggable = Class.create({
       this.element.style.zIndex = this.options.zindex;
     }
 
-    if(this.opt
+    if(this.options.ghosting) {
+      this._clone = this.element.cloneNode(true);
+      this._originallyAbsolute = (this.element.getStyle('position') == 'absolute');
+      if (!this._originallyAbsolute)
+        Position.absolutize(this.element);
+      this.element.parentNode.insertBefore(this._clone, this.element);
+    }
+
+    if(this.options.scroll) {
+      if (this.options.scroll == window) {
+        var where

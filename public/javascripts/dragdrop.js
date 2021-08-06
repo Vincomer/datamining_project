@@ -340,4 +340,15 @@ var Draggable = Class.create({
 
     if(this.options.scroll) {
       if (this.options.scroll == window) {
-        var where
+        var where = this._getWindowScroll(this.options.scroll);
+        this.originalScrollLeft = where.left;
+        this.originalScrollTop = where.top;
+      } else {
+        this.originalScrollLeft = this.options.scroll.scrollLeft;
+        this.originalScrollTop = this.options.scroll.scrollTop;
+      }
+    }
+
+    Draggables.notify('onStart', this, event);
+
+    if(this.opt

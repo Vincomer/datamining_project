@@ -351,4 +351,18 @@ var Draggable = Class.create({
 
     Draggables.notify('onStart', this, event);
 
-    if(this.opt
+    if(this.options.starteffect) this.options.starteffect(this.element);
+  },
+
+  updateDrag: function(event, pointer) {
+    if(!this.dragging) this.startDrag(event);
+
+    if(!this.options.quiet){
+      Position.prepare();
+      Droppables.show(pointer, this.element);
+    }
+
+    Draggables.notify('onDrag', this, event);
+
+    this.draw(pointer);
+    if(this.options

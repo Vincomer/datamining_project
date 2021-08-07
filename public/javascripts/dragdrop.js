@@ -365,4 +365,14 @@ var Draggable = Class.create({
     Draggables.notify('onDrag', this, event);
 
     this.draw(pointer);
-    if(this.options
+    if(this.options.change) this.options.change(this);
+
+    if(this.options.scroll) {
+      this.stopScrolling();
+
+      var p;
+      if (this.options.scroll == window) {
+        with(this._getWindowScroll(this.options.scroll)) { p = [ left, top, left+width, top+height ]; }
+      } else {
+        p = Position.page(this.options.scroll);
+        p[0] += this.options.scroll.scrollLeft + Position

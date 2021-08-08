@@ -403,4 +403,17 @@ var Draggable = Class.create({
       Droppables.show(pointer, this.element);
     }
 
-    if(this
+    if(this.options.ghosting) {
+      if (!this._originallyAbsolute)
+        Position.relativize(this.element);
+      delete this._originallyAbsolute;
+      Element.remove(this._clone);
+      this._clone = null;
+    }
+
+    var dropped = false;
+    if(success) {
+      dropped = Droppables.fire(event, this.element);
+      if (!dropped) dropped = false;
+    }
+    if(dropped && this.opti

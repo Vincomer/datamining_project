@@ -388,4 +388,19 @@ var Draggable = Class.create({
       this.startScrolling(speed);
     }
 
-    // fi
+    // fix AppleWebKit rendering
+    if(Prototype.Browser.WebKit) window.scrollBy(0,0);
+
+    Event.stop(event);
+  },
+
+  finishDrag: function(event, success) {
+    this.dragging = false;
+
+    if(this.options.quiet){
+      Position.prepare();
+      var pointer = [Event.pointerX(event), Event.pointerY(event)];
+      Droppables.show(pointer, this.element);
+    }
+
+    if(this

@@ -443,4 +443,18 @@ var Draggable = Class.create({
 
   keyPress: function(event) {
     if(event.keyCode!=Event.KEY_ESC) return;
-    this.finis
+    this.finishDrag(event, false);
+    Event.stop(event);
+  },
+
+  endDrag: function(event) {
+    if(!this.dragging) return;
+    this.stopScrolling();
+    this.finishDrag(event, true);
+    Event.stop(event);
+  },
+
+  draw: function(point) {
+    var pos = this.element.cumulativeOffset();
+    if(this.options.ghosting) {
+      var r   = Position.realOffset(this.element)

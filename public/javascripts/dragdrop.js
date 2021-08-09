@@ -426,3 +426,21 @@ var Draggable = Class.create({
     if(revert && this.options.reverteffect) {
       if (dropped == 0 || revert != 'failure')
         this.options.reverteffect(this.element,
+          d[1]-this.delta[1], d[0]-this.delta[0]);
+    } else {
+      this.delta = d;
+    }
+
+    if(this.options.zindex)
+      this.element.style.zIndex = this.originalZ;
+
+    if(this.options.endeffect)
+      this.options.endeffect(this.element);
+
+    Draggables.deactivate(this);
+    Droppables.reset();
+  },
+
+  keyPress: function(event) {
+    if(event.keyCode!=Event.KEY_ESC) return;
+    this.finis

@@ -466,4 +466,17 @@ var Draggable = Class.create({
 
     if(this.options.scroll && (this.options.scroll != window && this._isScrollChild)) {
       pos[0] -= this.options.scroll.scrollLeft-this.originalScrollLeft;
-      pos[1] -= this.options.scroll.scrollTop-this.orig
+      pos[1] -= this.options.scroll.scrollTop-this.originalScrollTop;
+    }
+
+    var p = [0,1].map(function(i){
+      return (point[i]-pos[i]-this.offset[i])
+    }.bind(this));
+
+    if(this.options.snap) {
+      if(Object.isFunction(this.options.snap)) {
+        p = this.options.snap(p[0],p[1],this);
+      } else {
+      if(Object.isArray(this.options.snap)) {
+        p = p.map( function(v, i) {
+          return (v/this.options.s

@@ -479,4 +479,15 @@ var Draggable = Class.create({
       } else {
       if(Object.isArray(this.options.snap)) {
         p = p.map( function(v, i) {
-          return (v/this.options.s
+          return (v/this.options.snap[i]).round()*this.options.snap[i] }.bind(this));
+      } else {
+        p = p.map( function(v) {
+          return (v/this.options.snap).round()*this.options.snap }.bind(this));
+      }
+    }}
+
+    var style = this.element.style;
+    if((!this.options.constraint) || (this.options.constraint=='horizontal'))
+      style.left = p[0] + "px";
+    if((!this.options.constraint) || (this.options.constraint=='vertical'))
+  

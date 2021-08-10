@@ -457,4 +457,13 @@ var Draggable = Class.create({
   draw: function(point) {
     var pos = this.element.cumulativeOffset();
     if(this.options.ghosting) {
-      var r   = Position.realOffset(this.element)
+      var r   = Position.realOffset(this.element);
+      pos[0] += r[0] - Position.deltaX; pos[1] += r[1] - Position.deltaY;
+    }
+
+    var d = this.currentDelta();
+    pos[0] -= d[0]; pos[1] -= d[1];
+
+    if(this.options.scroll && (this.options.scroll != window && this._isScrollChild)) {
+      pos[0] -= this.options.scroll.scrollLeft-this.originalScrollLeft;
+      pos[1] -= this.options.scroll.scrollTop-this.orig

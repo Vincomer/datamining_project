@@ -514,4 +514,12 @@ var Draggable = Class.create({
     var current = new Date();
     var delta = current - this.lastScrolled;
     this.lastScrolled = current;
-    if(this.options.sc
+    if(this.options.scroll == window) {
+      with (this._getWindowScroll(this.options.scroll)) {
+        if (this.scrollSpeed[0] || this.scrollSpeed[1]) {
+          var d = delta / 1000;
+          this.options.scroll.scrollTo( left + d*this.scrollSpeed[0], top + d*this.scrollSpeed[1] );
+        }
+      }
+    } else {
+      this.options.scroll.scrollLeft += this.scrollSpeed[0] * delta / 1

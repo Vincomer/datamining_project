@@ -490,4 +490,18 @@ var Draggable = Class.create({
     if((!this.options.constraint) || (this.options.constraint=='horizontal'))
       style.left = p[0] + "px";
     if((!this.options.constraint) || (this.options.constraint=='vertical'))
-  
+      style.top  = p[1] + "px";
+
+    if(style.visibility=="hidden") style.visibility = ""; // fix gecko rendering
+  },
+
+  stopScrolling: function() {
+    if(this.scrollInterval) {
+      clearInterval(this.scrollInterval);
+      this.scrollInterval = null;
+      Draggables._lastScrollPointer = null;
+    }
+  },
+
+  startScrolling: function(speed) {
+    if(!(speed[0] || speed[1])) retu

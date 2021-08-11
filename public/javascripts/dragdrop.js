@@ -504,4 +504,14 @@ var Draggable = Class.create({
   },
 
   startScrolling: function(speed) {
-    if(!(speed[0] || speed[1])) retu
+    if(!(speed[0] || speed[1])) return;
+    this.scrollSpeed = [speed[0]*this.options.scrollSpeed,speed[1]*this.options.scrollSpeed];
+    this.lastScrolled = new Date();
+    this.scrollInterval = setInterval(this.scroll.bind(this), 10);
+  },
+
+  scroll: function() {
+    var current = new Date();
+    var delta = current - this.lastScrolled;
+    this.lastScrolled = current;
+    if(this.options.sc

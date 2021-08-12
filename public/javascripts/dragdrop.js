@@ -537,4 +537,17 @@ var Draggable = Class.create({
         Draggables._lastScrollPointer[0] = 0;
       if (Draggables._lastScrollPointer[1] < 0)
         Draggables._lastScrollPointer[1] = 0;
-      this.draw(Draggables._last
+      this.draw(Draggables._lastScrollPointer);
+    }
+
+    if(this.options.change) this.options.change(this);
+  },
+
+  _getWindowScroll: function(w) {
+    var T, L, W, H;
+    with (w.document) {
+      if (w.document.documentElement && documentElement.scrollTop) {
+        T = documentElement.scrollTop;
+        L = documentElement.scrollLeft;
+      } else if (w.document.body) {
+     

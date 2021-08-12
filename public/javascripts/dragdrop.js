@@ -550,4 +550,18 @@ var Draggable = Class.create({
         T = documentElement.scrollTop;
         L = documentElement.scrollLeft;
       } else if (w.document.body) {
-     
+        T = body.scrollTop;
+        L = body.scrollLeft;
+      }
+      if (w.innerWidth) {
+        W = w.innerWidth;
+        H = w.innerHeight;
+      } else if (w.document.documentElement && documentElement.clientWidth) {
+        W = documentElement.clientWidth;
+        H = documentElement.clientHeight;
+      } else {
+        W = body.offsetWidth;
+        H = body.offsetHeight;
+      }
+    }
+    return { top:

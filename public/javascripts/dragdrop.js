@@ -522,4 +522,13 @@ var Draggable = Class.create({
         }
       }
     } else {
-      this.options.scroll.scrollLeft += this.scrollSpeed[0] * delta / 1
+      this.options.scroll.scrollLeft += this.scrollSpeed[0] * delta / 1000;
+      this.options.scroll.scrollTop  += this.scrollSpeed[1] * delta / 1000;
+    }
+
+    Position.prepare();
+    Droppables.show(Draggables._lastPointer, this.element);
+    Draggables.notify('onDrag', this);
+    if (this._isScrollChild) {
+      Draggables._lastScrollPointer = Draggables._lastScrollPointer || $A(Draggables._lastPointer);
+      Draggables

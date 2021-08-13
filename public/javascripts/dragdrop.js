@@ -609,4 +609,20 @@ var Sortable = {
   },
 
   destroy: function(element){
-    e
+    element = $(element);
+    var s = Sortable.sortables[element.id];
+
+    if(s) {
+      Draggables.removeObserver(s.element);
+      s.droppables.each(function(d){ Droppables.remove(d) });
+      s.draggables.invoke('destroy');
+
+      delete Sortable.sortables[s.element.id];
+    }
+  },
+
+  create: function(element) {
+    element = $(element);
+    var options = Object.extend({
+      element:     element,
+      tag:         'li',       // ass

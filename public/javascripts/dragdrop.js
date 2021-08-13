@@ -580,3 +580,19 @@ var SortableObserver = Class.create({
   },
 
   onStart: function() {
+    this.lastValue = Sortable.serialize(this.element);
+  },
+
+  onEnd: function() {
+    Sortable.unmark();
+    if(this.lastValue != Sortable.serialize(this.element))
+      this.observer(this.element)
+  }
+});
+
+var Sortable = {
+  SERIALIZE_RULE: /^[^_\-](?:[A-Za-z0-9\-\_]*)[_](.*)$/,
+
+  sortables: { },
+
+  _findRootElement: function(elem

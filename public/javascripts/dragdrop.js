@@ -564,4 +564,19 @@ var Draggable = Class.create({
         H = body.offsetHeight;
       }
     }
-    return { top:
+    return { top: T, left: L, width: W, height: H };
+  }
+});
+
+Draggable._dragging = { };
+
+/*--------------------------------------------------------------------------*/
+
+var SortableObserver = Class.create({
+  initialize: function(element, observer) {
+    this.element   = $(element);
+    this.observer  = observer;
+    this.lastValue = Sortable.serialize(this.element);
+  },
+
+  onStart: function() {

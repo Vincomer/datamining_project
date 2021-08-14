@@ -632,4 +632,17 @@ var Sortable = {
       overlap:     'vertical', // one of 'vertical', 'horizontal'
       constraint:  'vertical', // one of 'vertical', 'horizontal', false
       containment: element,    // also takes array of elements (or id's); or false
-      handle:      false,
+      handle:      false,      // or a CSS class
+      only:        false,
+      delay:       0,
+      hoverclass:  null,
+      ghosting:    false,
+      quiet:       false,
+      scroll:      false,
+      scrollSensitivity: 20,
+      scrollSpeed: 15,
+      format:      this.SERIALIZE_RULE,
+
+      // these take arrays of elements or ids and can be
+      // used for better initialization performance
+   

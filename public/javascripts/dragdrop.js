@@ -625,4 +625,11 @@ var Sortable = {
     element = $(element);
     var options = Object.extend({
       element:     element,
-      tag:         'li',       // ass
+      tag:         'li',       // assumes li children, override with tag: 'tagname'
+      dropOnEmpty: false,
+      tree:        false,
+      treeTag:     'ul',
+      overlap:     'vertical', // one of 'vertical', 'horizontal'
+      constraint:  'vertical', // one of 'vertical', 'horizontal', false
+      containment: element,    // also takes array of elements (or id's); or false
+      handle:      false,

@@ -658,4 +658,16 @@ var Sortable = {
     // build options for the draggables
     var options_for_draggable = {
       revert:      true,
-      quiet:       options.q
+      quiet:       options.quiet,
+      scroll:      options.scroll,
+      scrollSpeed: options.scrollSpeed,
+      scrollSensitivity: options.scrollSensitivity,
+      delay:       options.delay,
+      ghosting:    options.ghosting,
+      constraint:  options.constraint,
+      handle:      options.handle };
+
+    if(options.starteffect)
+      options_for_draggable.starteffect = options.starteffect;
+
+    if

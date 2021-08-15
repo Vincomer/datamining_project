@@ -670,4 +670,16 @@ var Sortable = {
     if(options.starteffect)
       options_for_draggable.starteffect = options.starteffect;
 
-    if
+    if(options.reverteffect)
+      options_for_draggable.reverteffect = options.reverteffect;
+    else
+      if(options.ghosting) options_for_draggable.reverteffect = function(element) {
+        element.style.top  = 0;
+        element.style.left = 0;
+      };
+
+    if(options.endeffect)
+      options_for_draggable.endeffect = options.endeffect;
+
+    if(options.zindex)
+      options_for_draggable.zinde

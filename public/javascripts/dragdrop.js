@@ -645,4 +645,17 @@ var Sortable = {
 
       // these take arrays of elements or ids and can be
       // used for better initialization performance
-   
+      elements:    false,
+      handles:     false,
+
+      onChange:    Prototype.emptyFunction,
+      onUpdate:    Prototype.emptyFunction
+    }, arguments[1] || { });
+
+    // clear any old sortable with same element
+    this.destroy(element);
+
+    // build options for the draggables
+    var options_for_draggable = {
+      revert:      true,
+      quiet:       options.q

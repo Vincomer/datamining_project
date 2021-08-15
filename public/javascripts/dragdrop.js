@@ -682,4 +682,17 @@ var Sortable = {
       options_for_draggable.endeffect = options.endeffect;
 
     if(options.zindex)
-      options_for_draggable.zinde
+      options_for_draggable.zindex = options.zindex;
+
+    // build options for the droppables
+    var options_for_droppable = {
+      overlap:     options.overlap,
+      containment: options.containment,
+      tree:        options.tree,
+      hoverclass:  options.hoverclass,
+      onHover:     Sortable.onHover
+    };
+
+    var options_for_tree = {
+      onHover:      Sortable.onEmptyHover,
+      overlap:  

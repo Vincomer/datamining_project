@@ -695,4 +695,18 @@ var Sortable = {
 
     var options_for_tree = {
       onHover:      Sortable.onEmptyHover,
-      overlap:  
+      overlap:      options.overlap,
+      containment:  options.containment,
+      hoverclass:   options.hoverclass
+    };
+
+    // fix for gecko engine
+    Element.cleanWhitespace(element);
+
+    options.draggables = [];
+    options.droppables = [];
+
+    // drop on empty handling
+    if(options.dropOnEmpty || options.tree) {
+      Droppables.add(element, options_for_tree);
+      options.droppables.push(element)

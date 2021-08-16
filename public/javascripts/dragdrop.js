@@ -709,4 +709,12 @@ var Sortable = {
     // drop on empty handling
     if(options.dropOnEmpty || options.tree) {
       Droppables.add(element, options_for_tree);
-      options.droppables.push(element)
+      options.droppables.push(element);
+    }
+
+    (options.elements || this.findElements(element, options) || []).each( function(e,i) {
+      var handle = options.handles ? $(options.handles[i]) :
+        (options.handle ? $(e).select('.' + options.handle)[0] : e);
+      options.draggables.push(
+        new Draggable(e, Object.extend(options_for_draggable, { handle: handle })));
+      Droppables.add(e, options_for_dropp

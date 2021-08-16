@@ -731,4 +731,17 @@ var Sortable = {
     }
 
     // keep reference
-    this.sortables[element.identify()] = o
+    this.sortables[element.identify()] = options;
+
+    // for onupdate
+    Draggables.addObserver(new SortableObserver(element, options.onUpdate));
+
+  },
+
+  // return all suitable-for-sortable elements in a guaranteed order
+  findElements: function(element, options) {
+    return Element.findChildren(
+      element, options.only, options.tree ? true : false, options.tag);
+  },
+
+  findTreeElements: funct

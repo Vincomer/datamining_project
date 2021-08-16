@@ -717,4 +717,18 @@ var Sortable = {
         (options.handle ? $(e).select('.' + options.handle)[0] : e);
       options.draggables.push(
         new Draggable(e, Object.extend(options_for_draggable, { handle: handle })));
-      Droppables.add(e, options_for_dropp
+      Droppables.add(e, options_for_droppable);
+      if(options.tree) e.treeNode = element;
+      options.droppables.push(e);
+    });
+
+    if(options.tree) {
+      (Sortable.findTreeElements(element, options) || []).each( function(e) {
+        Droppables.add(e, options_for_tree);
+        e.treeNode = element;
+        options.droppables.push(e);
+      });
+    }
+
+    // keep reference
+    this.sortables[element.identify()] = o

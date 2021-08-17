@@ -744,4 +744,15 @@ var Sortable = {
       element, options.only, options.tree ? true : false, options.tag);
   },
 
-  findTreeElements: funct
+  findTreeElements: function(element, options) {
+    return Element.findChildren(
+      element, options.only, options.tree ? true : false, options.treeTag);
+  },
+
+  onHover: function(element, dropon, overlap) {
+    if(Element.isParent(dropon, element)) return;
+
+    if(overlap > .33 && overlap < .66 && Sortable.options(dropon).tree) {
+      return;
+    } else if(overlap>0.5) {
+      Sortable.mark(dropon, 'before');

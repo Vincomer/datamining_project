@@ -771,4 +771,16 @@ var Sortable = {
         var oldParentNode = element.parentNode;
         element.style.visibility = "hidden"; // fix gecko rendering
         dropon.parentNode.insertBefore(element, nextElement);
-        if(dropon.par
+        if(dropon.parentNode!=oldParentNode)
+          Sortable.options(oldParentNode).onChange(element);
+        Sortable.options(dropon.parentNode).onChange(element);
+      }
+    }
+  },
+
+  onEmptyHover: function(element, dropon, overlap) {
+    var oldParentNode = element.parentNode;
+    var droponOptions = Sortable.options(dropon);
+
+    if(!Element.isParent(dropon, element)) {
+      var ind

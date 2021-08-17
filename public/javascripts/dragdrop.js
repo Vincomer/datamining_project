@@ -756,3 +756,10 @@ var Sortable = {
       return;
     } else if(overlap>0.5) {
       Sortable.mark(dropon, 'before');
+      if(dropon.previousSibling != element) {
+        var oldParentNode = element.parentNode;
+        element.style.visibility = "hidden"; // fix gecko rendering
+        dropon.parentNode.insertBefore(element, dropon);
+        if(dropon.parentNode!=oldParentNode)
+          Sortable.options(oldParentNode).onChange(element);
+        Sortable.options(dropon.parentNode

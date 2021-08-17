@@ -762,4 +762,13 @@ var Sortable = {
         dropon.parentNode.insertBefore(element, dropon);
         if(dropon.parentNode!=oldParentNode)
           Sortable.options(oldParentNode).onChange(element);
-        Sortable.options(dropon.parentNode
+        Sortable.options(dropon.parentNode).onChange(element);
+      }
+    } else {
+      Sortable.mark(dropon, 'after');
+      var nextElement = dropon.nextSibling || null;
+      if(nextElement != element) {
+        var oldParentNode = element.parentNode;
+        element.style.visibility = "hidden"; // fix gecko rendering
+        dropon.parentNode.insertBefore(element, nextElement);
+        if(dropon.par

@@ -783,4 +783,14 @@ var Sortable = {
     var droponOptions = Sortable.options(dropon);
 
     if(!Element.isParent(dropon, element)) {
-      var ind
+      var index;
+
+      var children = Sortable.findElements(dropon, {tag: droponOptions.tag, only: droponOptions.only});
+      var child = null;
+
+      if(children) {
+        var offset = Element.offsetSize(dropon, droponOptions.overlap) * (1.0 - overlap);
+
+        for (index = 0; index < children.length; index += 1) {
+          if (offset - Element.offsetSize (children[index], droponOptions.overlap) >= 0) {
+        

@@ -793,4 +793,15 @@ var Sortable = {
 
         for (index = 0; index < children.length; index += 1) {
           if (offset - Element.offsetSize (children[index], droponOptions.overlap) >= 0) {
-        
+            offset -= Element.offsetSize (children[index], droponOptions.overlap);
+          } else if (offset - (Element.offsetSize (children[index], droponOptions.overlap) / 2) >= 0) {
+            child = index + 1 < children.length ? children[index + 1] : null;
+            break;
+          } else {
+            child = children[index];
+            break;
+          }
+        }
+      }
+
+      dropon.

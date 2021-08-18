@@ -804,4 +804,18 @@ var Sortable = {
         }
       }
 
-      dropon.
+      dropon.insertBefore(element, child);
+
+      Sortable.options(oldParentNode).onChange(element);
+      droponOptions.onChange(element);
+    }
+  },
+
+  unmark: function() {
+    if(Sortable._marker) Sortable._marker.hide();
+  },
+
+  mark: function(dropon, position) {
+    // mark on ghosting only
+    var sortable = Sortable.options(dropon.parentNode);
+    if(sortable && !sortable.g

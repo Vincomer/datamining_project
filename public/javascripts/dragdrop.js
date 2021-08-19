@@ -827,4 +827,15 @@ var Sortable = {
       document.getElementsByTagName("body").item(0).appendChild(Sortable._marker);
     }
     var offsets = dropon.cumulativeOffset();
-    Sortable._marker.setStyle({left: of
+    Sortable._marker.setStyle({left: offsets[0]+'px', top: offsets[1] + 'px'});
+
+    if(position=='after')
+      if(sortable.overlap == 'horizontal')
+        Sortable._marker.setStyle({left: (offsets[0]+dropon.clientWidth) + 'px'});
+      else
+        Sortable._marker.setStyle({top: (offsets[1]+dropon.clientHeight) + 'px'});
+
+    Sortable._marker.show();
+  },
+
+  _tree: function(element, option

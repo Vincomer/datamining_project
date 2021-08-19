@@ -818,4 +818,13 @@ var Sortable = {
   mark: function(dropon, position) {
     // mark on ghosting only
     var sortable = Sortable.options(dropon.parentNode);
-    if(sortable && !sortable.g
+    if(sortable && !sortable.ghosting) return;
+
+    if(!Sortable._marker) {
+      Sortable._marker =
+        ($('dropmarker') || Element.extend(document.createElement('DIV'))).
+          hide().addClassName('dropmarker').setStyle({position:'absolute'});
+      document.getElementsByTagName("body").item(0).appendChild(Sortable._marker);
+    }
+    var offsets = dropon.cumulativeOffset();
+    Sortable._marker.setStyle({left: of

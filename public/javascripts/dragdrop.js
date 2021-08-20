@@ -851,4 +851,19 @@ var Sortable = {
         element: element,
         parent: parent,
         children: [],
-       
+        position: parent.children.length,
+        container: $(children[i]).down(options.treeTag)
+      };
+
+      /* Get the element containing the children and recurse over it */
+      if (child.container)
+        this._tree(child.container, options, child);
+
+      parent.children.push (child);
+    }
+
+    return parent;
+  },
+
+  tree: function(element) {
+    element = $(

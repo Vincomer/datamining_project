@@ -838,4 +838,17 @@ var Sortable = {
     Sortable._marker.show();
   },
 
-  _tree: function(element, option
+  _tree: function(element, options, parent) {
+    var children = Sortable.findElements(element, options) || [];
+
+    for (var i = 0; i < children.length; ++i) {
+      var match = children[i].id.match(options.format);
+
+      if (!match) continue;
+
+      var child = {
+        id: encodeURIComponent(match ? match[1] : null),
+        element: element,
+        parent: parent,
+        children: [],
+       

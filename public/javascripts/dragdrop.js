@@ -866,4 +866,18 @@ var Sortable = {
   },
 
   tree: function(element) {
-    element = $(
+    element = $(element);
+    var sortableOptions = this.options(element);
+    var options = Object.extend({
+      tag: sortableOptions.tag,
+      treeTag: sortableOptions.treeTag,
+      only: sortableOptions.only,
+      name: element.id,
+      format: sortableOptions.format
+    }, arguments[1] || { });
+
+    var root = {
+      id: null,
+      parent: null,
+      children: [],
+      container: elemen

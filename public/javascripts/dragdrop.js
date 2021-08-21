@@ -896,4 +896,15 @@ var Sortable = {
     return index;
   },
 
-  sequence: function(eleme
+  sequence: function(element) {
+    element = $(element);
+    var options = Object.extend(this.options(element), arguments[1] || { });
+
+    return $(this.findElements(element, options) || []).map( function(item) {
+      return item.id.match(options.format) ? item.id.match(options.format)[1] : '';
+    });
+  },
+
+  setSequence: function(element, new_sequence) {
+    element = $(element);
+    var options = Object.extend(this.op

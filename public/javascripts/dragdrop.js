@@ -919,4 +919,17 @@ var Sortable = {
     new_sequence.each(function(ident) {
       var n = nodeMap[ident];
       if (n) {
-        n[1].appendChild(
+        n[1].appendChild(n[0]);
+        delete nodeMap[ident];
+      }
+    });
+  },
+
+  serialize: function(element) {
+    element = $(element);
+    var options = Object.extend(Sortable.options(element), arguments[1] || { });
+    var name = encodeURIComponent(
+      (arguments[1] && arguments[1].name) ? arguments[1].name : element.id);
+
+    if (options.tree) {
+      return Sortable.tre

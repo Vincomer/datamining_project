@@ -880,4 +880,20 @@ var Sortable = {
       id: null,
       parent: null,
       children: [],
-      container: elemen
+      container: element,
+      position: 0
+    };
+
+    return Sortable._tree(element, options, root);
+  },
+
+  /* Construct a [i] index for a particular node */
+  _constructIndex: function(node) {
+    var index = '';
+    do {
+      if (node.id) index = '[' + node.position + ']' + index;
+    } while ((node = node.parent) != null);
+    return index;
+  },
+
+  sequence: function(eleme

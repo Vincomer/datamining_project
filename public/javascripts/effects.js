@@ -1,0 +1,1 @@
+// script.aculo.us effects.js v1.8.3, Thu Oct 08 11:23:33 +02

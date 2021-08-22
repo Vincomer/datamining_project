@@ -941,4 +941,15 @@ var Sortable = {
         return name + "[]=" + encodeURIComponent(item);
       }).join('&');
     }
- 
+  }
+};
+
+// Returns true if child is contained within element
+Element.isParent = function(child, element) {
+  if (!child.parentNode || child == element) return false;
+  if (child.parentNode == element) return true;
+  return Element.isParent(child.parentNode, element);
+};
+
+Element.findChildren = function(element, only, recursive, tagName) {
+  if(!element.hasChildNod

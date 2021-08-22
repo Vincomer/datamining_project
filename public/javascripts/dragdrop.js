@@ -952,4 +952,13 @@ Element.isParent = function(child, element) {
 };
 
 Element.findChildren = function(element, only, recursive, tagName) {
-  if(!element.hasChildNod
+  if(!element.hasChildNodes()) return null;
+  tagName = tagName.toUpperCase();
+  if(only) only = [only].flatten();
+  var elements = [];
+  $A(element.childNodes).each( function(e) {
+    if(e.tagName && e.tagName.toUpperCase()==tagName &&
+      (!only || (Element.classNames(e).detect(function(v) { return only.include(v) }))))
+        elements.push(e);
+    if(recursive) {
+      var grandchildren = El

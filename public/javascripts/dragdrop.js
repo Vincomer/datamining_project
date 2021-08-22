@@ -932,4 +932,13 @@ var Sortable = {
       (arguments[1] && arguments[1].name) ? arguments[1].name : element.id);
 
     if (options.tree) {
-      return Sortable.tre
+      return Sortable.tree(element, arguments[1]).children.map( function (item) {
+        return [name + Sortable._constructIndex(item) + "[id]=" +
+                encodeURIComponent(item.id)].concat(item.children.map(arguments.callee));
+      }).flatten().join('&');
+    } else {
+      return Sortable.sequence(element, arguments[1]).map( function(item) {
+        return name + "[]=" + encodeURIComponent(item);
+      }).join('&');
+    }
+ 

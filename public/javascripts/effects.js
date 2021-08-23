@@ -18,4 +18,15 @@ String.prototype.parseColor = function() {
     var i=0; do { color += parseInt(cols[i]).toColorPart() } while (++i<3);
   } else {
     if (this.slice(0,1) == '#') {
-      if (this.le
+      if (this.length==4) for(var i=1;i<4;i++) color += (this.charAt(i) + this.charAt(i)).toLowerCase();
+      if (this.length==7) color = this.toLowerCase();
+    }
+  }
+  return (color.length==7 ? color : (arguments[0] || this));
+};
+
+/*--------------------------------------------------------------------------*/
+
+Element.collectTextNodes = function(element) {
+  return $A($(element).childNodes).collect( function(node) {
+    r

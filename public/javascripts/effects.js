@@ -29,4 +29,12 @@ String.prototype.parseColor = function() {
 
 Element.collectTextNodes = function(element) {
   return $A($(element).childNodes).collect( function(node) {
-    r
+    return (node.nodeType==3 ? node.nodeValue :
+      (node.hasChildNodes() ? Element.collectTextNodes(node) : ''));
+  }).flatten().join('');
+};
+
+Element.collectTextNodesIgnoreClass = function(element, className) {
+  return $A($(element).childNodes).collect( function(node) {
+    return (node.nodeType==3 ? node.nodeValue :
+      ((node.hasChildNodes() && !Element.hasClassN

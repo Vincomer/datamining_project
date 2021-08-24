@@ -49,4 +49,20 @@ Element.setContentZoom = function(element, percent) {
   return element;
 };
 
-Element.getInlineOpacity = 
+Element.getInlineOpacity = function(element){
+  return $(element).style.opacity || '';
+};
+
+Element.forceRerendering = function(element) {
+  try {
+    element = $(element);
+    var n = document.createTextNode(' ');
+    element.appendChild(n);
+    element.removeChild(n);
+  } catch(e) { }
+};
+
+/*--------------------------------------------------------------------------*/
+
+var Effect = {
+  _elementDoesNotExistError

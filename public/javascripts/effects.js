@@ -37,4 +37,16 @@ Element.collectTextNodes = function(element) {
 Element.collectTextNodesIgnoreClass = function(element, className) {
   return $A($(element).childNodes).collect( function(node) {
     return (node.nodeType==3 ? node.nodeValue :
-      ((node.hasChildNodes() && !Element.hasClassN
+      ((node.hasChildNodes() && !Element.hasClassName(node,className)) ?
+        Element.collectTextNodesIgnoreClass(node, className) : ''));
+  }).flatten().join('');
+};
+
+Element.setContentZoom = function(element, percent) {
+  element = $(element);
+  element.setStyle({fontSize: (percent/100) + 'em'});
+  if (Prototype.Browser.WebKit) window.scrollBy(0,0);
+  return element;
+};
+
+Element.getInlineOpacity = 

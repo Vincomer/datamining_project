@@ -78,4 +78,14 @@ var Effect = {
       return 1-pos;
     },
     flicker: function(pos) {
-      var pos = ((-M
+      var pos = ((-Math.cos(pos*Math.PI)/4) + .75) + Math.random()/4;
+      return pos > 1 ? 1 : pos;
+    },
+    wobble: function(pos) {
+      return (-Math.cos(pos*Math.PI*(9*pos))/2) + .5;
+    },
+    pulse: function(pos, pulses) {
+      return (-Math.cos((pos*((pulses||5)-.5)*2)*Math.PI)/2) + .5;
+    },
+    spring: function(pos) {
+      return 1 - 

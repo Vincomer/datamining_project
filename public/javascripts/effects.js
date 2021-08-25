@@ -65,4 +65,17 @@ Element.forceRerendering = function(element) {
 /*--------------------------------------------------------------------------*/
 
 var Effect = {
-  _elementDoesNotExistError
+  _elementDoesNotExistError: {
+    name: 'ElementDoesNotExistError',
+    message: 'The specified DOM element does not exist, but is required for this effect to operate'
+  },
+  Transitions: {
+    linear: Prototype.K,
+    sinoidal: function(pos) {
+      return (-Math.cos(pos*Math.PI)/2) + .5;
+    },
+    reverse: function(pos) {
+      return 1-pos;
+    },
+    flicker: function(pos) {
+      var pos = ((-M

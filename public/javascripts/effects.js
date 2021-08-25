@@ -88,4 +88,20 @@ var Effect = {
       return (-Math.cos((pos*((pulses||5)-.5)*2)*Math.PI)/2) + .5;
     },
     spring: function(pos) {
-      return 1 - 
+      return 1 - (Math.cos(pos * 4.5 * Math.PI) * Math.exp(-pos * 6));
+    },
+    none: function(pos) {
+      return 0;
+    },
+    full: function(pos) {
+      return 1;
+    }
+  },
+  DefaultOptions: {
+    duration:   1.0,   // seconds
+    fps:        100,   // 100= assume 66fps max.
+    sync:       false, // true for combining
+    from:       0.0,
+    to:         1.0,
+    delay:      0.0,
+    queue:      'par

@@ -104,4 +104,15 @@ var Effect = {
     from:       0.0,
     to:         1.0,
     delay:      0.0,
-    queue:      'par
+    queue:      'parallel'
+  },
+  tagifyText: function(element) {
+    var tagifyStyle = 'position:relative';
+    if (Prototype.Browser.IE) tagifyStyle += ';zoom:1';
+
+    element = $(element);
+    $A(element.childNodes).each( function(child) {
+      if (child.nodeType==3) {
+        child.nodeValue.toArray().each( function(character) {
+          element.insertBefore(
+            new Element('span', 

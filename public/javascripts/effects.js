@@ -128,4 +128,19 @@ var Effect = {
     if (((typeof element == 'object') ||
         Object.isFunction(element)) &&
        (element.length))
-      e
+      elements = element;
+    else
+      elements = $(element).childNodes;
+
+    var options = Object.extend({
+      speed: 0.1,
+      delay: 0.0
+    }, arguments[2] || { });
+    var masterDelay = options.delay;
+
+    $A(elements).each( function(element, index) {
+      new effect(element, Object.extend(options, { delay: index * options.speed + masterDelay }));
+    });
+  },
+  PAIRS: {
+  

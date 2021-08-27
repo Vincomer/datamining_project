@@ -143,4 +143,13 @@ var Effect = {
     });
   },
   PAIRS: {
-  
+    'slide':  ['SlideDown','SlideUp'],
+    'blind':  ['BlindDown','BlindUp'],
+    'appear': ['Appear','Fade']
+  },
+  toggle: function(element, effect, options) {
+    element = $(element);
+    effect  = (effect || 'appear').toLowerCase();
+
+    return Effect[ Effect.PAIRS[ effect ][ element.visible() ? 1 : 0 ] ](element, Object.extend({
+      queue: { position:'end', sc

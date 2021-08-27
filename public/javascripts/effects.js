@@ -152,4 +152,19 @@ var Effect = {
     effect  = (effect || 'appear').toLowerCase();
 
     return Effect[ Effect.PAIRS[ effect ][ element.visible() ? 1 : 0 ] ](element, Object.extend({
-      queue: { position:'end', sc
+      queue: { position:'end', scope:(element.id || 'global'), limit: 1 }
+    }, options || {}));
+  }
+};
+
+Effect.DefaultOptions.transition = Effect.Transitions.sinoidal;
+
+/* ------------- core effects ------------- */
+
+Effect.ScopedQueue = Class.create(Enumerable, {
+  initialize: function() {
+    this.effects  = [];
+    this.interval = null;
+  },
+  _each: function(iterator) {
+    this.effects._each(

@@ -115,4 +115,17 @@ var Effect = {
       if (child.nodeType==3) {
         child.nodeValue.toArray().each( function(character) {
           element.insertBefore(
-            new Element('span', 
+            new Element('span', {style: tagifyStyle}).update(
+              character == ' ' ? String.fromCharCode(160) : character),
+              child);
+        });
+        Element.remove(child);
+      }
+    });
+  },
+  multiple: function(element, effect) {
+    var elements;
+    if (((typeof element == 'object') ||
+        Object.isFunction(element)) &&
+       (element.length))
+      e

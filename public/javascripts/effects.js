@@ -179,4 +179,13 @@ Effect.ScopedQueue = Class.create(Enumerable, {
       case 'front':
         // move unstarted effects after this effect
         this.effects.findAll(function(e){ return e.state=='idle' }).each( function(e) {
-      
+            e.startOn  += effect.finishOn;
+            e.finishOn += effect.finishOn;
+          });
+        break;
+      case 'with-last':
+        timestamp = this.effects.pluck('startOn').max() || timestamp;
+        break;
+      case 'end':
+        // start effect after last queued effect has finished
+        timestamp = this.effects.pluck('finishOn').m

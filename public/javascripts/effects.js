@@ -188,4 +188,18 @@ Effect.ScopedQueue = Class.create(Enumerable, {
         break;
       case 'end':
         // start effect after last queued effect has finished
-        timestamp = this.effects.pluck('finishOn').m
+        timestamp = this.effects.pluck('finishOn').max() || timestamp;
+        break;
+    }
+
+    effect.startOn  += timestamp;
+    effect.finishOn += timestamp;
+
+    if (!effect.options.queue.limit || (this.effects.length < effect.options.queue.limit))
+      this.effects.push(effect);
+
+    if (!this.interval)
+      this.interval = setInterval(this.loop.bind(this), 15);
+  },
+  remove: function(effect) {
+    this.effects = this.effects.reject(function(e

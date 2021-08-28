@@ -167,4 +167,16 @@ Effect.ScopedQueue = Class.create(Enumerable, {
     this.interval = null;
   },
   _each: function(iterator) {
-    this.effects._each(
+    this.effects._each(iterator);
+  },
+  add: function(effect) {
+    var timestamp = new Date().getTime();
+
+    var position = Object.isString(effect.options.queue) ?
+      effect.options.queue : effect.options.queue.position;
+
+    switch(position) {
+      case 'front':
+        // move unstarted effects after this effect
+        this.effects.findAll(function(e){ return e.state=='idle' }).each( function(e) {
+      

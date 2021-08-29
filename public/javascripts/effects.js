@@ -202,4 +202,20 @@ Effect.ScopedQueue = Class.create(Enumerable, {
       this.interval = setInterval(this.loop.bind(this), 15);
   },
   remove: function(effect) {
-    this.effects = this.effects.reject(function(e
+    this.effects = this.effects.reject(function(e) { return e==effect });
+    if (this.effects.length == 0) {
+      clearInterval(this.interval);
+      this.interval = null;
+    }
+  },
+  loop: function() {
+    var timePos = new Date().getTime();
+    for(var i=0, len=this.effects.length;i<len;i++)
+      this.effects[i] && this.effects[i].loop(timePos);
+  }
+});
+
+Effect.Queues = {
+  instances: $H(),
+  get: function(queueName) {
+    if (!Object.is

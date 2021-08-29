@@ -218,4 +218,16 @@ Effect.ScopedQueue = Class.create(Enumerable, {
 Effect.Queues = {
   instances: $H(),
   get: function(queueName) {
-    if (!Object.is
+    if (!Object.isString(queueName)) return queueName;
+
+    return this.instances.get(queueName) ||
+      this.instances.set(queueName, new Effect.ScopedQueue());
+  }
+};
+Effect.Queue = Effect.Queues.get('global');
+
+Effect.Base = Class.create({
+  position: null,
+  start: function(options) {
+    if (options && options.transition === false) options.transition = Effect.Transitions.linear;
+    this.options      = Obje

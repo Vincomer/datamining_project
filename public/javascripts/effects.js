@@ -237,4 +237,15 @@ Effect.Base = Class.create({
     this.finishOn     = this.startOn+(this.options.duration*1000);
     this.fromToDelta  = this.options.to-this.options.from;
     this.totalTime    = this.finishOn-this.startOn;
-    this
+    this.totalFrames  = this.options.fps*this.options.duration;
+
+    this.render = (function() {
+      function dispatch(effect, eventName) {
+        if (effect.options[eventName + 'Internal'])
+          effect.options[eventName + 'Internal'](effect);
+        if (effect.options[eventName])
+          effect.options[eventName](effect);
+      }
+
+      return function(pos) {
+        i

@@ -248,4 +248,13 @@ Effect.Base = Class.create({
       }
 
       return function(pos) {
-        i
+        if (this.state === "idle") {
+          this.state = "running";
+          dispatch(this, 'beforeSetup');
+          if (this.setup) this.setup();
+          dispatch(this, 'afterSetup');
+        }
+        if (this.state === "running") {
+          pos = (this.options.transition(pos) * this.fromToDelta) + this.options.from;
+          this.position = pos;
+          dispatc

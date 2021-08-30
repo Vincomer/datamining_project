@@ -230,4 +230,11 @@ Effect.Base = Class.create({
   position: null,
   start: function(options) {
     if (options && options.transition === false) options.transition = Effect.Transitions.linear;
-    this.options      = Obje
+    this.options      = Object.extend(Object.extend({ },Effect.DefaultOptions), options || { });
+    this.currentFrame = 0;
+    this.state        = 'idle';
+    this.startOn      = this.options.delay*1000;
+    this.finishOn     = this.startOn+(this.options.duration*1000);
+    this.fromToDelta  = this.options.to-this.options.from;
+    this.totalTime    = this.finishOn-this.startOn;
+    this

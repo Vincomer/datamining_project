@@ -257,4 +257,17 @@ Effect.Base = Class.create({
         if (this.state === "running") {
           pos = (this.options.transition(pos) * this.fromToDelta) + this.options.from;
           this.position = pos;
-          dispatc
+          dispatch(this, 'beforeUpdate');
+          if (this.update) this.update(pos);
+          dispatch(this, 'afterUpdate');
+        }
+      };
+    })();
+
+    this.event('beforeStart');
+    if (!this.options.sync)
+      Effect.Queues.get(Object.isString(this.options.queue) ?
+        'global' : this.options.queue.scope).add(this);
+  },
+  loop: function(timePos) {
+    if (time

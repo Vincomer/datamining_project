@@ -283,4 +283,16 @@ Effect.Base = Class.create({
           frame = (pos * this.totalFrames).round();
       if (frame > this.currentFrame) {
         this.render(pos);
-        this.currentFra
+        this.currentFrame = frame;
+      }
+    }
+  },
+  cancel: function() {
+    if (!this.options.sync)
+      Effect.Queues.get(Object.isString(this.options.queue) ?
+        'global' : this.options.queue.scope).remove(this);
+    this.state = 'finished';
+  },
+  event: function(eventName) {
+    if (this.options[eventName + 'Internal']) this.options[eventName + 'Internal'](this);
+    if (this.options[eventName

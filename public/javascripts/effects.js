@@ -270,4 +270,17 @@ Effect.Base = Class.create({
         'global' : this.options.queue.scope).add(this);
   },
   loop: function(timePos) {
-    if (time
+    if (timePos >= this.startOn) {
+      if (timePos >= this.finishOn) {
+        this.render(1.0);
+        this.cancel();
+        this.event('beforeFinish');
+        if (this.finish) this.finish();
+        this.event('afterFinish');
+        return;
+      }
+      var pos   = (timePos - this.startOn) / this.totalTime,
+          frame = (pos * this.totalFrames).round();
+      if (frame > this.currentFrame) {
+        this.render(pos);
+        this.currentFra

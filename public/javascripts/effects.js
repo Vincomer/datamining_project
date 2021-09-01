@@ -295,4 +295,16 @@ Effect.Base = Class.create({
   },
   event: function(eventName) {
     if (this.options[eventName + 'Internal']) this.options[eventName + 'Internal'](this);
-    if (this.options[eventName
+    if (this.options[eventName]) this.options[eventName](this);
+  },
+  inspect: function() {
+    var data = $H();
+    for(property in this)
+      if (!Object.isFunction(this[property])) data.set(property, this[property]);
+    return '#<Effect:' + data.inspect() + ',options:' + $H(this.options).inspect() + '>';
+  }
+});
+
+Effect.Parallel = Class.create(Effect.Base, {
+  initialize: function(effects) {
+    this.effects = effe

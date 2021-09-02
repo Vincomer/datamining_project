@@ -319,4 +319,15 @@ Effect.Parallel = Class.create(Effect.Base, {
       effect.cancel();
       effect.event('beforeFinish');
       if (effect.finish) effect.finish(position);
-      effect.event('afterFin
+      effect.event('afterFinish');
+    });
+  }
+});
+
+Effect.Tween = Class.create(Effect.Base, {
+  initialize: function(object, from, to) {
+    object = Object.isString(object) ? $(object) : object;
+    var args = $A(arguments), method = args.last(),
+      options = args.length == 5 ? args[3] : null;
+    this.method = Object.isFunction(method) ? method.bind(object) :
+      Object.isFunction(object[method]) 

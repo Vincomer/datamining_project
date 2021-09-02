@@ -330,4 +330,17 @@ Effect.Tween = Class.create(Effect.Base, {
     var args = $A(arguments), method = args.last(),
       options = args.length == 5 ? args[3] : null;
     this.method = Object.isFunction(method) ? method.bind(object) :
-      Object.isFunction(object[method]) 
+      Object.isFunction(object[method]) ? object[method].bind(object) :
+      function(value) { object[method] = value };
+    this.start(Object.extend({ from: from, to: to }, options || { }));
+  },
+  update: function(position) {
+    this.method(position);
+  }
+});
+
+Effect.Event = Class.create(Effect.Base, {
+  initialize: function() {
+    this.start(Object.extend({ duration: 0 }, arguments[0] || { }));
+  },
+  update: Pr

@@ -343,4 +343,14 @@ Effect.Event = Class.create(Effect.Base, {
   initialize: function() {
     this.start(Object.extend({ duration: 0 }, arguments[0] || { }));
   },
-  update: Pr
+  update: Prototype.emptyFunction
+});
+
+Effect.Opacity = Class.create(Effect.Base, {
+  initialize: function(element) {
+    this.element = $(element);
+    if (!this.element) throw(Effect._elementDoesNotExistError);
+    // make this work on IE on elements without 'layout'
+    if (Prototype.Browser.IE && (!this.element.currentStyle.hasLayout))
+      this.element.setStyle({zoom: 1});
+    var option

@@ -353,4 +353,18 @@ Effect.Opacity = Class.create(Effect.Base, {
     // make this work on IE on elements without 'layout'
     if (Prototype.Browser.IE && (!this.element.currentStyle.hasLayout))
       this.element.setStyle({zoom: 1});
-    var option
+    var options = Object.extend({
+      from: this.element.getOpacity() || 0.0,
+      to:   1.0
+    }, arguments[1] || { });
+    this.start(options);
+  },
+  update: function(position) {
+    this.element.setOpacity(position);
+  }
+});
+
+Effect.Move = Class.create(Effect.Base, {
+  initialize: function(element) {
+    this.element = $(element);
+    if (

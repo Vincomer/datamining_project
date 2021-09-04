@@ -387,4 +387,18 @@ Effect.Move = Class.create(Effect.Base, {
   update: function(position) {
     this.element.setStyle({
       left: (this.options.x  * position + this.originalLeft).round() + 'px',
-      top:  (this.options.y  * position + this.originalTop)
+      top:  (this.options.y  * position + this.originalTop).round()  + 'px'
+    });
+  }
+});
+
+// for backwards compatibility
+Effect.MoveBy = function(element, toTop, toLeft) {
+  return new Effect.Move(element,
+    Object.extend({ x: toLeft, y: toTop }, arguments[3] || { }));
+};
+
+Effect.Scale = Class.create(Effect.Base, {
+  initialize: function(element, percent) {
+    this.element = $(element);
+    if (!this.element) throw(

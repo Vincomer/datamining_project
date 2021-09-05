@@ -401,4 +401,17 @@ Effect.MoveBy = function(element, toTop, toLeft) {
 Effect.Scale = Class.create(Effect.Base, {
   initialize: function(element, percent) {
     this.element = $(element);
-    if (!this.element) throw(
+    if (!this.element) throw(Effect._elementDoesNotExistError);
+    var options = Object.extend({
+      scaleX: true,
+      scaleY: true,
+      scaleContent: true,
+      scaleFromCenter: false,
+      scaleMode: 'box',        // 'box' or 'contents' or { } with provided values
+      scaleFrom: 100.0,
+      scaleTo:   percent
+    }, arguments[2] || { });
+    this.start(options);
+  },
+  setup: function() {
+    this.r

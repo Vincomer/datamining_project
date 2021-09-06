@@ -442,4 +442,10 @@ Effect.Scale = Class.create(Effect.Base, {
       this.dims = [this.element.scrollHeight, this.element.scrollWidth];
     if (!this.dims)
       this.dims = [this.options.scaleMode.originalHeight,
-                   this
+                   this.options.scaleMode.originalWidth];
+  },
+  update: function(position) {
+    var currentScale = (this.options.scaleFrom/100.0) + (this.factor * position);
+    if (this.options.scaleContent && this.fontSize)
+      this.element.setStyle({fontSize: this.fontSize * currentScale + this.fontSizeType });
+    this.setDimensions(this.dims[0] * currentScale, this.dims[1] * currentS

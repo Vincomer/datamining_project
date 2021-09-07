@@ -448,4 +448,14 @@ Effect.Scale = Class.create(Effect.Base, {
     var currentScale = (this.options.scaleFrom/100.0) + (this.factor * position);
     if (this.options.scaleContent && this.fontSize)
       this.element.setStyle({fontSize: this.fontSize * currentScale + this.fontSizeType });
-    this.setDimensions(this.dims[0] * currentScale, this.dims[1] * currentS
+    this.setDimensions(this.dims[0] * currentScale, this.dims[1] * currentScale);
+  },
+  finish: function(position) {
+    if (this.restoreAfterFinish) this.element.setStyle(this.originalStyle);
+  },
+  setDimensions: function(height, width) {
+    var d = { };
+    if (this.options.scaleX) d.width = width.round() + 'px';
+    if (this.options.scaleY) d.height = height.round() + 'px';
+    if (this.options.scaleFromCenter) {
+      var topd  = (height - this.dims[0])/2

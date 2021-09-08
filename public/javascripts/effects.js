@@ -468,4 +468,16 @@ Effect.Scale = Class.create(Effect.Base, {
         if (this.options.scaleX) d.left = -leftd + 'px';
       }
     }
-  
+    this.element.setStyle(d);
+  }
+});
+
+Effect.Highlight = Class.create(Effect.Base, {
+  initialize: function(element) {
+    this.element = $(element);
+    if (!this.element) throw(Effect._elementDoesNotExistError);
+    var options = Object.extend({ startcolor: '#ffff99' }, arguments[1] || { });
+    this.start(options);
+  },
+  setup: function() {
+    // Prevent executing on elements not in the layout flow

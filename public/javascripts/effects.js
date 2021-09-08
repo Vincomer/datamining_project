@@ -494,4 +494,11 @@ Effect.Highlight = Class.create(Effect.Base, {
       this.options.restorecolor = this.element.getStyle('background-color');
     // init color calculations
     this._base  = $R(0,2).map(function(i){ return parseInt(this.options.startcolor.slice(i*2+1,i*2+3),16) }.bind(this));
-    this._delta = $R(0,2).map(fu
+    this._delta = $R(0,2).map(function(i){ return parseInt(this.options.endcolor.slice(i*2+1,i*2+3),16)-this._base[i] }.bind(this));
+  },
+  update: function(position) {
+    this.element.setStyle({backgroundColor: $R(0,2).inject('#',function(m,v,i){
+      return m+((this._base[i]+(this._delta[i]*position)).round().toColorPart()); }.bind(this)) });
+  },
+  finish: function() {
+    this.element.setStyle(Object.extend(thi

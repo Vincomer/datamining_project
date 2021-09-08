@@ -489,4 +489,9 @@ Effect.Highlight = Class.create(Effect.Base, {
       this.element.setStyle({backgroundImage: 'none'});
     }
     if (!this.options.endcolor)
-      this.options.endcolor 
+      this.options.endcolor = this.element.getStyle('background-color').parseColor('#ffffff');
+    if (!this.options.restorecolor)
+      this.options.restorecolor = this.element.getStyle('background-color');
+    // init color calculations
+    this._base  = $R(0,2).map(function(i){ return parseInt(this.options.startcolor.slice(i*2+1,i*2+3),16) }.bind(this));
+    this._delta = $R(0,2).map(fu

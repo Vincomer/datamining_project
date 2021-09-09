@@ -543,4 +543,17 @@ Effect.Appear = function(element) {
   var options = Object.extend({
   from: (element.getStyle('display') == 'none' ? 0.0 : element.getOpacity() || 0.0),
   to:   1.0,
-  // force Safari to render 
+  // force Safari to render floated elements properly
+  afterFinishInternal: function(effect) {
+    effect.element.forceRerendering();
+  },
+  beforeSetup: function(effect) {
+    effect.element.setOpacity(effect.options.from).show();
+  }}, arguments[1] || { });
+  return new Effect.Opacity(element,options);
+};
+
+Effect.Puff = function(element) {
+  element = $(element);
+  var oldStyle = {
+    opacity: element.getInlineOpacity()

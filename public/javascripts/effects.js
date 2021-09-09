@@ -516,3 +516,18 @@ Effect.ScrollTo = function(element) {
 
   return new Effect.Tween(null,
     scrollOffsets.top,
+    elementOffsets[1],
+    options,
+    function(p){ scrollTo(scrollOffsets.left, p.round()); }
+  );
+};
+
+/* ------------- combination effects ------------- */
+
+Effect.Fade = function(element) {
+  element = $(element);
+  var oldOpacity = element.getInlineOpacity();
+  var options = Object.extend({
+    from: element.getOpacity() || 1.0,
+    to:   0.0,
+    afterFinishInternal: func

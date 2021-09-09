@@ -530,4 +530,17 @@ Effect.Fade = function(element) {
   var options = Object.extend({
     from: element.getOpacity() || 1.0,
     to:   0.0,
-    afterFinishInternal: func
+    afterFinishInternal: function(effect) {
+      if (effect.options.to!=0) return;
+      effect.element.hide().setStyle({opacity: oldOpacity});
+    }
+  }, arguments[1] || { });
+  return new Effect.Opacity(element,options);
+};
+
+Effect.Appear = function(element) {
+  element = $(element);
+  var options = Object.extend({
+  from: (element.getStyle('display') == 'none' ? 0.0 : element.getOpacity() || 0.0),
+  to:   1.0,
+  // force Safari to render 

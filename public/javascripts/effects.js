@@ -501,4 +501,18 @@ Effect.Highlight = Class.create(Effect.Base, {
       return m+((this._base[i]+(this._delta[i]*position)).round().toColorPart()); }.bind(this)) });
   },
   finish: function() {
-    this.element.setStyle(Object.extend(thi
+    this.element.setStyle(Object.extend(this.oldStyle, {
+      backgroundColor: this.options.restorecolor
+    }));
+  }
+});
+
+Effect.ScrollTo = function(element) {
+  var options = arguments[1] || { },
+  scrollOffsets = document.viewport.getScrollOffsets(),
+  elementOffsets = $(element).cumulativeOffset();
+
+  if (options.offset) elementOffsets[1] += options.offset;
+
+  return new Effect.Tween(null,
+    scrollOffsets.top,

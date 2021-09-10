@@ -556,4 +556,14 @@ Effect.Appear = function(element) {
 Effect.Puff = function(element) {
   element = $(element);
   var oldStyle = {
-    opacity: element.getInlineOpacity()
+    opacity: element.getInlineOpacity(),
+    position: element.getStyle('position'),
+    top:  element.style.top,
+    left: element.style.left,
+    width: element.style.width,
+    height: element.style.height
+  };
+  return new Effect.Parallel(
+   [ new Effect.Scale(element, 200,
+      { sync: true, scaleFromCenter: true, scaleContent: true, restoreAfterFinish: true }),
+     new Effect.Opacity(element, { sync: 

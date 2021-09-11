@@ -566,4 +566,16 @@ Effect.Puff = function(element) {
   return new Effect.Parallel(
    [ new Effect.Scale(element, 200,
       { sync: true, scaleFromCenter: true, scaleContent: true, restoreAfterFinish: true }),
-     new Effect.Opacity(element, { sync: 
+     new Effect.Opacity(element, { sync: true, to: 0.0 } ) ],
+     Object.extend({ duration: 1.0,
+      beforeSetupInternal: function(effect) {
+        Position.absolutize(effect.effects[0].element);
+      },
+      afterFinishInternal: function(effect) {
+         effect.effects[0].element.hide().setStyle(oldStyle); }
+     }, arguments[1] || { })
+   );
+};
+
+Effect.BlindUp = function(element) {
+  ele

@@ -603,4 +603,18 @@ Effect.BlindDown = function(element) {
     afterSetup: function(effect) {
       effect.element.makeClipping().setStyle({height: '0px'}).show();
     },
-    after
+    afterFinishInternal: function(effect) {
+      effect.element.undoClipping();
+    }
+  }, arguments[1] || { }));
+};
+
+Effect.SwitchOff = function(element) {
+  element = $(element);
+  var oldOpacity = element.getInlineOpacity();
+  return new Effect.Appear(element, Object.extend({
+    duration: 0.4,
+    from: 0,
+    transition: Effect.Transitions.flicker,
+    afterFinishInternal: function(effect) {
+    

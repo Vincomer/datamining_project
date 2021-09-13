@@ -617,4 +617,11 @@ Effect.SwitchOff = function(element) {
     from: 0,
     transition: Effect.Transitions.flicker,
     afterFinishInternal: function(effect) {
-    
+      new Effect.Scale(effect.element, 1, {
+        duration: 0.3, scaleFromCenter: true,
+        scaleX: false, scaleContent: false, restoreAfterFinish: true,
+        beforeSetup: function(effect) {
+          effect.element.makePositioned().makeClipping();
+        },
+        afterFinishInternal: function(effect) {
+          effect.element.hide().undoClipping().undoPositioned().setStyle({opac

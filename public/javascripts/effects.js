@@ -624,4 +624,19 @@ Effect.SwitchOff = function(element) {
           effect.element.makePositioned().makeClipping();
         },
         afterFinishInternal: function(effect) {
-          effect.element.hide().undoClipping().undoPositioned().setStyle({opac
+          effect.element.hide().undoClipping().undoPositioned().setStyle({opacity: oldOpacity});
+        }
+      });
+    }
+  }, arguments[1] || { }));
+};
+
+Effect.DropOut = function(element) {
+  element = $(element);
+  var oldStyle = {
+    top: element.getStyle('top'),
+    left: element.getStyle('left'),
+    opacity: element.getInlineOpacity() };
+  return new Effect.Parallel(
+    [ new Effect.Move(element, {x: 0, y: 100, sync: true }),
+      new Effect.Opacity(element, { sync: tru

@@ -675,4 +675,13 @@ Effect.Shake = function(element) {
     new Effect.Move(effect.element,
       { x: -distance, y: 0, duration: split, afterFinishInternal: function(effect) {
         effect.element.undoPositioned().setStyle(oldStyle);
-  }})
+  }}); }}); }}); }}); }}); }});
+};
+
+Effect.SlideDown = function(element) {
+  element = $(element).cleanWhitespace();
+  // SlideDown need to have the content of the element wrapped in a container element with fixed height!
+  var oldInnerBottom = element.down().getStyle('bottom');
+  var elementDimensions = element.getDimensions();
+  return new Effect.Scale(element, 100, Object.extend({
+    scaleContent: 

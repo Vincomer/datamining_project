@@ -684,4 +684,13 @@ Effect.SlideDown = function(element) {
   var oldInnerBottom = element.down().getStyle('bottom');
   var elementDimensions = element.getDimensions();
   return new Effect.Scale(element, 100, Object.extend({
-    scaleContent: 
+    scaleContent: false,
+    scaleX: false,
+    scaleFrom: window.opera ? 0 : 1,
+    scaleMode: {originalHeight: elementDimensions.height, originalWidth: elementDimensions.width},
+    restoreAfterFinish: true,
+    afterSetup: function(effect) {
+      effect.element.makePositioned();
+      effect.element.down().makePositioned();
+      if (window.opera) effect.element.setStyle({top: ''});
+      effect

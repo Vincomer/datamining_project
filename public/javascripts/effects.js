@@ -712,4 +712,13 @@ Effect.SlideUp = function(element) {
   var elementDimensions = element.getDimensions();
   return new Effect.Scale(element, window.opera ? 0 : 1,
    Object.extend({ scaleContent: false,
-    scal
+    scaleX: false,
+    scaleMode: 'box',
+    scaleFrom: 100,
+    scaleMode: {originalHeight: elementDimensions.height, originalWidth: elementDimensions.width},
+    restoreAfterFinish: true,
+    afterSetup: function(effect) {
+      effect.element.makePositioned();
+      effect.element.down().makePositioned();
+      if (window.opera) effect.element.setStyle({top: ''});
+      effect.element.mak

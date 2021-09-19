@@ -743,4 +743,19 @@ Effect.Squish = function(element) {
       effect.element.makeClipping();
     },
     afterFinishInternal: function(effect) {
-      effect.element.hide(
+      effect.element.hide().undoClipping();
+    }
+  });
+};
+
+Effect.Grow = function(element) {
+  element = $(element);
+  var options = Object.extend({
+    direction: 'center',
+    moveTransition: Effect.Transitions.sinoidal,
+    scaleTransition: Effect.Transitions.sinoidal,
+    opacityTransition: Effect.Transitions.full
+  }, arguments[1] || { });
+  var oldStyle = {
+    top: element.style.top,
+    left: elemen

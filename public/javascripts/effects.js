@@ -788,3 +788,18 @@ Effect.Grow = function(element) {
       moveY = -dims.height;
       break;
     case 'center':
+      initialMoveX = dims.width / 2;
+      initialMoveY = dims.height / 2;
+      moveX = -dims.width / 2;
+      moveY = -dims.height / 2;
+      break;
+  }
+
+  return new Effect.Move(element, {
+    x: initialMoveX,
+    y: initialMoveY,
+    duration: 0.01,
+    beforeSetup: function(effect) {
+      effect.element.hide().makeClipping().makePositioned();
+    },
+    afterFinishInterna

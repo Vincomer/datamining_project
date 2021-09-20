@@ -758,4 +758,19 @@ Effect.Grow = function(element) {
   }, arguments[1] || { });
   var oldStyle = {
     top: element.style.top,
-    left: elemen
+    left: element.style.left,
+    height: element.style.height,
+    width: element.style.width,
+    opacity: element.getInlineOpacity() };
+
+  var dims = element.getDimensions();
+  var initialMoveX, initialMoveY;
+  var moveX, moveY;
+
+  switch (options.direction) {
+    case 'top-left':
+      initialMoveX = initialMoveY = moveX = moveY = 0;
+      break;
+    case 'top-right':
+      initialMoveX = dims.width;
+      i

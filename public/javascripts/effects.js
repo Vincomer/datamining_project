@@ -802,4 +802,9 @@ Effect.Grow = function(element) {
     beforeSetup: function(effect) {
       effect.element.hide().makeClipping().makePositioned();
     },
-    afterFinishInterna
+    afterFinishInternal: function(effect) {
+      new Effect.Parallel(
+        [ new Effect.Opacity(effect.element, { sync: true, to: 1.0, from: 0.0, transition: options.opacityTransition }),
+          new Effect.Move(effect.element, { x: moveX, y: moveY, sync: true, transition: options.moveTransition }),
+          new Effect.Scale(effect.element, 100, {
+            scaleMode: { originalHeight: dims.

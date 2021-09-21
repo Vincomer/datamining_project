@@ -813,4 +813,19 @@ Effect.Grow = function(element) {
              beforeSetup: function(effect) {
                effect.effects[0].element.setStyle({height: '0px'}).show();
              },
-             afterFinishInternal: function(effe
+             afterFinishInternal: function(effect) {
+               effect.effects[0].element.undoClipping().undoPositioned().setStyle(oldStyle);
+             }
+           }, options)
+      );
+    }
+  });
+};
+
+Effect.Shrink = function(element) {
+  element = $(element);
+  var options = Object.extend({
+    direction: 'center',
+    moveTransition: Effect.Transitions.sinoidal,
+    scaleTransition: Effect.Transitions.sinoidal,
+    opacityTransition: Effect.Tr

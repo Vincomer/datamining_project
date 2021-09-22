@@ -842,3 +842,21 @@ Effect.Shrink = function(element) {
 
   switch (options.direction) {
     case 'top-left':
+      moveX = moveY = 0;
+      break;
+    case 'top-right':
+      moveX = dims.width;
+      moveY = 0;
+      break;
+    case 'bottom-left':
+      moveX = 0;
+      moveY = dims.height;
+      break;
+    case 'bottom-right':
+      moveX = dims.width;
+      moveY = dims.height;
+      break;
+    case 'center':
+      moveX = dims.width / 2;
+      moveY = dims.height / 2;
+      br

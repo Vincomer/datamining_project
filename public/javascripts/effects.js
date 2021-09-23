@@ -877,4 +877,13 @@ Effect.Shrink = function(element) {
 };
 
 Effect.Pulsate = function(element) {
-  element = $(el
+  element = $(element);
+  var options    = arguments[1] || { },
+    oldOpacity = element.getInlineOpacity(),
+    transition = options.transition || Effect.Transitions.linear,
+    reverser   = function(pos){
+      return 1 - transition((-Math.cos((pos*(options.pulses||5)*2)*Math.PI)/2) + .5);
+    };
+
+  return new Effect.Opacity(element,
+    Object.extend(Object.extend({ 

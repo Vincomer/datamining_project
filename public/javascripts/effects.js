@@ -886,4 +886,16 @@ Effect.Pulsate = function(element) {
     };
 
   return new Effect.Opacity(element,
-    Object.extend(Object.extend({ 
+    Object.extend(Object.extend({  duration: 2.0, from: 0,
+      afterFinishInternal: function(effect) { effect.element.setStyle({opacity: oldOpacity}); }
+    }, options), {transition: reverser}));
+};
+
+Effect.Fold = function(element) {
+  element = $(element);
+  var oldStyle = {
+    top: element.style.top,
+    left: element.style.left,
+    width: element.style.width,
+    height: element.style.height };
+  element.makeClipping()

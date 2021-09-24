@@ -898,4 +898,18 @@ Effect.Fold = function(element) {
     left: element.style.left,
     width: element.style.width,
     height: element.style.height };
-  element.makeClipping()
+  element.makeClipping();
+  return new Effect.Scale(element, 5, Object.extend({
+    scaleContent: false,
+    scaleX: false,
+    afterFinishInternal: function(effect) {
+    new Effect.Scale(element, 1, {
+      scaleContent: false,
+      scaleY: false,
+      afterFinishInternal: function(effect) {
+        effect.element.hide().undoClipping().setStyle(oldStyle);
+      } });
+  }}, arguments[1] || { }));
+};
+
+Effect.Morph = Class.create

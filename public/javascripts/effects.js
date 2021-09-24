@@ -912,4 +912,15 @@ Effect.Fold = function(element) {
   }}, arguments[1] || { }));
 };
 
-Effect.Morph = Class.create
+Effect.Morph = Class.create(Effect.Base, {
+  initialize: function(element) {
+    this.element = $(element);
+    if (!this.element) throw(Effect._elementDoesNotExistError);
+    var options = Object.extend({
+      style: { }
+    }, arguments[1] || { });
+
+    if (!Object.isString(options.style)) this.style = $H(options.style);
+    else {
+      if (options.style.include(':'))
+        this.

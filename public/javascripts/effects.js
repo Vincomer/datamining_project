@@ -932,4 +932,17 @@ Effect.Morph = Class.create(Effect.Base, {
         this.style = this.style.reject(function(style) {
           return style.value == css[style.key];
         });
-        options.
+        options.afterFinishInternal = function(effect) {
+          effect.element.addClassName(effect.options.style);
+          effect.transforms.each(function(transform) {
+            effect.element.style[transform.style] = '';
+          });
+        };
+      }
+    }
+    this.start(options);
+  },
+
+  setup: function(){
+    function parseColor(color){
+      if (!color || ['rgba(0, 0, 0, 0)','transpa

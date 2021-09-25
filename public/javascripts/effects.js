@@ -923,4 +923,13 @@ Effect.Morph = Class.create(Effect.Base, {
     if (!Object.isString(options.style)) this.style = $H(options.style);
     else {
       if (options.style.include(':'))
-        this.
+        this.style = options.style.parseStyle();
+      else {
+        this.element.addClassName(options.style);
+        this.style = $H(this.element.getStyles());
+        this.element.removeClassName(options.style);
+        var css = this.element.getStyles();
+        this.style = this.style.reject(function(style) {
+          return style.value == css[style.key];
+        });
+        options.

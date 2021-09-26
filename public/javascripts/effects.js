@@ -955,4 +955,11 @@ Effect.Morph = Class.create(Effect.Base, {
       var property = pair[0], value = pair[1], unit = null;
 
       if (value.parseColor('#zzzzzz') != '#zzzzzz') {
-  
+        value = value.parseColor();
+        unit  = 'color';
+      } else if (property == 'opacity') {
+        value = parseFloat(value);
+        if (Prototype.Browser.IE && (!this.element.currentStyle.hasLayout))
+          this.element.setStyle({zoom: 1});
+      } else if (Element.CSS_LENGTH.test(value)) {
+          var components = value.match(/^([\+\-]

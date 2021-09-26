@@ -971,4 +971,18 @@ Effect.Morph = Class.create(Effect.Base, {
       return {
         style: property.camelize(),
         originalValue: unit=='color' ? parseColor(originalValue) : parseFloat(originalValue || 0),
-        targetValue: unit=='color' ? parseColor(value) : 
+        targetValue: unit=='color' ? parseColor(value) : value,
+        unit: unit
+      };
+    }.bind(this)).reject(function(transform){
+      return (
+        (transform.originalValue == transform.targetValue) ||
+        (
+          transform.unit != 'color' &&
+          (isNaN(transform.originalValue) || isNaN(transform.targetValue))
+        )
+      );
+    });
+  },
+  update: function(position) {
+    var style = { }, transform, i = this.transforms.

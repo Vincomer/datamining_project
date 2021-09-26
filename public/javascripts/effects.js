@@ -945,4 +945,14 @@ Effect.Morph = Class.create(Effect.Base, {
 
   setup: function(){
     function parseColor(color){
-      if (!color || ['rgba(0, 0, 0, 0)','transpa
+      if (!color || ['rgba(0, 0, 0, 0)','transparent'].include(color)) color = '#ffffff';
+      color = color.parseColor();
+      return $R(0,2).map(function(i){
+        return parseInt( color.slice(i*2+1,i*2+3), 16 );
+      });
+    }
+    this.transforms = this.style.map(function(pair){
+      var property = pair[0], value = pair[1], unit = null;
+
+      if (value.parseColor('#zzzzzz') != '#zzzzzz') {
+  

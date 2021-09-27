@@ -985,4 +985,11 @@ Effect.Morph = Class.create(Effect.Base, {
     });
   },
   update: function(position) {
-    var style = { }, transform, i = this.transforms.
+    var style = { }, transform, i = this.transforms.length;
+    while(i--)
+      style[(transform = this.transforms[i]).style] =
+        transform.unit=='color' ? '#'+
+          (Math.round(transform.originalValue[0]+
+            (transform.targetValue[0]-transform.originalValue[0])*position)).toColorPart() +
+          (Math.round(transform.originalValue[1]+
+            (transform.targetValue[1]-transform.originalValue[1])*position)).to

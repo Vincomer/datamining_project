@@ -1015,4 +1015,14 @@ Effect.Transform = Class.create({
       this.tracks.push($H({
         ids:     track.keys().first(),
         effect:  Effect.Morph,
-        options: { sty
+        options: { style: data }
+      }));
+    }.bind(this));
+    return this;
+  },
+  play: function(){
+    return new Effect.Parallel(
+      this.tracks.map(function(track){
+        var ids = track.get('ids'), effect = track.get('effect'), options = track.get('options');
+        var elements = [$(ids) || $$(ids)].flatten();
+        return elements.map(function(e){ return new effect(e, Object.extend({ sync:true }, o

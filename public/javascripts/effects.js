@@ -1002,4 +1002,17 @@ Effect.Morph = Class.create(Effect.Base, {
   }
 });
 
-Effect.Transform = Clas
+Effect.Transform = Class.create({
+  initialize: function(tracks){
+    this.tracks  = [];
+    this.options = arguments[1] || { };
+    this.addTracks(tracks);
+  },
+  addTracks: function(tracks){
+    tracks.each(function(track){
+      track = $H(track);
+      var data = track.values().first();
+      this.tracks.push($H({
+        ids:     track.keys().first(),
+        effect:  Effect.Morph,
+        options: { sty

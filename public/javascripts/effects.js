@@ -1025,4 +1025,15 @@ Effect.Transform = Class.create({
       this.tracks.map(function(track){
         var ids = track.get('ids'), effect = track.get('effect'), options = track.get('options');
         var elements = [$(ids) || $$(ids)].flatten();
-        return elements.map(function(e){ return new effect(e, Object.extend({ sync:true }, o
+        return elements.map(function(e){ return new effect(e, Object.extend({ sync:true }, options)) });
+      }).flatten(),
+      this.options
+    );
+  }
+});
+
+Element.CSS_PROPERTIES = $w(
+  'backgroundColor backgroundPosition borderBottomColor borderBottomStyle ' +
+  'borderBottomWidth borderLeftColor borderLeftStyle borderLeftWidth ' +
+  'borderRightColor borderRightStyle borderRightWidth borderSpacing ' +
+  'borderTopColor borderTopStyle borderTopWidth bot

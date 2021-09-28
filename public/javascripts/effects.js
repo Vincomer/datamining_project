@@ -1052,4 +1052,17 @@ String.prototype.parseStyle = function(){
     style = new Element('div',{style:this}).style;
   else {
     String.__parseStyleElement.innerHTML = '<div style="' + this + '"></div>';
-    style = String.__parseStyleE
+    style = String.__parseStyleElement.childNodes[0].style;
+  }
+
+  Element.CSS_PROPERTIES.each(function(property){
+    if (style[property]) styleRules.set(property, style[property]);
+  });
+
+  if (Prototype.Browser.IE && this.include('opacity'))
+    styleRules.set('opacity', this.match(/opacity:\s*((?:0|1)?(?:\.\d*)?)/)[1]);
+
+  return styleRules;
+};
+
+if (document.defaultView && document.defaultView.

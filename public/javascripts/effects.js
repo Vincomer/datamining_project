@@ -1036,4 +1036,11 @@ Element.CSS_PROPERTIES = $w(
   'backgroundColor backgroundPosition borderBottomColor borderBottomStyle ' +
   'borderBottomWidth borderLeftColor borderLeftStyle borderLeftWidth ' +
   'borderRightColor borderRightStyle borderRightWidth borderSpacing ' +
-  'borderTopColor borderTopStyle borderTopWidth bot
+  'borderTopColor borderTopStyle borderTopWidth bottom clip color ' +
+  'fontSize fontWeight height left letterSpacing lineHeight ' +
+  'marginBottom marginLeft marginRight marginTop markerOffset maxHeight '+
+  'maxWidth minHeight minWidth opacity outlineColor outlineOffset ' +
+  'outlineWidth paddingBottom paddingLeft paddingRight paddingTop ' +
+  'right textIndent top width wordSpacing zIndex');
+
+Element.CSS_LENGTH = /^(([\+\-]?[0-9\.]+)(em|ex|px|in

@@ -1065,4 +1065,15 @@ String.prototype.parseStyle = function(){
   return styleRules;
 };
 
-if (document.defaultView && document.defaultView.
+if (document.defaultView && document.defaultView.getComputedStyle) {
+  Element.getStyles = function(element) {
+    var css = document.defaultView.getComputedStyle($(element), null);
+    return Element.CSS_PROPERTIES.inject({ }, function(styles, property) {
+      styles[property] = css[property];
+      return styles;
+    });
+  };
+} else {
+  Element.getStyles = function(element) {
+    element = $(element);
+    var css = elemen

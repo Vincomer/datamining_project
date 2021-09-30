@@ -1089,4 +1089,14 @@ if (document.defaultView && document.defaultView.getComputedStyle) {
 Effect.Methods = {
   morph: function(element, style) {
     element = $(element);
-    new Effect.Morph(elemen
+    new Effect.Morph(element, Object.extend({ style: style }, arguments[2] || { }));
+    return element;
+  },
+  visualEffect: function(element, effect, options) {
+    element = $(element);
+    var s = effect.dasherize().camelize(), klass = s.charAt(0).toUpperCase() + s.substring(1);
+    new Effect[klass](element, options);
+    return element;
+  },
+  highlight: function(element, options) {
+    eleme

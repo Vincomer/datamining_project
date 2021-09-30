@@ -1076,4 +1076,17 @@ if (document.defaultView && document.defaultView.getComputedStyle) {
 } else {
   Element.getStyles = function(element) {
     element = $(element);
-    var css = elemen
+    var css = element.currentStyle, styles;
+    styles = Element.CSS_PROPERTIES.inject({ }, function(results, property) {
+      results[property] = css[property];
+      return results;
+    });
+    if (!styles.opacity) styles.opacity = element.getOpacity();
+    return styles;
+  };
+}
+
+Effect.Methods = {
+  morph: function(element, style) {
+    element = $(element);
+    new Effect.Morph(elemen

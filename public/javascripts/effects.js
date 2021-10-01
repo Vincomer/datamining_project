@@ -1099,4 +1099,15 @@ Effect.Methods = {
     return element;
   },
   highlight: function(element, options) {
-    eleme
+    element = $(element);
+    new Effect.Highlight(element, options);
+    return element;
+  }
+};
+
+$w('fade appear grow shrink fold blindUp blindDown slideUp slideDown '+
+  'pulsate shake puff squish switchOff dropOut').each(
+  function(effect) {
+    Effect.Methods[effect] = function(element, options){
+      element = $(element);
+      Effect[effect.charAt(0).toUpperCase() + eff

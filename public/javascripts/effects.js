@@ -1110,4 +1110,14 @@ $w('fade appear grow shrink fold blindUp blindDown slideUp slideDown '+
   function(effect) {
     Effect.Methods[effect] = function(element, options){
       element = $(element);
-      Effect[effect.charAt(0).toUpperCase() + eff
+      Effect[effect.charAt(0).toUpperCase() + effect.substring(1)](element, options);
+      return element;
+    };
+  }
+);
+
+$w('getInlineOpacity forceRerendering setContentZoom collectTextNodes collectTextNodesIgnoreClass getStyles').each(
+  function(f) { Effect.Methods[f] = Element[f]; }
+);
+
+Element.addMethods(Effect.Methods);

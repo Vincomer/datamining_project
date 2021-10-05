@@ -37,4 +37,24 @@ var Prototype = {
 
       var div = document.createElement('div'),
           form = document.createElement('form'),
-          
+          isSupported = false;
+
+      if (div['__proto__'] && (div['__proto__'] !== form['__proto__'])) {
+        isSupported = true;
+      }
+
+      div = form = null;
+
+      return isSupported;
+    })()
+  },
+
+  ScriptFragment: '<script[^>]*>([\\S\\s]*?)<\/script>',
+  JSONFilter: /^\/\*-secure-([\s\S]*)\*\/\s*$/,
+
+  emptyFunction: function() { },
+
+  K: function(x) { return x }
+};
+
+if (Prototype.Browser.Mo

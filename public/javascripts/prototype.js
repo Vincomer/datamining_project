@@ -25,4 +25,16 @@ var Prototype = {
   BrowserFeatures: {
     XPath: !!document.evaluate,
 
-    SelectorsAPI: !!document.querySelect
+    SelectorsAPI: !!document.querySelector,
+
+    ElementExtensions: (function() {
+      var constructor = window.Element || window.HTMLElement;
+      return !!(constructor && constructor.prototype);
+    })(),
+    SpecificElementExtensions: (function() {
+      if (typeof window.HTMLDivElement !== 'undefined')
+        return true;
+
+      var div = document.createElement('div'),
+          form = document.createElement('form'),
+          

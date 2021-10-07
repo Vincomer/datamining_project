@@ -80,4 +80,22 @@ var Try = {
   }
 };
 
-/* Based on Alex Arnell's i
+/* Based on Alex Arnell's inheritance implementation. */
+
+var Class = (function() {
+
+  var IS_DONTENUM_BUGGY = (function(){
+    for (var p in { toString: 1 }) {
+      if (p === 'toString') return false;
+    }
+    return true;
+  })();
+
+  function subclass() {};
+  function create() {
+    var parent = null, properties = $A(arguments);
+    if (Object.isFunction(properties[0]))
+      parent = properties.shift();
+
+    function klass() {
+      th

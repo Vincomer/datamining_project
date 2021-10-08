@@ -112,4 +112,17 @@ var Class = (function() {
     }
 
     for (var i = 0, length = properties.length; i < length; i++)
-      klass.addMeth
+      klass.addMethods(properties[i]);
+
+    if (!klass.prototype.initialize)
+      klass.prototype.initialize = Prototype.emptyFunction;
+
+    klass.prototype.constructor = klass;
+    return klass;
+  }
+
+  function addMethods(source) {
+    var ancestor   = this.superclass && this.superclass.prototype,
+        properties = Object.keys(source);
+
+    if (IS_DONTENUM

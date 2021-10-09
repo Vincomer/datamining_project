@@ -144,4 +144,26 @@ var Class = (function() {
         value.valueOf = method.valueOf.bind(method);
         value.toString = method.toString.bind(method);
       }
-      this.prototype[property] =
+      this.prototype[property] = value;
+    }
+
+    return this;
+  }
+
+  return {
+    create: create,
+    Methods: {
+      addMethods: addMethods
+    }
+  };
+})();
+(function() {
+
+  var _toString = Object.prototype.toString,
+      NULL_TYPE = 'Null',
+      UNDEFINED_TYPE = 'Undefined',
+      BOOLEAN_TYPE = 'Boolean',
+      NUMBER_TYPE = 'Number',
+      STRING_TYPE = 'String',
+      OBJECT_TYPE = 'Object',
+      BOOLEAN_CLASS 

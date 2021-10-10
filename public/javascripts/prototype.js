@@ -177,4 +177,18 @@ var Class = (function() {
 
   function Type(o) {
     switch(o) {
-      case null: return NULL_T
+      case null: return NULL_TYPE;
+      case (void 0): return UNDEFINED_TYPE;
+    }
+    var type = typeof o;
+    switch(type) {
+      case 'boolean': return BOOLEAN_TYPE;
+      case 'number':  return NUMBER_TYPE;
+      case 'string':  return STRING_TYPE;
+    }
+    return OBJECT_TYPE;
+  }
+
+  function extend(destination, source) {
+    for (var property in source)
+      destination[property] = source[

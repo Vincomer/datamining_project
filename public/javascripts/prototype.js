@@ -207,4 +207,20 @@ var Class = (function() {
   }
 
   function toJSON(value) {
-    return Str('', { 
+    return Str('', { '': value }, []);
+  }
+
+  function Str(key, holder, stack) {
+    var value = holder[key],
+        type = typeof value;
+
+    if (Type(value) === OBJECT_TYPE && typeof value.toJSON === 'function') {
+      value = value.toJSON(key);
+    }
+
+    var _class = _toString.call(value);
+
+    switch (_class) {
+      case NUMBER_CLASS:
+      case BOOLEAN_CLASS:
+      case STRING_CL

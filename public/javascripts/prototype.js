@@ -191,4 +191,20 @@ var Class = (function() {
 
   function extend(destination, source) {
     for (var property in source)
-      destination[property] = source[
+      destination[property] = source[property];
+    return destination;
+  }
+
+  function inspect(object) {
+    try {
+      if (isUndefined(object)) return 'undefined';
+      if (object === null) return 'null';
+      return object.inspect ? object.inspect() : String(object);
+    } catch (e) {
+      if (e instanceof RangeError) return '...';
+      throw e;
+    }
+  }
+
+  function toJSON(value) {
+    return Str('', { 

@@ -223,4 +223,20 @@ var Class = (function() {
     switch (_class) {
       case NUMBER_CLASS:
       case BOOLEAN_CLASS:
-      case STRING_CL
+      case STRING_CLASS:
+        value = value.valueOf();
+    }
+
+    switch (value) {
+      case null: return 'null';
+      case true: return 'true';
+      case false: return 'false';
+    }
+
+    type = typeof value;
+    switch (type) {
+      case 'string':
+        return value.inspect(true);
+      case 'number':
+        return isFinite(value) ? String(value) : 'null';
+      ca

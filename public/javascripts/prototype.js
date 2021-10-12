@@ -251,4 +251,14 @@ var Class = (function() {
           for (var i = 0, length = value.length; i < length; i++) {
             var str = Str(i, value, stack);
             partial.push(typeof str === 'undefined' ? 'null' : str);
-      
+          }
+          partial = '[' + partial.join(',') + ']';
+        } else {
+          var keys = Object.keys(value);
+          for (var i = 0, length = keys.length; i < length; i++) {
+            var key = keys[i], str = Str(key, value, stack);
+            if (typeof str !== "undefined") {
+               partial.push(key.inspect(true)+ ':' + str);
+             }
+          }
+          

@@ -280,4 +280,19 @@ var Class = (function() {
     return object && object.toHTML ? object.toHTML() : String.interpret(object);
   }
 
-  function
+  function keys(object) {
+    if (Type(object) !== OBJECT_TYPE) { throw new TypeError(); }
+    var results = [];
+    for (var property in object) {
+      if (object.hasOwnProperty(property)) {
+        results.push(property);
+      }
+    }
+    return results;
+  }
+
+  function values(object) {
+    var results = [];
+    for (var property in object)
+      results.push(object[property]);
+    return 

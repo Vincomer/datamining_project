@@ -314,4 +314,24 @@ var Class = (function() {
     && Array.isArray([]) && !Array.isArray({});
 
   if (hasNativeIsArray) {
-  
+    isArray = Array.isArray;
+  }
+
+  function isHash(object) {
+    return object instanceof Hash;
+  }
+
+  function isFunction(object) {
+    return typeof object === "function";
+  }
+
+  function isString(object) {
+    return _toString.call(object) === STRING_CLASS;
+  }
+
+  function isNumber(object) {
+    return _toString.call(object) === NUMBER_CLASS;
+  }
+
+  function isUndefined(object) {
+    return typeof

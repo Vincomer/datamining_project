@@ -334,4 +334,18 @@ var Class = (function() {
   }
 
   function isUndefined(object) {
-    return typeof
+    return typeof object === "undefined";
+  }
+
+  extend(Object, {
+    extend:        extend,
+    inspect:       inspect,
+    toJSON:        NATIVE_JSON_STRINGIFY_SUPPORT ? stringify : toJSON,
+    toQueryString: toQueryString,
+    toHTML:        toHTML,
+    keys:          Object.keys || keys,
+    values:        values,
+    clone:         clone,
+    isElement:     isElement,
+    isArray:       isArray,
+    isHash:

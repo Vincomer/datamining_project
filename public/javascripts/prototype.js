@@ -295,4 +295,23 @@ var Class = (function() {
     var results = [];
     for (var property in object)
       results.push(object[property]);
-    return 
+    return results;
+  }
+
+  function clone(object) {
+    return extend({ }, object);
+  }
+
+  function isElement(object) {
+    return !!(object && object.nodeType == 1);
+  }
+
+  function isArray(object) {
+    return _toString.call(object) === ARRAY_CLASS;
+  }
+
+  var hasNativeIsArray = (typeof Array.isArray == 'function')
+    && Array.isArray([]) && !Array.isArray({});
+
+  if (hasNativeIsArray) {
+  

@@ -348,4 +348,16 @@ var Class = (function() {
     clone:         clone,
     isElement:     isElement,
     isArray:       isArray,
-    isHash:
+    isHash:        isHash,
+    isFunction:    isFunction,
+    isString:      isString,
+    isNumber:      isNumber,
+    isUndefined:   isUndefined
+  });
+})();
+Object.extend(Function.prototype, (function() {
+  var slice = Array.prototype.slice;
+
+  function update(array, args) {
+    var arrayLength = array.length, length = args.length;
+    while (length--) array[arrayLength + length] = args[length]

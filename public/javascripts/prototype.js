@@ -360,4 +360,20 @@ Object.extend(Function.prototype, (function() {
 
   function update(array, args) {
     var arrayLength = array.length, length = args.length;
-    while (length--) array[arrayLength + length] = args[length]
+    while (length--) array[arrayLength + length] = args[length];
+    return array;
+  }
+
+  function merge(array, args) {
+    array = slice.call(array, 0);
+    return update(array, args);
+  }
+
+  function argumentNames() {
+    var names = this.toString().match(/^[\s\(]*function[^(]*\(([^)]*)\)/)[1]
+      .replace(/\/\/.*?[\r\n]|\/\*(?:.|[\r\n])*?\*\//g, '')
+      .replace(/\s+/g, '').split(',');
+    return names.length == 1 && !names[0] ? [] : names;
+  }
+
+ 

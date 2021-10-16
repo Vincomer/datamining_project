@@ -386,4 +386,20 @@ Object.extend(Function.prototype, (function() {
   }
 
   function bindAsEventListener(context) {
-    var __method = this, args = slice.call(arguments, 1)
+    var __method = this, args = slice.call(arguments, 1);
+    return function(event) {
+      var a = update([event || window.event], args);
+      return __method.apply(context, a);
+    }
+  }
+
+  function curry() {
+    if (!arguments.length) return this;
+    var __method = this, args = slice.call(arguments, 0);
+    return function() {
+      var a = merge(args, arguments);
+      return __method.apply(this, a);
+    }
+  }
+
+  function delay(timeout) {

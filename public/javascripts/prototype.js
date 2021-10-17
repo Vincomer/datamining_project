@@ -433,4 +433,22 @@ Object.extend(Function.prototype, (function() {
   }
 
   return {
-    argument
+    argumentNames:       argumentNames,
+    bind:                bind,
+    bindAsEventListener: bindAsEventListener,
+    curry:               curry,
+    delay:               delay,
+    defer:               defer,
+    wrap:                wrap,
+    methodize:           methodize
+  }
+})());
+
+
+
+(function(proto) {
+
+
+  function toISOString() {
+    return this.getUTCFullYear() + '-' +
+    

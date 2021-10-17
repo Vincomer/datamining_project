@@ -418,4 +418,19 @@ Object.extend(Function.prototype, (function() {
   function wrap(wrapper) {
     var __method = this;
     return function() {
-      
+      var a = update([__method.bind(this)], arguments);
+      return wrapper.apply(this, a);
+    }
+  }
+
+  function methodize() {
+    if (this._methodized) return this._methodized;
+    var __method = this;
+    return this._methodized = function() {
+      var a = update([this], arguments);
+      return __method.apply(null, a);
+    };
+  }
+
+  return {
+    argument

@@ -464,4 +464,18 @@ Object.extend(Function.prototype, (function() {
   }
 
   if (!proto.toISOString) proto.toISOString = toISOString;
-  if (!proto.toJSON) p
+  if (!proto.toJSON) proto.toJSON = toJSON;
+
+})(Date.prototype);
+
+
+RegExp.prototype.match = RegExp.prototype.test;
+
+RegExp.escape = function(str) {
+  return String(str).replace(/([.*+?^=!:${}()|[\]\/\\])/g, '\\$1');
+};
+var PeriodicalExecuter = Class.create({
+  initialize: function(callback, frequency) {
+    this.callback = callback;
+    this.frequency = frequency;
+    this.currentlyExecuting = false

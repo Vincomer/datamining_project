@@ -451,4 +451,17 @@ Object.extend(Function.prototype, (function() {
 
   function toISOString() {
     return this.getUTCFullYear() + '-' +
-    
+      (this.getUTCMonth() + 1).toPaddedString(2) + '-' +
+      this.getUTCDate().toPaddedString(2) + 'T' +
+      this.getUTCHours().toPaddedString(2) + ':' +
+      this.getUTCMinutes().toPaddedString(2) + ':' +
+      this.getUTCSeconds().toPaddedString(2) + 'Z';
+  }
+
+
+  function toJSON() {
+    return this.toISOString();
+  }
+
+  if (!proto.toISOString) proto.toISOString = toISOString;
+  if (!proto.toJSON) p

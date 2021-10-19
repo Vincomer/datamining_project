@@ -498,4 +498,22 @@ var PeriodicalExecuter = Class.create({
   },
 
   onTimerEvent: function() {
-    if (!this.currentlyEx
+    if (!this.currentlyExecuting) {
+      try {
+        this.currentlyExecuting = true;
+        this.execute();
+        this.currentlyExecuting = false;
+      } catch(e) {
+        this.currentlyExecuting = false;
+        throw e;
+      }
+    }
+  }
+});
+Object.extend(String, {
+  interpret: function(value) {
+    return value == null ? '' : String(value);
+  },
+  specialChar: {
+    '\b': '\\b',
+   

@@ -516,4 +516,19 @@ Object.extend(String, {
   },
   specialChar: {
     '\b': '\\b',
-   
+    '\t': '\\t',
+    '\n': '\\n',
+    '\f': '\\f',
+    '\r': '\\r',
+    '\\': '\\\\'
+  }
+});
+
+Object.extend(String.prototype, (function() {
+  var NATIVE_JSON_PARSE_SUPPORT = window.JSON &&
+    typeof JSON.parse === 'function' &&
+    JSON.parse('{"test": true}').test;
+
+  function prepareReplacement(replacement) {
+    if (Object.isFunction(replacement)) return replacement;
+    var tem

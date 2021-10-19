@@ -531,4 +531,16 @@ Object.extend(String.prototype, (function() {
 
   function prepareReplacement(replacement) {
     if (Object.isFunction(replacement)) return replacement;
-    var tem
+    var template = new Template(replacement);
+    return function(match) { return template.evaluate(match) };
+  }
+
+  function gsub(pattern, replacement) {
+    var result = '', source = this, match;
+    replacement = prepareReplacement(replacement);
+
+    if (Object.isString(pattern))
+      pattern = RegExp.escape(pattern);
+
+    if (!(pattern.length || pattern.source)) {
+      replacement 

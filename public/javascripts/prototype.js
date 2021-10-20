@@ -585,4 +585,15 @@ Object.extend(String.prototype, (function() {
     return this.replace(/^\s+/, '').replace(/\s+$/, '');
   }
 
-  function stripTag
+  function stripTags() {
+    return this.replace(/<\w+(\s+("[^"]*"|'[^']*'|[^>])+)?>|<\/\w+>/gi, '');
+  }
+
+  function stripScripts() {
+    return this.replace(new RegExp(Prototype.ScriptFragment, 'img'), '');
+  }
+
+  function extractScripts() {
+    var matchAll = new RegExp(Prototype.ScriptFragment, 'img'),
+        matchOne = new RegExp(Prototype.ScriptFragment, 'im');
+    return (this.m

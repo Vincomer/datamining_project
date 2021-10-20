@@ -570,4 +570,19 @@ Object.extend(String.prototype, (function() {
   }
 
   function scan(pattern, iterator) {
-    this
+    this.gsub(pattern, iterator);
+    return String(this);
+  }
+
+  function truncate(length, truncation) {
+    length = length || 30;
+    truncation = Object.isUndefined(truncation) ? '...' : truncation;
+    return this.length > length ?
+      this.slice(0, length - truncation.length) + truncation : String(this);
+  }
+
+  function strip() {
+    return this.replace(/^\s+/, '').replace(/\s+$/, '');
+  }
+
+  function stripTag

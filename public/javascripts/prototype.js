@@ -596,4 +596,18 @@ Object.extend(String.prototype, (function() {
   function extractScripts() {
     var matchAll = new RegExp(Prototype.ScriptFragment, 'img'),
         matchOne = new RegExp(Prototype.ScriptFragment, 'im');
-    return (this.m
+    return (this.match(matchAll) || []).map(function(scriptTag) {
+      return (scriptTag.match(matchOne) || ['', ''])[1];
+    });
+  }
+
+  function evalScripts() {
+    return this.extractScripts().map(function(script) { return eval(script) });
+  }
+
+  function escapeHTML() {
+    return this.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function unescapeHTML() {
+    return this.

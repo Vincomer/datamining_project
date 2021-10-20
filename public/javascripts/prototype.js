@@ -553,4 +553,21 @@ Object.extend(String.prototype, (function() {
         result += String.interpret(replacement(match));
         source  = source.slice(match.index + match[0].length);
       } else {
-        result +=
+        result += source, source = '';
+      }
+    }
+    return result;
+  }
+
+  function sub(pattern, replacement, count) {
+    replacement = prepareReplacement(replacement);
+    count = Object.isUndefined(count) ? 1 : count;
+
+    return this.gsub(pattern, function(match) {
+      if (--count < 0) return match[0];
+      return replacement(match);
+    });
+  }
+
+  function scan(pattern, iterator) {
+    this

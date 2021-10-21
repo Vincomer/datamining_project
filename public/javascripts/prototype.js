@@ -651,4 +651,20 @@ Object.extend(String.prototype, (function() {
   function camelize() {
     return this.replace(/-+(.)?/g, function(match, chr) {
       return chr ? chr.toUpperCase() : '';
-   
+    });
+  }
+
+  function capitalize() {
+    return this.charAt(0).toUpperCase() + this.substring(1).toLowerCase();
+  }
+
+  function underscore() {
+    return this.replace(/::/g, '/')
+               .replace(/([A-Z]+)([A-Z][a-z])/g, '$1_$2')
+               .replace(/([a-z\d])([A-Z])/g, '$1_$2')
+               .replace(/-/g, '_')
+               .toLowerCase();
+  }
+
+  function dasherize() {
+    r

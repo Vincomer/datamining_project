@@ -639,4 +639,16 @@ Object.extend(String.prototype, (function() {
     return this.split('');
   }
 
-  functi
+  function succ() {
+    return this.slice(0, this.length - 1) +
+      String.fromCharCode(this.charCodeAt(this.length - 1) + 1);
+  }
+
+  function times(count) {
+    return count < 1 ? '' : new Array(count + 1).join(this);
+  }
+
+  function camelize() {
+    return this.replace(/-+(.)?/g, function(match, chr) {
+      return chr ? chr.toUpperCase() : '';
+   

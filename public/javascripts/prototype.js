@@ -610,4 +610,15 @@ Object.extend(String.prototype, (function() {
   }
 
   function unescapeHTML() {
-    return this.
+    return this.stripTags().replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
+  }
+
+
+  function toQueryParams(separator) {
+    var match = this.strip().match(/([^?#]*)(#.*)?$/);
+    if (!match) return { };
+
+    return match[1].split(separator || '&').inject({ }, function(hash, pair) {
+      if ((pair = pair.split('='))[0]) {
+        var key = decodeURIComponent(pair.shift()),
+            value = pair.length > 1 ? pair.j

@@ -677,4 +677,16 @@ Object.extend(String.prototype, (function() {
       }
       return '\\u00' + character.charCodeAt().toPaddedString(2, 16);
     });
-    if (useDoubleQuotes) return '"' + escapedStrin
+    if (useDoubleQuotes) return '"' + escapedString.replace(/"/g, '\\"') + '"';
+    return "'" + escapedString.replace(/'/g, '\\\'') + "'";
+  }
+
+  function unfilterJSON(filter) {
+    return this.replace(filter || Prototype.JSONFilter, '$1');
+  }
+
+  function isJSON() {
+    var str = this;
+    if (str.blank()) return false;
+    str = str.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g, '@');
+    str = str.replace(/"[^

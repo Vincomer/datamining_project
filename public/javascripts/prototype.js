@@ -689,4 +689,13 @@ Object.extend(String.prototype, (function() {
     var str = this;
     if (str.blank()) return false;
     str = str.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g, '@');
-    str = str.replace(/"[^
+    str = str.replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']');
+    str = str.replace(/(?:^|:|,)(?:\s*\[)+/g, '');
+    return (/^[\],:{}\s]*$/).test(str);
+  }
+
+  function evalJSON(sanitize) {
+    var json = this.unfilterJSON(),
+        cx = /[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g;
+    if (cx.test(json)) {
+      json 

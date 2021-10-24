@@ -710,4 +710,25 @@ Object.extend(String.prototype, (function() {
 
   function parseJSON() {
     var json = this.unfilterJSON();
-    return JSON.parse(js
+    return JSON.parse(json);
+  }
+
+  function include(pattern) {
+    return this.indexOf(pattern) > -1;
+  }
+
+  function startsWith(pattern) {
+    return this.lastIndexOf(pattern, 0) === 0;
+  }
+
+  function endsWith(pattern) {
+    var d = this.length - pattern.length;
+    return d >= 0 && this.indexOf(pattern, d) === d;
+  }
+
+  function empty() {
+    return this == '';
+  }
+
+  function blank() {
+    return /^\s*$

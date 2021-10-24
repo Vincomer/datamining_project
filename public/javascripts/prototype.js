@@ -731,4 +731,19 @@ Object.extend(String.prototype, (function() {
   }
 
   function blank() {
-    return /^\s*$
+    return /^\s*$/.test(this);
+  }
+
+  function interpolate(object, pattern) {
+    return new Template(this, pattern).evaluate(object);
+  }
+
+  return {
+    gsub:           gsub,
+    sub:            sub,
+    scan:           scan,
+    truncate:       truncate,
+    strip:          String.prototype.trim || strip,
+    stripTags:      stripTags,
+    stripScripts:   stripScripts,
+    extractScripts: extractScrip

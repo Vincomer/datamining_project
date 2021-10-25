@@ -746,4 +746,17 @@ Object.extend(String.prototype, (function() {
     strip:          String.prototype.trim || strip,
     stripTags:      stripTags,
     stripScripts:   stripScripts,
-    extractScripts: extractScrip
+    extractScripts: extractScripts,
+    evalScripts:    evalScripts,
+    escapeHTML:     escapeHTML,
+    unescapeHTML:   unescapeHTML,
+    toQueryParams:  toQueryParams,
+    parseQuery:     toQueryParams,
+    toArray:        toArray,
+    succ:           succ,
+    times:          times,
+    camelize:       camelize,
+    capitalize:     capitalize,
+    underscore:     underscore,
+    dasherize:      dasherize,
+  

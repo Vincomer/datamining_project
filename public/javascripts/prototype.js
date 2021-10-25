@@ -759,4 +759,17 @@ Object.extend(String.prototype, (function() {
     capitalize:     capitalize,
     underscore:     underscore,
     dasherize:      dasherize,
-  
+    inspect:        inspect,
+    unfilterJSON:   unfilterJSON,
+    isJSON:         isJSON,
+    evalJSON:       NATIVE_JSON_PARSE_SUPPORT ? parseJSON : evalJSON,
+    include:        include,
+    startsWith:     startsWith,
+    endsWith:       endsWith,
+    empty:          empty,
+    blank:          blank,
+    interpolate:    interpolate
+  };
+})());
+
+var Template = Class.create

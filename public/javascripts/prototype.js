@@ -772,4 +772,17 @@ Object.extend(String.prototype, (function() {
   };
 })());
 
-var Template = Class.create
+var Template = Class.create({
+  initialize: function(template, pattern) {
+    this.template = template.toString();
+    this.pattern = pattern || Template.Pattern;
+  },
+
+  evaluate: function(object) {
+    if (object && Object.isFunction(object.toTemplateReplacements))
+      object = object.toTemplateReplacements();
+
+    return this.template.gsub(this.pattern, function(match) {
+      if (object == null) return (match[1] + '');
+
+      var befor

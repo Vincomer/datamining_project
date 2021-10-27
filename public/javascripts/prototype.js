@@ -785,4 +785,15 @@ var Template = Class.create({
     return this.template.gsub(this.pattern, function(match) {
       if (object == null) return (match[1] + '');
 
-      var befor
+      var before = match[1] || '';
+      if (before == '\\') return match[2];
+
+      var ctx = object, expr = match[3],
+          pattern = /^([^.[]+|\[((?:.*?[^\\])?)\])(\.|\[|$)/;
+
+      match = pattern.exec(expr);
+      if (match == null) return before;
+
+      while (match != null) {
+        var comp = match[1].startsWith('[') ? match[2].replace(/\\\\]/g, ']') : match[1];
+        ct

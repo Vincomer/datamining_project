@@ -811,4 +811,20 @@ Template.Pattern = /(^|.|\r|\n)(#\{(.*?)\})/;
 var $break = { };
 
 var Enumerable = (function() {
-  function each(iterat
+  function each(iterator, context) {
+    var index = 0;
+    try {
+      this._each(function(value) {
+        iterator.call(context, value, index++);
+      });
+    } catch (e) {
+      if (e != $break) throw e;
+    }
+    return this;
+  }
+
+  function eachSlice(number, iterator, context) {
+    var index = -number, slices = [], array = this.toArray();
+    if (number < 1) return array;
+    while ((index += number) < array.length)
+      slices.push(a

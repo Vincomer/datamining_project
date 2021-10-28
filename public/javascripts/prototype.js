@@ -796,4 +796,19 @@ var Template = Class.create({
 
       while (match != null) {
         var comp = match[1].startsWith('[') ? match[2].replace(/\\\\]/g, ']') : match[1];
-        ct
+        ctx = ctx[comp];
+        if (null == ctx || '' == match[3]) break;
+        expr = expr.substring('[' == match[3] ? match[1].length : match[0].length);
+        match = pattern.exec(expr);
+      }
+
+      return before + String.interpret(ctx);
+    });
+  }
+});
+Template.Pattern = /(^|.|\r|\n)(#\{(.*?)\})/;
+
+var $break = { };
+
+var Enumerable = (function() {
+  function each(iterat

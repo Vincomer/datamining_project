@@ -827,4 +827,18 @@ var Enumerable = (function() {
     var index = -number, slices = [], array = this.toArray();
     if (number < 1) return array;
     while ((index += number) < array.length)
-      slices.push(a
+      slices.push(array.slice(index, index+number));
+    return slices.collect(iterator, context);
+  }
+
+  function all(iterator, context) {
+    iterator = iterator || Prototype.K;
+    var result = true;
+    this.each(function(value, index) {
+      result = result && !!iterator.call(context, value, index);
+      if (!result) throw $break;
+    });
+    return result;
+  }
+
+  functio

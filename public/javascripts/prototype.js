@@ -841,4 +841,18 @@ var Enumerable = (function() {
     return result;
   }
 
-  functio
+  function any(iterator, context) {
+    iterator = iterator || Prototype.K;
+    var result = false;
+    this.each(function(value, index) {
+      if (result = !!iterator.call(context, value, index))
+        throw $break;
+    });
+    return result;
+  }
+
+  function collect(iterator, context) {
+    iterator = iterator || Prototype.K;
+    var results = [];
+    this.each(function(value, index) {
+      results.push

@@ -855,4 +855,22 @@ var Enumerable = (function() {
     iterator = iterator || Prototype.K;
     var results = [];
     this.each(function(value, index) {
-      results.push
+      results.push(iterator.call(context, value, index));
+    });
+    return results;
+  }
+
+  function detect(iterator, context) {
+    var result;
+    this.each(function(value, index) {
+      if (iterator.call(context, value, index)) {
+        result = value;
+        throw $break;
+      }
+    });
+    return result;
+  }
+
+  function findAll(iterator, context) {
+    var results = [];
+    this.each(function(val

@@ -889,4 +889,23 @@ var Enumerable = (function() {
 
     this.each(function(value, index) {
       if (filter.match(value))
-        results.push(
+        results.push(iterator.call(context, value, index));
+    });
+    return results;
+  }
+
+  function include(object) {
+    if (Object.isFunction(this.indexOf))
+      if (this.indexOf(object) != -1) return true;
+
+    var found = false;
+    this.each(function(value) {
+      if (value == object) {
+        found = true;
+        throw $break;
+      }
+    });
+    return found;
+  }
+
+  function inGroupsOf(numb

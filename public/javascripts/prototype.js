@@ -873,4 +873,20 @@ var Enumerable = (function() {
 
   function findAll(iterator, context) {
     var results = [];
-    this.each(function(val
+    this.each(function(value, index) {
+      if (iterator.call(context, value, index))
+        results.push(value);
+    });
+    return results;
+  }
+
+  function grep(filter, iterator, context) {
+    iterator = iterator || Prototype.K;
+    var results = [];
+
+    if (Object.isString(filter))
+      filter = new RegExp(RegExp.escape(filter));
+
+    this.each(function(value, index) {
+      if (filter.match(value))
+        results.push(

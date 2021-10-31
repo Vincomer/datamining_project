@@ -935,4 +935,21 @@ var Enumerable = (function() {
     var result;
     this.each(function(value, index) {
       value = iterator.call(context, value, index);
-      if (result == null || value >= re
+      if (result == null || value >= result)
+        result = value;
+    });
+    return result;
+  }
+
+  function min(iterator, context) {
+    iterator = iterator || Prototype.K;
+    var result;
+    this.each(function(value, index) {
+      value = iterator.call(context, value, index);
+      if (result == null || value < result)
+        result = value;
+    });
+    return result;
+  }
+
+  function partit

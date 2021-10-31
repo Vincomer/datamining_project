@@ -908,4 +908,19 @@ var Enumerable = (function() {
     return found;
   }
 
-  function inGroupsOf(numb
+  function inGroupsOf(number, fillWith) {
+    fillWith = Object.isUndefined(fillWith) ? null : fillWith;
+    return this.eachSlice(number, function(slice) {
+      while(slice.length < number) slice.push(fillWith);
+      return slice;
+    });
+  }
+
+  function inject(memo, iterator, context) {
+    this.each(function(value, index) {
+      memo = iterator.call(context, memo, value, index);
+    });
+    return memo;
+  }
+
+  function invoke(met

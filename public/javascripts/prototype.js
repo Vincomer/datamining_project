@@ -923,4 +923,16 @@ var Enumerable = (function() {
     return memo;
   }
 
-  function invoke(met
+  function invoke(method) {
+    var args = $A(arguments).slice(1);
+    return this.map(function(value) {
+      return value[method].apply(value, args);
+    });
+  }
+
+  function max(iterator, context) {
+    iterator = iterator || Prototype.K;
+    var result;
+    this.each(function(value, index) {
+      value = iterator.call(context, value, index);
+      if (result == null || value >= re

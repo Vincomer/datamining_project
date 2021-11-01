@@ -952,4 +952,17 @@ var Enumerable = (function() {
     return result;
   }
 
-  function partit
+  function partition(iterator, context) {
+    iterator = iterator || Prototype.K;
+    var trues = [], falses = [];
+    this.each(function(value, index) {
+      (iterator.call(context, value, index) ?
+        trues : falses).push(value);
+    });
+    return [trues, falses];
+  }
+
+  function pluck(property) {
+    var results = [];
+    this.each(function(value) {
+      res

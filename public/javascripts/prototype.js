@@ -965,4 +965,21 @@ var Enumerable = (function() {
   function pluck(property) {
     var results = [];
     this.each(function(value) {
-      res
+      results.push(value[property]);
+    });
+    return results;
+  }
+
+  function reject(iterator, context) {
+    var results = [];
+    this.each(function(value, index) {
+      if (!iterator.call(context, value, index))
+        results.push(value);
+    });
+    return results;
+  }
+
+  function sortBy(iterator, context) {
+    return this.map(function(value, index) {
+      return {
+        value: valu

@@ -982,4 +982,20 @@ var Enumerable = (function() {
   function sortBy(iterator, context) {
     return this.map(function(value, index) {
       return {
-        value: valu
+        value: value,
+        criteria: iterator.call(context, value, index)
+      };
+    }).sort(function(left, right) {
+      var a = left.criteria, b = right.criteria;
+      return a < b ? -1 : a > b ? 1 : 0;
+    }).pluck('value');
+  }
+
+  function toArray() {
+    return this.map();
+  }
+
+  function zip() {
+    var iterator = Prototype.K, args = $A(arguments);
+    if (Object.isFunction(args.last()))
+      iterato

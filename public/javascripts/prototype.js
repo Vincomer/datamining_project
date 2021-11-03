@@ -1025,4 +1025,19 @@ var Enumerable = (function() {
   return {
     each:       each,
     eachSlice:  eachSlice,
-    all:        
+    all:        all,
+    every:      all,
+    any:        any,
+    some:       any,
+    collect:    collect,
+    map:        collect,
+    detect:     detect,
+    findAll:    findAll,
+    select:     findAll,
+    filter:     findAll,
+    grep:       grep,
+    include:    include,
+    member:     include,
+    inGroupsOf: inGroupsOf,
+    inject:     inject,
+    inv

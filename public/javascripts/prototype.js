@@ -1040,4 +1040,22 @@ var Enumerable = (function() {
     member:     include,
     inGroupsOf: inGroupsOf,
     inject:     inject,
-    inv
+    invoke:     invoke,
+    max:        max,
+    min:        min,
+    partition:  partition,
+    pluck:      pluck,
+    reject:     reject,
+    sortBy:     sortBy,
+    toArray:    toArray,
+    entries:    toArray,
+    zip:        zip,
+    size:       size,
+    inspect:    inspect,
+    find:       detect
+  };
+})();
+
+function $A(iterable) {
+  if (!iterable) return [];
+  if ('toArray' in Object(

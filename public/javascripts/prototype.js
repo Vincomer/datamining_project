@@ -1091,4 +1091,22 @@ Array.from = $A;
   }
 
   function first() {
-    return this[0]
+    return this[0];
+  }
+
+  function last() {
+    return this[this.length - 1];
+  }
+
+  function compact() {
+    return this.select(function(value) {
+      return value != null;
+    });
+  }
+
+  function flatten() {
+    return this.inject([], function(array, value) {
+      if (Object.isArray(value))
+        return array.concat(value.flatten());
+      array.push(value);
+      return ar

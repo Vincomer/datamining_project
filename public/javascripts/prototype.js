@@ -1126,4 +1126,25 @@ Array.from = $A;
 
   function uniq(sorted) {
     return this.inject([], function(array, value, index) {
-      if (0 == index || (sorted
+      if (0 == index || (sorted ? array.last() != value : !array.include(value)))
+        array.push(value);
+      return array;
+    });
+  }
+
+  function intersect(array) {
+    return this.uniq().findAll(function(item) {
+      return array.detect(function(value) { return item === value });
+    });
+  }
+
+
+  function clone() {
+    return slice.call(this, 0);
+  }
+
+  function size() {
+    return this.length;
+  }
+
+  function inspect()

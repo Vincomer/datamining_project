@@ -1173,4 +1173,25 @@ Array.from = $A;
       if (Object.isArray(item) && !('callee' in item)) {
         for (var j = 0, arrayLength = item.length; j < arrayLength; j++)
           array.push(item[j]);
-    
+      } else {
+        array.push(item);
+      }
+    }
+    return array;
+  }
+
+  Object.extend(arrayProto, Enumerable);
+
+  if (!arrayProto._reverse)
+    arrayProto._reverse = arrayProto.reverse;
+
+  Object.extend(arrayProto, {
+    _each:     _each,
+    clear:     clear,
+    first:     first,
+    last:      last,
+    compact:   compact,
+    flatten:   flatten,
+    without:   without,
+    reverse:   reverse,
+  

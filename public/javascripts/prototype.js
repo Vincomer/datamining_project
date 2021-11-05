@@ -1162,4 +1162,15 @@ Array.from = $A;
 
   function lastIndexOf(item, i) {
     i = isNaN(i) ? this.length : (i < 0 ? this.length + i : i) + 1;
-    var n = this.slice(0, i).reverse(
+    var n = this.slice(0, i).reverse().indexOf(item);
+    return (n < 0) ? n : i - n - 1;
+  }
+
+  function concat() {
+    var array = slice.call(this, 0), item;
+    for (var i = 0, length = arguments.length; i < length; i++) {
+      item = arguments[i];
+      if (Object.isArray(item) && !('callee' in item)) {
+        for (var j = 0, arrayLength = item.length; j < arrayLength; j++)
+          array.push(item[j]);
+    

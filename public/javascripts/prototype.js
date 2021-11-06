@@ -1224,4 +1224,25 @@ var Hash = Class.create(Enumerable, (function() {
   function _each(iterator) {
     for (var key in this._object) {
       var value = this._object[key], pair = [key, value];
-      p
+      pair.key = key;
+      pair.value = value;
+      iterator(pair);
+    }
+  }
+
+  function set(key, value) {
+    return this._object[key] = value;
+  }
+
+  function get(key) {
+    if (this._object[key] !== Object.prototype[key])
+      return this._object[key];
+  }
+
+  function unset(key) {
+    var value = this._object[key];
+    delete this._object[key];
+    return value;
+  }
+
+  f

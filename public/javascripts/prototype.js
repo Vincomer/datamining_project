@@ -1209,4 +1209,19 @@ Array.from = $A;
   if (CONCAT_ARGUMENTS_BUGGY) arrayProto.concat = concat;
 
   if (!arrayProto.indexOf) arrayProto.indexOf = indexOf;
-  if (!arrayProto.lastIndexOf) arrayP
+  if (!arrayProto.lastIndexOf) arrayProto.lastIndexOf = lastIndexOf;
+})();
+function $H(object) {
+  return new Hash(object);
+};
+
+var Hash = Class.create(Enumerable, (function() {
+  function initialize(object) {
+    this._object = Object.isHash(object) ? object.toObject() : Object.clone(object);
+  }
+
+
+  function _each(iterator) {
+    for (var key in this._object) {
+      var value = this._object[key], pair = [key, value];
+      p

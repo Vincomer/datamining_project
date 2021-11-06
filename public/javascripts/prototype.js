@@ -1245,4 +1245,25 @@ var Hash = Class.create(Enumerable, (function() {
     return value;
   }
 
-  f
+  function toObject() {
+    return Object.clone(this._object);
+  }
+
+
+
+  function keys() {
+    return this.pluck('key');
+  }
+
+  function values() {
+    return this.pluck('value');
+  }
+
+  function index(value) {
+    var match = this.detect(function(pair) {
+      return pair.value === value;
+    });
+    return match && match.key;
+  }
+
+  function merge(object) 

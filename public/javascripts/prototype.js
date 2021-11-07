@@ -1266,4 +1266,20 @@ var Hash = Class.create(Enumerable, (function() {
     return match && match.key;
   }
 
-  function merge(object) 
+  function merge(object) {
+    return this.clone().update(object);
+  }
+
+  function update(object) {
+    return new Hash(object).inject(this, function(result, pair) {
+      result.set(pair.key, pair.value);
+      return result;
+    });
+  }
+
+  function toQueryPair(key, value) {
+    if (Object.isUndefined(value)) return key;
+    return key + '=' + encodeURIComponent(String.interpret(value));
+  }
+
+  function toQueryString() 

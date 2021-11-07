@@ -1282,4 +1282,13 @@ var Hash = Class.create(Enumerable, (function() {
     return key + '=' + encodeURIComponent(String.interpret(value));
   }
 
-  function toQueryString() 
+  function toQueryString() {
+    return this.inject([], function(results, pair) {
+      var key = encodeURIComponent(pair.key), values = pair.value;
+
+      if (values && typeof values == 'object') {
+        if (Object.isArray(values))
+          return results.concat(values.map(toQueryPair.curry(key)));
+      } else results.push(toQueryPair(key, values));
+      return results;
+    }).j

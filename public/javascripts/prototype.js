@@ -1291,4 +1291,22 @@ var Hash = Class.create(Enumerable, (function() {
           return results.concat(values.map(toQueryPair.curry(key)));
       } else results.push(toQueryPair(key, values));
       return results;
-    }).j
+    }).join('&');
+  }
+
+  function inspect() {
+    return '#<Hash:{' + this.map(function(pair) {
+      return pair.map(Object.inspect).join(': ');
+    }).join(', ') + '}>';
+  }
+
+  function clone() {
+    return new Hash(this);
+  }
+
+  return {
+    initialize:             initialize,
+    _each:                  _each,
+    set:                    set,
+    get:                    get,
+    unset:                  unset,

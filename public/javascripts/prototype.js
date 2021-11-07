@@ -1310,3 +1310,13 @@ var Hash = Class.create(Enumerable, (function() {
     set:                    set,
     get:                    get,
     unset:                  unset,
+    toObject:               toObject,
+    toTemplateReplacements: toObject,
+    keys:                   keys,
+    values:                 values,
+    index:                  index,
+    merge:                  merge,
+    update:                 update,
+    toQueryString:          toQueryString,
+    inspect:                inspect,
+   

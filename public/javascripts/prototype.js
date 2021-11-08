@@ -1340,4 +1340,25 @@ Object.extend(Number.prototype, (function() {
   }
 
   function toPaddedString(length, radix) {
- 
+    var string = this.toString(radix || 10);
+    return '0'.times(length - string.length) + string;
+  }
+
+  function abs() {
+    return Math.abs(this);
+  }
+
+  function round() {
+    return Math.round(this);
+  }
+
+  function ceil() {
+    return Math.ceil(this);
+  }
+
+  function floor() {
+    return Math.floor(this);
+  }
+
+  return {
+    toColorPart:

@@ -1319,4 +1319,25 @@ var Hash = Class.create(Enumerable, (function() {
     update:                 update,
     toQueryString:          toQueryString,
     inspect:                inspect,
-   
+    toJSON:                 toObject,
+    clone:                  clone
+  };
+})());
+
+Hash.from = $H;
+Object.extend(Number.prototype, (function() {
+  function toColorPart() {
+    return this.toPaddedString(2, 16);
+  }
+
+  function succ() {
+    return this + 1;
+  }
+
+  function times(iterator, context) {
+    $R(0, this, true).each(iterator, context);
+    return this;
+  }
+
+  function toPaddedString(length, radix) {
+ 

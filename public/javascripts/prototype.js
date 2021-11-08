@@ -1361,4 +1361,19 @@ Object.extend(Number.prototype, (function() {
   }
 
   return {
-    toColorPart:
+    toColorPart:    toColorPart,
+    succ:           succ,
+    times:          times,
+    toPaddedString: toPaddedString,
+    abs:            abs,
+    round:          round,
+    ceil:           ceil,
+    floor:          floor
+  };
+})());
+
+function $R(start, end, exclusive) {
+  return new ObjectRange(start, end, exclusive);
+}
+
+var ObjectRange = Class.create(Enumerable, (function(

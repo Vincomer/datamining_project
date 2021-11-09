@@ -1393,4 +1393,23 @@ var ObjectRange = Class.create(Enumerable, (function() {
 
   function include(value) {
     if (value < this.start)
-      return f
+      return false;
+    if (this.exclusive)
+      return value < this.end;
+    return value <= this.end;
+  }
+
+  return {
+    initialize: initialize,
+    _each:      _each,
+    include:    include
+  };
+})());
+
+
+
+var Ajax = {
+  getTransport: function() {
+    return Try.these(
+      function() {return new XMLHttpRequest()},
+      function() {return new ActiveXObj

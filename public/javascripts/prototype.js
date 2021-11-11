@@ -1471,4 +1471,19 @@ Ajax.Base = Class.create({
     if (Object.isString(this.options.parameters))
       this.options.parameters = this.options.parameters.toQueryParams();
     else if (Object.isHash(this.options.parameters))
-      this.options.parameters = this.opti
+      this.options.parameters = this.options.parameters.toObject();
+  }
+});
+Ajax.Request = Class.create(Ajax.Base, {
+  _complete: false,
+
+  initialize: function($super, url, options) {
+    $super(options);
+    this.transport = Ajax.getTransport();
+    this.request(url);
+  },
+
+  request: function(url) {
+    this.url = url;
+    this.method = this.options.method;
+    var params = Object.clone(this.options.parameters);

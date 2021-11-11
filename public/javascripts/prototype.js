@@ -1449,4 +1449,16 @@ Ajax.Responders = {
 
 Object.extend(Ajax.Responders, Enumerable);
 
-Ajax.Respo
+Ajax.Responders.register({
+  onCreate:   function() { Ajax.activeRequestCount++ },
+  onComplete: function() { Ajax.activeRequestCount-- }
+});
+Ajax.Base = Class.create({
+  initialize: function(options) {
+    this.options = {
+      method:       'post',
+      asynchronous: true,
+      contentType:  'application/x-www-form-urlencoded',
+      encoding:     'UTF-8',
+      parameters:   '',
+      e

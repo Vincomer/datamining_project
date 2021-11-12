@@ -1487,3 +1487,15 @@ Ajax.Request = Class.create(Ajax.Base, {
     this.url = url;
     this.method = this.options.method;
     var params = Object.clone(this.options.parameters);
+
+    if (!['get', 'post'].include(this.method)) {
+      params['_method'] = this.method;
+      this.method = 'post';
+    }
+
+    this.parameters = params;
+
+    if (params = Object.toQueryString(params)) {
+      if (this.method == 'get')
+        this.url += (this.url.include('?') ? '&' : '?') + params;
+      else if (/Konqueror|Safari|KHTML/.test(

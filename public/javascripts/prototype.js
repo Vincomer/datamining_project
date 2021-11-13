@@ -1519,4 +1519,19 @@ Ajax.Request = Class.create(Ajax.Base, {
       this.transport.send(this.body);
 
       /* Force Firefox to handle ready state 4 for synchronous requests */
-      if (!this.opti
+      if (!this.options.asynchronous && this.transport.overrideMimeType)
+        this.onStateChange();
+
+    }
+    catch (e) {
+      this.dispatchException(e);
+    }
+  },
+
+  onStateChange: function() {
+    var readyState = this.transport.readyState;
+    if (readyState > 1 && !((readyState == 4) && this._complete))
+      this.respondToReadyState(this.transport.readyState);
+  },
+
+  set

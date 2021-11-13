@@ -1534,4 +1534,13 @@ Ajax.Request = Class.create(Ajax.Base, {
       this.respondToReadyState(this.transport.readyState);
   },
 
-  set
+  setRequestHeaders: function() {
+    var headers = {
+      'X-Requested-With': 'XMLHttpRequest',
+      'X-Prototype-Version': Prototype.Version,
+      'Accept': 'text/javascript, text/html, application/xml, text/xml, */*'
+    };
+
+    if (this.method == 'post') {
+      headers['Content-type'] = this.options.contentType +
+        (this.options.encoding ? '; charset=' + this.options.e

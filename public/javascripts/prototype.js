@@ -1564,4 +1564,20 @@ Ajax.Request = Class.create(Ajax.Base, {
         $H(extras).each(function(pair) { headers[pair.key] = pair.value });
     }
 
-    for (var name i
+    for (var name in headers)
+      this.transport.setRequestHeader(name, headers[name]);
+  },
+
+  success: function() {
+    var status = this.getStatus();
+    return !status || (status >= 200 && status < 300);
+  },
+
+  getStatus: function() {
+    try {
+      return this.transport.status || 0;
+    } catch (e) { return 0 }
+  },
+
+  respondToReadyState: function(readyState) {
+    var state = Ajax.Request.Events[rea

@@ -1543,4 +1543,12 @@ Ajax.Request = Class.create(Ajax.Base, {
 
     if (this.method == 'post') {
       headers['Content-type'] = this.options.contentType +
-        (this.options.encoding ? '; charset=' + this.options.e
+        (this.options.encoding ? '; charset=' + this.options.encoding : '');
+
+      /* Force "Connection: close" for older Mozilla browsers to work
+       * around a bug where XMLHttpRequest sends an incorrect
+       * Content-length header. See Mozilla Bugzilla #246651.
+       */
+      if (this.transport.overrideMimeType &&
+          (navigator.userAgent.match(/Gecko\/(\d{4})/) || [0,2005])[1] < 2005)
+            headers['Connectio

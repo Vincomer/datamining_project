@@ -1551,4 +1551,17 @@ Ajax.Request = Class.create(Ajax.Base, {
        */
       if (this.transport.overrideMimeType &&
           (navigator.userAgent.match(/Gecko\/(\d{4})/) || [0,2005])[1] < 2005)
-            headers['Connectio
+            headers['Connection'] = 'close';
+    }
+
+    if (typeof this.options.requestHeaders == 'object') {
+      var extras = this.options.requestHeaders;
+
+      if (Object.isFunction(extras.push))
+        for (var i = 0, length = extras.length; i < length; i += 2)
+          headers[extras[i]] = extras[i+1];
+      else
+        $H(extras).each(function(pair) { headers[pair.key] = pair.value });
+    }
+
+    for (var name i

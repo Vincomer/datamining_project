@@ -1580,4 +1580,13 @@ Ajax.Request = Class.create(Ajax.Base, {
   },
 
   respondToReadyState: function(readyState) {
-    var state = Ajax.Request.Events[rea
+    var state = Ajax.Request.Events[readyState], response = new Ajax.Response(this);
+
+    if (state == 'Complete') {
+      try {
+        this._complete = true;
+        (this.options['on' + response.status]
+         || this.options['on' + (this.success() ? 'Success' : 'Failure')]
+         || Prototype.emptyFunction)(response, response.headerJSON);
+      } catch (e) {
+        thi

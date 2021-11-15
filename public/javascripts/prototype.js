@@ -1600,4 +1600,16 @@ Ajax.Request = Class.create(Ajax.Base, {
     }
 
     try {
-      (this.options['on' + state] ||
+      (this.options['on' + state] || Prototype.emptyFunction)(response, response.headerJSON);
+      Ajax.Responders.dispatch('on' + state, this, response, response.headerJSON);
+    } catch (e) {
+      this.dispatchException(e);
+    }
+
+    if (state == 'Complete') {
+      this.transport.onreadystatechange = Prototype.emptyFunction;
+    }
+  },
+
+  isSameOrigin: function() {
+    var m = this.url.match(/^\s*https?:\/\/[^\/]*/

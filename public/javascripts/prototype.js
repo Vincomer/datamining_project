@@ -1589,4 +1589,15 @@ Ajax.Request = Class.create(Ajax.Base, {
          || this.options['on' + (this.success() ? 'Success' : 'Failure')]
          || Prototype.emptyFunction)(response, response.headerJSON);
       } catch (e) {
-        thi
+        this.dispatchException(e);
+      }
+
+      var contentType = response.getHeader('Content-type');
+      if (this.options.evalJS == 'force'
+          || (this.options.evalJS && this.isSameOrigin() && contentType
+          && contentType.match(/^\s*(text|application)\/(x-)?(java|ecma)script(;.*)?\s*$/i)))
+        this.evalResponse();
+    }
+
+    try {
+      (this.options['on' + state] ||

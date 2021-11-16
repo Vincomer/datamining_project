@@ -1612,4 +1612,19 @@ Ajax.Request = Class.create(Ajax.Base, {
   },
 
   isSameOrigin: function() {
-    var m = this.url.match(/^\s*https?:\/\/[^\/]*/
+    var m = this.url.match(/^\s*https?:\/\/[^\/]*/);
+    return !m || (m[0] == '#{protocol}//#{domain}#{port}'.interpolate({
+      protocol: location.protocol,
+      domain: document.domain,
+      port: location.port ? ':' + location.port : ''
+    }));
+  },
+
+  getHeader: function(name) {
+    try {
+      return this.transport.getResponseHeader(name) || null;
+    } catch (e) { return null; }
+  },
+
+  evalResponse: function() {
+  

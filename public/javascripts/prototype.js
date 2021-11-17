@@ -1658,4 +1658,20 @@ Ajax.Response = Class.create({
 
     if ((readyState > 2 && !Prototype.Browser.IE) || readyState == 4) {
       this.status       = this.getStatus();
-      this
+      this.statusText   = this.getStatusText();
+      this.responseText = String.interpret(transport.responseText);
+      this.headerJSON   = this._getHeaderJSON();
+    }
+
+    if (readyState == 4) {
+      var xml = transport.responseXML;
+      this.responseXML  = Object.isUndefined(xml) ? null : xml;
+      this.responseJSON = this._getResponseJSON();
+    }
+  },
+
+  status:      0,
+
+  statusText: '',
+
+  getStatus: Ajax.Request.prot

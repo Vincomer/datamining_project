@@ -1641,4 +1641,21 @@ Ajax.Request = Class.create(Ajax.Base, {
 });
 
 Ajax.Request.Events =
-  ['Uninitialized', 'Loading', 'Loaded', 'Inter
+  ['Uninitialized', 'Loading', 'Loaded', 'Interactive', 'Complete'];
+
+
+
+
+
+
+
+
+Ajax.Response = Class.create({
+  initialize: function(request){
+    this.request = request;
+    var transport  = this.transport  = request.transport,
+        readyState = this.readyState = transport.readyState;
+
+    if ((readyState > 2 && !Prototype.Browser.IE) || readyState == 4) {
+      this.status       = this.getStatus();
+      this

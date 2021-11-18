@@ -1717,4 +1717,19 @@ Ajax.Response = Class.create({
         this.responseText.blank())
           return null;
     try {
-      return this.responseText.evalJSON(options.san
+      return this.responseText.evalJSON(options.sanitizeJSON ||
+        !this.request.isSameOrigin());
+    } catch (e) {
+      this.request.dispatchException(e);
+    }
+  }
+});
+
+Ajax.Updater = Class.create(Ajax.Request, {
+  initialize: function($super, container, url, options) {
+    this.container = {
+      success: (container.success || container),
+      failure: (container.failure || (container.success ? null : container))
+    };
+
+    optio

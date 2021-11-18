@@ -1705,3 +1705,16 @@ Ajax.Response = Class.create({
     try {
       return json.evalJSON(this.request.options.sanitizeJSON ||
         !this.request.isSameOrigin());
+    } catch (e) {
+      this.request.dispatchException(e);
+    }
+  },
+
+  _getResponseJSON: function() {
+    var options = this.request.options;
+    if (!options.evalJSON || (options.evalJSON != 'force' &&
+      !(this.getHeader('Content-type') || '').include('application/json')) ||
+        this.responseText.blank())
+          return null;
+    try {
+      return this.responseText.evalJSON(options.san

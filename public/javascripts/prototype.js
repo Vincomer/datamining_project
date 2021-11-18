@@ -1691,4 +1691,17 @@ Ajax.Response = Class.create({
   },
 
   getResponseHeader: function(name) {
-    return this.tra
+    return this.transport.getResponseHeader(name);
+  },
+
+  getAllResponseHeaders: function() {
+    return this.transport.getAllResponseHeaders();
+  },
+
+  _getHeaderJSON: function() {
+    var json = this.getHeader('X-JSON');
+    if (!json) return null;
+    json = decodeURIComponent(escape(json));
+    try {
+      return json.evalJSON(this.request.options.sanitizeJSON ||
+        !this.request.isSameOrigin());

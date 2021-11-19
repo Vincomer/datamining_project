@@ -1754,4 +1754,19 @@ Ajax.Updater = Class.create(Ajax.Request, {
           var insertion = { }; insertion[options.insertion] = responseText;
           receiver.insert(insertion);
         }
-        else opti
+        else options.insertion(receiver, responseText);
+      }
+      else receiver.update(responseText);
+    }
+  }
+});
+
+Ajax.PeriodicalUpdater = Class.create(Ajax.Base, {
+  initialize: function($super, container, url, options) {
+    $super(options);
+    this.onComplete = this.options.onComplete;
+
+    this.frequency = (this.options.frequency || 2);
+    this.decay = (this.options.decay || 1);
+
+    this.up

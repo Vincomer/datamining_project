@@ -1743,4 +1743,15 @@ Ajax.Updater = Class.create(Ajax.Request, {
   },
 
   updateContent: function(responseText) {
-    var receiver = this.c
+    var receiver = this.container[this.success() ? 'success' : 'failure'],
+        options = this.options;
+
+    if (!options.evalScripts) responseText = responseText.stripScripts();
+
+    if (receiver = $(receiver)) {
+      if (options.insertion) {
+        if (Object.isString(options.insertion)) {
+          var insertion = { }; insertion[options.insertion] = responseText;
+          receiver.insert(insertion);
+        }
+        else opti

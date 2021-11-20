@@ -1769,4 +1769,22 @@ Ajax.PeriodicalUpdater = Class.create(Ajax.Base, {
     this.frequency = (this.options.frequency || 2);
     this.decay = (this.options.decay || 1);
 
-    this.up
+    this.updater = { };
+    this.container = container;
+    this.url = url;
+
+    this.start();
+  },
+
+  start: function() {
+    this.options.onComplete = this.updateComplete.bind(this);
+    this.onTimerEvent();
+  },
+
+  stop: function() {
+    this.updater.options.onComplete = undefined;
+    clearTimeout(this.timer);
+    (this.onComplete || Prototype.emptyFunction).apply(this, arguments);
+  },
+
+  update

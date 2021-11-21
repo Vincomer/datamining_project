@@ -1841,4 +1841,25 @@ if (!Node.ELEMENT_NODE) {
     COMMENT_NODE: 8,
     DOCUMENT_NODE: 9,
     DOCUMENT_TYPE_NODE: 10,
-    DO
+    DOCUMENT_FRAGMENT_NODE: 11,
+    NOTATION_NODE: 12
+  });
+}
+
+
+
+(function(global) {
+
+  var HAS_EXTENDED_CREATE_ELEMENT_SYNTAX = (function(){
+    try {
+      var el = document.createElement('<input name="x">');
+      return el.tagName.toLowerCase() === 'input' && el.name === 'x';
+    }
+    catch(err) {
+      return false;
+    }
+  })();
+
+  var element = global.Element;
+
+  g

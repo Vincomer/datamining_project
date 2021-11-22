@@ -1862,4 +1862,11 @@ if (!Node.ELEMENT_NODE) {
 
   var element = global.Element;
 
-  g
+  global.Element = function(tagName, attributes) {
+    attributes = attributes || { };
+    tagName = tagName.toLowerCase();
+    var cache = Element.cache;
+    if (HAS_EXTENDED_CREATE_ELEMENT_SYNTAX && attributes.name) {
+      tagName = '<' + tagName + ' name="' + attributes.name + '">';
+      delete attributes.name;
+      return Element.writeAttribute(document

@@ -1880,4 +1880,22 @@ if (!Node.ELEMENT_NODE) {
 
 })(this);
 
-Element.idCoun
+Element.idCounter = 1;
+Element.cache = { };
+
+function purgeElement(element) {
+  var uid = element._prototypeUID;
+  if (uid) {
+    Element.stopObserving(element);
+    element._prototypeUID = void 0;
+    delete Element.Storage[uid];
+  }
+}
+
+Element.Methods = {
+  visible: function(element) {
+    return $(element).style.display != 'none';
+  },
+
+  toggle: function(element) {
+    element = $(e

@@ -1898,4 +1898,23 @@ Element.Methods = {
   },
 
   toggle: function(element) {
-    element = $(e
+    element = $(element);
+    Element[Element.visible(element) ? 'hide' : 'show'](element);
+    return element;
+  },
+
+  hide: function(element) {
+    element = $(element);
+    element.style.display = 'none';
+    return element;
+  },
+
+  show: function(element) {
+    element = $(element);
+    element.style.display = '';
+    return element;
+  },
+
+  remove: function(element) {
+    element = $(element);
+    element.parentNode.rem

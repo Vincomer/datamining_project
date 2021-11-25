@@ -1928,4 +1928,16 @@ Element.Methods = {
           isBuggy = true;
       el.innerHTML = "<option value=\"test\">test</option>";
       if (el.options && el.options[0]) {
-        isBuggy = el.options[0].nodeName.toUpperCas
+        isBuggy = el.options[0].nodeName.toUpperCase() !== "OPTION";
+      }
+      el = null;
+      return isBuggy;
+    })();
+
+    var TABLE_ELEMENT_INNERHTML_BUGGY = (function(){
+      try {
+        var el = document.createElement("table");
+        if (el && el.tBodies) {
+          el.innerHTML = "<tbody><tr><td>test</td></tr></tbody>";
+          var isBuggy = typeof el.tBodies[0] == "undefined";
+          el =

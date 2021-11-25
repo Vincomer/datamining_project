@@ -1940,4 +1940,18 @@ Element.Methods = {
         if (el && el.tBodies) {
           el.innerHTML = "<tbody><tr><td>test</td></tr></tbody>";
           var isBuggy = typeof el.tBodies[0] == "undefined";
-          el =
+          el = null;
+          return isBuggy;
+        }
+      } catch (e) {
+        return true;
+      }
+    })();
+
+    var SCRIPT_ELEMENT_REJECTS_TEXTNODE_APPENDING = (function () {
+      var s = document.createElement("script"),
+          isBuggy = false;
+      try {
+        s.appendChild(document.createTextNode(""));
+        isBuggy = !s.firstChild ||
+          s.firstChild && s.firstChild.nodeType !== 3;

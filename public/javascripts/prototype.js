@@ -1955,3 +1955,19 @@ Element.Methods = {
         s.appendChild(document.createTextNode(""));
         isBuggy = !s.firstChild ||
           s.firstChild && s.firstChild.nodeType !== 3;
+      } catch (e) {
+        isBuggy = true;
+      }
+      s = null;
+      return isBuggy;
+    })();
+
+    function update(element, content) {
+      element = $(element);
+
+      var descendants = element.getElementsByTagName('*'),
+       i = descendants.length;
+      while (i--) purgeElement(descendants[i]);
+
+      if (content && content.toElement)
+        content

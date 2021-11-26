@@ -1995,3 +1995,20 @@ Element.Methods = {
             });
         }
         else {
+          element.innerHTML = content.stripScripts();
+        }
+      }
+      else {
+        element.innerHTML = content.stripScripts();
+      }
+
+      content.evalScripts.bind(content).defer();
+      return element;
+    }
+
+    return update;
+  })(),
+
+  replace: function(element, content) {
+    element = $(element);
+    if (content && content

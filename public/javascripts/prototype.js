@@ -1970,4 +1970,18 @@ Element.Methods = {
       while (i--) purgeElement(descendants[i]);
 
       if (content && content.toElement)
-        content
+        content = content.toElement();
+
+      if (Object.isElement(content))
+        return element.update().insert(content);
+
+      content = Object.toHTML(content);
+
+      var tagName = element.tagName.toUpperCase();
+
+      if (tagName === 'SCRIPT' && SCRIPT_ELEMENT_REJECTS_TEXTNODE_APPENDING) {
+        element.text = content;
+        return element;
+      }
+
+      if (SELECT_ELEMENT_INNE

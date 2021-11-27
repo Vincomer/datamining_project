@@ -2011,4 +2011,12 @@ Element.Methods = {
 
   replace: function(element, content) {
     element = $(element);
-    if (content && content
+    if (content && content.toElement) content = content.toElement();
+    else if (!Object.isElement(content)) {
+      content = Object.toHTML(content);
+      var range = element.ownerDocument.createRange();
+      range.selectNode(element);
+      content.evalScripts.bind(content).defer();
+      content = range.createContextualFragment(content.stripScripts());
+    }
+    element.parentNode.replaceChild(content

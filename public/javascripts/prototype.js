@@ -2019,4 +2019,15 @@ Element.Methods = {
       content.evalScripts.bind(content).defer();
       content = range.createContextualFragment(content.stripScripts());
     }
-    element.parentNode.replaceChild(content
+    element.parentNode.replaceChild(content, element);
+    return element;
+  },
+
+  insert: function(element, insertions) {
+    element = $(element);
+
+    if (Object.isString(insertions) || Object.isNumber(insertions) ||
+        Object.isElement(insertions) || (insertions && (insertions.toElement || insertions.toHTML)))
+          insertions = {bottom:insertions};
+
+    var content, insert, tagName, chi

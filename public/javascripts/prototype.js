@@ -2051,4 +2051,18 @@ Element.Methods = {
       childNodes = Element._getContentFromAnonymousElement(tagName, content.stripScripts());
 
       if (position == 'top' || position == 'after') childNodes.reverse();
-      childNodes.each(insert.curry(element
+      childNodes.each(insert.curry(element));
+
+      content.evalScripts.bind(content).defer();
+    }
+
+    return element;
+  },
+
+  wrap: function(element, wrapper, attributes) {
+    element = $(element);
+    if (Object.isElement(wrapper))
+      $(wrapper).writeAttribute(attributes || { });
+    else if (Object.isString(wrapper)) wrapper = new Element(wrapper, attributes);
+    else wrapper = new Element('div', wrapper);
+    if (element.pare

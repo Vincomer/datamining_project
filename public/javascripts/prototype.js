@@ -2065,4 +2065,15 @@ Element.Methods = {
       $(wrapper).writeAttribute(attributes || { });
     else if (Object.isString(wrapper)) wrapper = new Element(wrapper, attributes);
     else wrapper = new Element('div', wrapper);
-    if (element.pare
+    if (element.parentNode)
+      element.parentNode.replaceChild(wrapper, element);
+    wrapper.appendChild(element);
+    return wrapper;
+  },
+
+  inspect: function(element) {
+    element = $(element);
+    var result = '<' + element.tagName.toLowerCase();
+    $H({'id': 'id', 'className': 'class'}).each(function(pair) {
+      var property = pair.first(),
+          

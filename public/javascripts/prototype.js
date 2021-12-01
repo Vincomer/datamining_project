@@ -2115,4 +2115,21 @@ Element.Methods = {
   immediateDescendants: function(element) {
     var results = [], child = $(element).firstChild;
     while (child) {
-      if (
+      if (child.nodeType === 1) {
+        results.push(Element.extend(child));
+      }
+      child = child.nextSibling;
+    }
+    return results;
+  },
+
+  previousSiblings: function(element, maximumLength) {
+    return Element.recursivelyCollect(element, 'previousSibling');
+  },
+
+  nextSiblings: function(element) {
+    return Element.recursivelyCollect(element, 'nextSibling');
+  },
+
+  siblings: function(element) {
+    element 

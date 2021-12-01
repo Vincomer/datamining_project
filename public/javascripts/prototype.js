@@ -2086,4 +2086,21 @@ Element.Methods = {
   recursivelyCollect: function(element, property, maximumLength) {
     element = $(element);
     maximumLength = maximumLength || -1;
-    var element
+    var elements = [];
+
+    while (element = element[property]) {
+      if (element.nodeType == 1)
+        elements.push(Element.extend(element));
+      if (elements.length == maximumLength)
+        break;
+    }
+
+    return elements;
+  },
+
+  ancestors: function(element) {
+    return Element.recursivelyCollect(element, 'parentNode');
+  },
+
+  descendants: function(element) {
+    return

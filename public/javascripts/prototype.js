@@ -2076,4 +2076,14 @@ Element.Methods = {
     var result = '<' + element.tagName.toLowerCase();
     $H({'id': 'id', 'className': 'class'}).each(function(pair) {
       var property = pair.first(),
-          
+          attribute = pair.last(),
+          value = (element[property] || '').toString();
+      if (value) result += ' ' + attribute + '=' + value.inspect(true);
+    });
+    return result + '>';
+  },
+
+  recursivelyCollect: function(element, property, maximumLength) {
+    element = $(element);
+    maximumLength = maximumLength || -1;
+    var element

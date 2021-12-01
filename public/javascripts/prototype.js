@@ -2103,4 +2103,16 @@ Element.Methods = {
   },
 
   descendants: function(element) {
-    return
+    return Element.select(element, "*");
+  },
+
+  firstDescendant: function(element) {
+    element = $(element).firstChild;
+    while (element && element.nodeType != 1) element = element.nextSibling;
+    return $(element);
+  },
+
+  immediateDescendants: function(element) {
+    var results = [], child = $(element).firstChild;
+    while (child) {
+      if (

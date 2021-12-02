@@ -2132,4 +2132,17 @@ Element.Methods = {
   },
 
   siblings: function(element) {
-    element 
+    element = $(element);
+    return Element.previousSiblings(element).reverse()
+      .concat(Element.nextSiblings(element));
+  },
+
+  match: function(element, selector) {
+    element = $(element);
+    if (Object.isString(selector))
+      return Prototype.Selector.match(element, selector);
+    return selector.match(element);
+  },
+
+  up: function(element, expression, index) {
+    element = $

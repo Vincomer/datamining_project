@@ -2145,4 +2145,13 @@ Element.Methods = {
   },
 
   up: function(element, expression, index) {
-    element = $
+    element = $(element);
+    if (arguments.length == 1) return $(element.parentNode);
+    var ancestors = Element.ancestors(element);
+    return Object.isNumber(expression) ? ancestors[expression] :
+      Prototype.Selector.find(ancestors, expression, index);
+  },
+
+  down: function(element, expression, index) {
+    element = $(element);
+    if (arguments.length == 1) return Element.first

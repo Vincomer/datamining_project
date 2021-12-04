@@ -2154,4 +2154,14 @@ Element.Methods = {
 
   down: function(element, expression, index) {
     element = $(element);
-    if (arguments.length == 1) return Element.first
+    if (arguments.length == 1) return Element.firstDescendant(element);
+    return Object.isNumber(expression) ? Element.descendants(element)[expression] :
+      Element.select(element, expression)[index || 0];
+  },
+
+  previous: function(element, expression, index) {
+    element = $(element);
+    if (Object.isNumber(expression)) index = expression, expression = false;
+    if (!Object.isNumber(index)) index = 0;
+
+    if (e

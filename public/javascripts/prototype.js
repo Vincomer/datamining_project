@@ -2164,4 +2164,14 @@ Element.Methods = {
     if (Object.isNumber(expression)) index = expression, expression = false;
     if (!Object.isNumber(index)) index = 0;
 
-    if (e
+    if (expression) {
+      return Prototype.Selector.find(element.previousSiblings(), expression, index);
+    } else {
+      return element.recursivelyCollect("previousSibling", index + 1)[index];
+    }
+  },
+
+  next: function(element, expression, index) {
+    element = $(element);
+    if (Object.isNumber(expression)) index = expression, expression = false;
+    if (!Object.isNumber(index)) index = 0;

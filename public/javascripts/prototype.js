@@ -2187,4 +2187,15 @@ Element.Methods = {
 
   select: function(element) {
     element = $(element);
-    var expr
+    var expressions = Array.prototype.slice.call(arguments, 1).join(', ');
+    return Prototype.Selector.select(expressions, element);
+  },
+
+  adjacent: function(element) {
+    element = $(element);
+    var expressions = Array.prototype.slice.call(arguments, 1).join(', ');
+    return Prototype.Selector.select(expressions, element.parentNode).without(element);
+  },
+
+  identify: function(element) {
+    e

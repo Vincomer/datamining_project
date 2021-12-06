@@ -2198,4 +2198,15 @@ Element.Methods = {
   },
 
   identify: function(element) {
-    e
+    element = $(element);
+    var id = Element.readAttribute(element, 'id');
+    if (id) return id;
+    do { id = 'anonymous_element_' + Element.idCounter++ } while ($(id));
+    Element.writeAttribute(element, 'id', id);
+    return id;
+  },
+
+  readAttribute: function(element, name) {
+    element = $(element);
+    if (Prototype.Browser.IE) {
+      

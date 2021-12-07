@@ -2230,4 +2230,18 @@ Element.Methods = {
     for (var attr in attributes) {
       name = t.names[attr] || attr;
       value = attributes[attr];
-      if (
+      if (t.values[attr]) name = t.values[attr](element, value);
+      if (value === false || value === null)
+        element.removeAttribute(name);
+      else if (value === true)
+        element.setAttribute(name, name);
+      else element.setAttribute(name, value);
+    }
+    return element;
+  },
+
+  getHeight: function(element) {
+    return Element.getDimensions(element).height;
+  },
+
+  getWidth: function(e

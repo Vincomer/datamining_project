@@ -2220,4 +2220,14 @@ Element.Methods = {
     return element.getAttribute(name);
   },
 
-  
+  writeAttribute: function(element, name, value) {
+    element = $(element);
+    var attributes = { }, t = Element._attributeTranslations.write;
+
+    if (typeof name == 'object') attributes = name;
+    else attributes[name] = Object.isUndefined(value) ? true : value;
+
+    for (var attr in attributes) {
+      name = t.names[attr] || attr;
+      value = attributes[attr];
+      if (

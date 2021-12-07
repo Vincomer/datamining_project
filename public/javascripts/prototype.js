@@ -2209,4 +2209,15 @@ Element.Methods = {
   readAttribute: function(element, name) {
     element = $(element);
     if (Prototype.Browser.IE) {
-      
+      var t = Element._attributeTranslations.read;
+      if (t.values[name]) return t.values[name](element, name);
+      if (t.names[name]) name = t.names[name];
+      if (name.include(':')) {
+        return (!element.attributes || !element.attributes[name]) ? null :
+         element.attributes[name].value;
+      }
+    }
+    return element.getAttribute(name);
+  },
+
+  

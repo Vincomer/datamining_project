@@ -2244,4 +2244,16 @@ Element.Methods = {
     return Element.getDimensions(element).height;
   },
 
-  getWidth: function(e
+  getWidth: function(element) {
+    return Element.getDimensions(element).width;
+  },
+
+  classNames: function(element) {
+    return new Element.ClassNames(element);
+  },
+
+  hasClassName: function(element, className) {
+    if (!(element = $(element))) return;
+    var elementClassName = element.className;
+    return (elementClassName.length > 0 && (elementClassName == className ||
+      new RegExp("(^|\\s)" + classNa

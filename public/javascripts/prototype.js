@@ -2276,4 +2276,23 @@ Element.Methods = {
   toggleClassName: function(element, className) {
     if (!(element = $(element))) return;
     return Element[Element.hasClassName(element, className) ?
-      'removeClassName' : 'addClassName'](element, cla
+      'removeClassName' : 'addClassName'](element, className);
+  },
+
+  cleanWhitespace: function(element) {
+    element = $(element);
+    var node = element.firstChild;
+    while (node) {
+      var nextNode = node.nextSibling;
+      if (node.nodeType == 3 && !/\S/.test(node.nodeValue))
+        element.removeChild(node);
+      node = nextNode;
+    }
+    return element;
+  },
+
+  empty: function(element) {
+    return $(element).innerHTML.blank();
+  },
+
+  descendantOf: function

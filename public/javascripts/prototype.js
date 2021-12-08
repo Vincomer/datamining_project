@@ -2267,4 +2267,13 @@ Element.Methods = {
   },
 
   removeClassName: function(element, className) {
-    if (!(element = $(element))) r
+    if (!(element = $(element))) return;
+    element.className = element.className.replace(
+      new RegExp("(^|\\s+)" + className + "(\\s+|$)"), ' ').strip();
+    return element;
+  },
+
+  toggleClassName: function(element, className) {
+    if (!(element = $(element))) return;
+    return Element[Element.hasClassName(element, className) ?
+      'removeClassName' : 'addClassName'](element, cla

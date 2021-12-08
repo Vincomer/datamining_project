@@ -2256,4 +2256,15 @@ Element.Methods = {
     if (!(element = $(element))) return;
     var elementClassName = element.className;
     return (elementClassName.length > 0 && (elementClassName == className ||
-      new RegExp("(^|\\s)" + classNa
+      new RegExp("(^|\\s)" + className + "(\\s|$)").test(elementClassName)));
+  },
+
+  addClassName: function(element, className) {
+    if (!(element = $(element))) return;
+    if (!Element.hasClassName(element, className))
+      element.className += (element.className ? ' ' : '') + className;
+    return element;
+  },
+
+  removeClassName: function(element, className) {
+    if (!(element = $(element))) r

@@ -2307,4 +2307,19 @@ Element.Methods = {
     while (element = element.parentNode)
       if (element == ancestor) return true;
 
-    return
+    return false;
+  },
+
+  scrollTo: function(element) {
+    element = $(element);
+    var pos = Element.cumulativeOffset(element);
+    window.scrollTo(pos[0], pos[1]);
+    return element;
+  },
+
+  getStyle: function(element, style) {
+    element = $(element);
+    style = style == 'float' ? 'cssFloat' : style.camelize();
+    var value = element.style[style];
+    if (!value || value == 'auto') {
+      var css

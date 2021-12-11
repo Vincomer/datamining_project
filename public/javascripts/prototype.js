@@ -2343,4 +2343,15 @@ Element.Methods = {
     }
     for (var property in styles)
       if (property == 'opacity') element.setOpacity(styles[property]);
-      e
+      else
+        elementStyle[(property == 'float' || property == 'cssFloat') ?
+          (Object.isUndefined(elementStyle.styleFloat) ? 'cssFloat' : 'styleFloat') :
+            property] = styles[property];
+
+    return element;
+  },
+
+  setOpacity: function(element, value) {
+    element = $(element);
+    element.style.opacity = (value == 1 || value === '') ? '' :
+      (value < 0.00001) ? 0 

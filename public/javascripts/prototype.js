@@ -2372,3 +2372,19 @@ Element.Methods = {
     return element;
   },
 
+  undoPositioned: function(element) {
+    element = $(element);
+    if (element._madePositioned) {
+      element._madePositioned = undefined;
+      element.style.position =
+        element.style.top =
+        element.style.left =
+        element.style.bottom =
+        element.style.right = '';
+    }
+    return element;
+  },
+
+  makeClipping: function(element) {
+    element = $(element);
+    if (element._overf

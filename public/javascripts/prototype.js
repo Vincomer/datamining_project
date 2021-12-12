@@ -2387,4 +2387,14 @@ Element.Methods = {
 
   makeClipping: function(element) {
     element = $(element);
-    if (element._overf
+    if (element._overflow) return element;
+    element._overflow = Element.getStyle(element, 'overflow') || 'auto';
+    if (element._overflow !== 'hidden')
+      element.style.overflow = 'hidden';
+    return element;
+  },
+
+  undoClipping: function(element) {
+    element = $(element);
+    if (!element._overflow) return element;
+    element.style.overflow = element._overfl

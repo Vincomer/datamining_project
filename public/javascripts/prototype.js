@@ -2423,4 +2423,17 @@ Element.Methods = {
       if (element) {
         if (element.tagName.toUpperCase() == 'BODY') break;
         var p = Element.getStyle(element, 'position');
-        if (p !== '
+        if (p !== 'static') break;
+      }
+    } while (element);
+    return Element._returnOffset(valueL, valueT);
+  },
+
+  absolutize: function(element) {
+    element = $(element);
+    if (Element.getStyle(element, 'position') == 'absolute') return element;
+
+    var offsets = Element.positionedOffset(element),
+        top     = offsets[1],
+        left    = offsets[0],
+        width   = element.client

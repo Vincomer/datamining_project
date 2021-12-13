@@ -2397,4 +2397,18 @@ Element.Methods = {
   undoClipping: function(element) {
     element = $(element);
     if (!element._overflow) return element;
-    element.style.overflow = element._overfl
+    element.style.overflow = element._overflow == 'auto' ? '' : element._overflow;
+    element._overflow = null;
+    return element;
+  },
+
+  cumulativeOffset: function(element) {
+    var valueT = 0, valueL = 0;
+    if (element.parentNode) {
+      do {
+        valueT += element.offsetTop  || 0;
+        valueL += element.offsetLeft || 0;
+        element = element.offsetParent;
+      } while (element);
+    }
+    return Element._returnOffset(valueL, 

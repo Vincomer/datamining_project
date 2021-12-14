@@ -2436,4 +2436,14 @@ Element.Methods = {
     var offsets = Element.positionedOffset(element),
         top     = offsets[1],
         left    = offsets[0],
-        width   = element.client
+        width   = element.clientWidth,
+        height  = element.clientHeight;
+
+    element._originalLeft   = left - parseFloat(element.style.left  || 0);
+    element._originalTop    = top  - parseFloat(element.style.top || 0);
+    element._originalWidth  = element.style.width;
+    element._originalHeight = element.style.height;
+
+    element.style.position = 'absolute';
+    element.style.top    = top + 'px';
+    element.styl

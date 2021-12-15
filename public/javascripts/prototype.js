@@ -2469,4 +2469,16 @@ Element.Methods = {
 
   cumulativeScrollOffset: function(element) {
     var valueT = 0, valueL = 0;
-  
+    do {
+      valueT += element.scrollTop  || 0;
+      valueL += element.scrollLeft || 0;
+      element = element.parentNode;
+    } while (element);
+    return Element._returnOffset(valueL, valueT);
+  },
+
+  getOffsetParent: function(element) {
+    if (element.offsetParent) return $(element.offsetParent);
+    if (element == document.body) return $(element);
+
+    while ((element = element.parent

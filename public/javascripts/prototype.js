@@ -2497,4 +2497,13 @@ Element.Methods = {
       valueT += element.offsetTop  || 0;
       valueL += element.offsetLeft || 0;
 
-      if (element.offsetPar
+      if (element.offsetParent == document.body &&
+        Element.getStyle(element, 'position') == 'absolute') break;
+
+    } while (element = element.offsetParent);
+
+    element = forElement;
+    do {
+      if (!Prototype.Browser.Opera || (element.tagName && (element.tagName.toUpperCase() == 'BODY'))) {
+        valueT -= element.scrollTop  || 0;
+        valueL -= element.scrollLe

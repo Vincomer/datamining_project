@@ -2481,4 +2481,20 @@ Element.Methods = {
     if (element.offsetParent) return $(element.offsetParent);
     if (element == document.body) return $(element);
 
-    while ((element = element.parent
+    while ((element = element.parentNode) && element != document.body)
+      if (Element.getStyle(element, 'position') != 'static')
+        return $(element);
+
+    return $(document.body);
+  },
+
+  viewportOffset: function(forElement) {
+    var valueT = 0,
+        valueL = 0,
+        element = forElement;
+
+    do {
+      valueT += element.offsetTop  || 0;
+      valueL += element.offsetLeft || 0;
+
+      if (element.offsetPar

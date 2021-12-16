@@ -2524,3 +2524,15 @@ Element.Methods = {
     }, arguments[2] || { });
 
     source = $(source);
+    var p = Element.viewportOffset(source), delta = [0, 0], parent = null;
+
+    element = $(element);
+
+    if (Element.getStyle(element, 'position') == 'absolute') {
+      parent = Element.getOffsetParent(element);
+      delta = Element.viewportOffset(parent);
+    }
+
+    if (parent == document.body) {
+      delta[0] -= document.body.offsetLeft;
+      delta[1] -= documen

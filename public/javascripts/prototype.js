@@ -2535,4 +2535,13 @@ Element.Methods = {
 
     if (parent == document.body) {
       delta[0] -= document.body.offsetLeft;
-      delta[1] -= documen
+      delta[1] -= document.body.offsetTop;
+    }
+
+    if (options.setLeft)   element.style.left  = (p[0] - delta[0] + options.offsetLeft) + 'px';
+    if (options.setTop)    element.style.top   = (p[1] - delta[1] + options.offsetTop) + 'px';
+    if (options.setWidth)  element.style.width = source.offsetWidth + 'px';
+    if (options.setHeight) element.style.height = source.offsetHeight + 'px';
+    return element;
+  }
+}

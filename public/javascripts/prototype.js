@@ -2585,4 +2585,15 @@ if (Prototype.Browser.Opera) {
             properties = ['border-left-width', 'padding-left',
              'padding-right', 'border-right-width'];
           }
-          return properties.
+          return properties.inject(dim, function(memo, property) {
+            var val = proceed(element, property);
+            return val === null ? memo : memo - parseInt(val, 10);
+          }) + 'px';
+        default: return proceed(element, style);
+      }
+    }
+  );
+
+  Element.Methods.readAttribute = Element.Methods.readAttribute.wrap(
+    function(proceed, element, attribute) {
+      if (attrib

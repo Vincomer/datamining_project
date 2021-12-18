@@ -2608,4 +2608,14 @@ else if (Prototype.Browser.IE) {
       element = $(element);
       if (!element.parentNode) return $(document.body);
       var position = element.getStyle('position');
-   
+      if (position !== 'static') return proceed(element);
+      element.setStyle({ position: 'relative' });
+      var value = proceed(element);
+      element.setStyle({ position: position });
+      return value;
+    }
+  );
+
+  $w('positionedOffset viewportOffset').each(function(method) {
+    Element.Methods[method] = Element.Methods[method].wrap(
+      function(proceed, ele

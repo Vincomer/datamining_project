@@ -2647,4 +2647,17 @@ else if (Prototype.Browser.IE) {
     }
 
     if (value == 'auto') {
-      if ((style == 'width' || style == 'height') && 
+      if ((style == 'width' || style == 'height') && (element.getStyle('display') != 'none'))
+        return element['offset' + style.capitalize()] + 'px';
+      return null;
+    }
+    return value;
+  };
+
+  Element.Methods.setOpacity = function(element, value) {
+    function stripAlpha(filter){
+      return filter.replace(/alpha\([^\)]*\)/gi,'');
+    }
+    element = $(element);
+    var currentStyle = element.currentStyle;
+    if ((curre

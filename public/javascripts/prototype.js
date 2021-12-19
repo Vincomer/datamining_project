@@ -2636,4 +2636,15 @@ else if (Prototype.Browser.IE) {
 
   Element.Methods.getStyle = function(element, style) {
     element = $(element);
-    style = (style == 'float' || style == 'cssFloat') ? 'styleFloat' : style.cam
+    style = (style == 'float' || style == 'cssFloat') ? 'styleFloat' : style.camelize();
+    var value = element.style[style];
+    if (!value && element.currentStyle) value = element.currentStyle[style];
+
+    if (style == 'opacity') {
+      if (value = (element.getStyle('filter') || '').match(/alpha\(opacity=(.*)\)/))
+        if (value[1]) return parseFloat(value[1]) / 100;
+      return 1.0;
+    }
+
+    if (value == 'auto') {
+      if ((style == 'width' || style == 'height') && 

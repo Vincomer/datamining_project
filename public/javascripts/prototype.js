@@ -2685,4 +2685,24 @@ else if (Prototype.Browser.IE) {
 
     if (el.className !== 'x') {
       el.setAttribute('class', 'x');
-      if (el.className 
+      if (el.className === 'x') {
+        classProp = 'class';
+      }
+    }
+    el = null;
+
+    el = document.createElement('label');
+    el.setAttribute(forProp, 'x');
+    if (el.htmlFor !== 'x') {
+      el.setAttribute('htmlFor', 'x');
+      if (el.htmlFor === 'x') {
+        forProp = 'htmlFor';
+      }
+    }
+    el = null;
+
+    return {
+      read: {
+        names: {
+          'class':      classProp,
+          '

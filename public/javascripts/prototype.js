@@ -2669,4 +2669,20 @@ else if (Prototype.Browser.IE) {
       (filter = stripAlpha(filter)) ?
         style.filter = filter : style.removeAttribute('filter');
       return element;
-    } else if (value < 0.00001) value =
+    } else if (value < 0.00001) value = 0;
+    style.filter = stripAlpha(filter) +
+      'alpha(opacity=' + (value * 100) + ')';
+    return element;
+  };
+
+  Element._attributeTranslations = (function(){
+
+    var classProp = 'className',
+        forProp = 'for',
+        el = document.createElement('div');
+
+    el.setAttribute(classProp, 'x');
+
+    if (el.className !== 'x') {
+      el.setAttribute('class', 'x');
+      if (el.className 

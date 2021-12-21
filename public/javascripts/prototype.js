@@ -2736,4 +2736,15 @@ else if (Prototype.Browser.IE) {
                 return attribute.strip();
               };
             }
-        
+            else if (value === '') {
+              f = function(element, attribute) {
+                attribute = element.getAttribute(attribute);
+                if (!attribute) return null;
+                return attribute.strip();
+              };
+            }
+            el = null;
+            return f;
+          })(),
+          _flag: function(element, attribute) {
+            return $(element).hasAttribute(attr

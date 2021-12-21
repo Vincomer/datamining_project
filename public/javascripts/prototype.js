@@ -2716,4 +2716,14 @@ else if (Prototype.Browser.IE) {
           _getAttr2: function(element, attribute) {
             return element.getAttribute(attribute, 2);
           },
-          _getAttrNode: funct
+          _getAttrNode: function(element, attribute) {
+            var node = element.getAttributeNode(attribute);
+            return node ? node.value : "";
+          },
+          _getEv: (function(){
+
+            var el = document.createElement('div'), f;
+            el.onclick = Prototype.emptyFunction;
+            var value = el.getAttribute('onclick');
+
+            if (String(value).indexOf('

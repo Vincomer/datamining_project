@@ -2726,4 +2726,14 @@ else if (Prototype.Browser.IE) {
             el.onclick = Prototype.emptyFunction;
             var value = el.getAttribute('onclick');
 
-            if (String(value).indexOf('
+            if (String(value).indexOf('{') > -1) {
+              f = function(element, attribute) {
+                attribute = element.getAttribute(attribute);
+                if (!attribute) return null;
+                attribute = attribute.toString();
+                attribute = attribute.split('{')[1];
+                attribute = attribute.split('}')[0];
+                return attribute.strip();
+              };
+            }
+        

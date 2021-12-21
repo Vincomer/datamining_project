@@ -2705,4 +2705,15 @@ else if (Prototype.Browser.IE) {
       read: {
         names: {
           'class':      classProp,
-          '
+          'className':  classProp,
+          'for':        forProp,
+          'htmlFor':    forProp
+        },
+        values: {
+          _getAttr: function(element, attribute) {
+            return element.getAttribute(attribute);
+          },
+          _getAttr2: function(element, attribute) {
+            return element.getAttribute(attribute, 2);
+          },
+          _getAttrNode: funct

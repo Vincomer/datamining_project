@@ -2763,4 +2763,20 @@ else if (Prototype.Browser.IE) {
   Element._attributeTranslations.write = {
     names: Object.extend({
       cellpadding: 'cellPadding',
-      cellspacing: 'cellSpacin
+      cellspacing: 'cellSpacing'
+    }, Element._attributeTranslations.read.names),
+    values: {
+      checked: function(element, value) {
+        element.checked = !!value;
+      },
+
+      style: function(element, value) {
+        element.style.cssText = value ? value : '';
+      }
+    }
+  };
+
+  Element._attributeTranslations.has = {};
+
+  $w('colSpan rowSpan vAlign dateTime accessKey tabIndex ' +
+   

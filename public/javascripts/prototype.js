@@ -2747,4 +2747,20 @@ else if (Prototype.Browser.IE) {
             return f;
           })(),
           _flag: function(element, attribute) {
-            return $(element).hasAttribute(attr
+            return $(element).hasAttribute(attribute) ? attribute : null;
+          },
+          style: function(element) {
+            return element.style.cssText.toLowerCase();
+          },
+          title: function(element) {
+            return element.title;
+          }
+        }
+      }
+    }
+  })();
+
+  Element._attributeTranslations.write = {
+    names: Object.extend({
+      cellpadding: 'cellPadding',
+      cellspacing: 'cellSpacin

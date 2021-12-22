@@ -2779,4 +2779,15 @@ else if (Prototype.Browser.IE) {
   Element._attributeTranslations.has = {};
 
   $w('colSpan rowSpan vAlign dateTime accessKey tabIndex ' +
-   
+      'encType maxLength readOnly longDesc frameBorder').each(function(attr) {
+    Element._attributeTranslations.write.names[attr.toLowerCase()] = attr;
+    Element._attributeTranslations.has[attr.toLowerCase()] = attr;
+  });
+
+  (function(v) {
+    Object.extend(v, {
+      href:        v._getAttr2,
+      src:         v._getAttr2,
+      type:        v._getAttr,
+      action:      v._getAttrNode,
+      disa

@@ -2817,4 +2817,14 @@ else if (Prototype.Browser.IE) {
 
   if (Prototype.BrowserFeatures.ElementExtensions) {
     (function() {
-      f
+      function _descendants(element) {
+        var nodes = element.getElementsByTagName('*'), results = [];
+        for (var i = 0, node; node = nodes[i]; i++)
+          if (node.tagName !== "!") // Filter out comment nodes.
+            results.push(node);
+        return results;
+      }
+
+      Element.Methods.down = function(element, expression, index) {
+        element = $(element);
+     

@@ -2803,4 +2803,18 @@ else if (Prototype.Browser.IE) {
       onmouseover: v._getEv,
       onmousemove: v._getEv,
       onmouseout:  v._getEv,
-      onfocu
+      onfocus:     v._getEv,
+      onblur:      v._getEv,
+      onkeypress:  v._getEv,
+      onkeydown:   v._getEv,
+      onkeyup:     v._getEv,
+      onsubmit:    v._getEv,
+      onreset:     v._getEv,
+      onselect:    v._getEv,
+      onchange:    v._getEv
+    });
+  })(Element._attributeTranslations.read.values);
+
+  if (Prototype.BrowserFeatures.ElementExtensions) {
+    (function() {
+      f

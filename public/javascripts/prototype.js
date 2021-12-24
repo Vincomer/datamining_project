@@ -2827,4 +2827,15 @@ else if (Prototype.Browser.IE) {
 
       Element.Methods.down = function(element, expression, index) {
         element = $(element);
-     
+        if (arguments.length == 1) return element.firstDescendant();
+        return Object.isNumber(expression) ? _descendants(element)[expression] :
+          Element.select(element, expression)[index || 0];
+      }
+    })();
+  }
+
+}
+
+else if (Prototype.Browser.Gecko && /rv:1\.8\.0/.test(navigator.userAgent)) {
+  Element.Methods.setOpacity = function(element, value) {
+    

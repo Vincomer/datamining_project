@@ -2851,4 +2851,17 @@ else if (Prototype.Browser.WebKit) {
     element.style.opacity = (value == 1 || value === '') ? '' :
       (value < 0.00001) ? 0 : value;
 
-    if (value 
+    if (value == 1)
+      if (element.tagName.toUpperCase() == 'IMG' && element.width) {
+        element.width++; element.width--;
+      } else try {
+        var n = document.createTextNode(' ');
+        element.appendChild(n);
+        element.removeChild(n);
+      } catch (e) { }
+
+    return element;
+  };
+
+  Element.Methods.cumulativeOffset = function(element) {
+    var val

@@ -2864,4 +2864,18 @@ else if (Prototype.Browser.WebKit) {
   };
 
   Element.Methods.cumulativeOffset = function(element) {
-    var val
+    var valueT = 0, valueL = 0;
+    do {
+      valueT += element.offsetTop  || 0;
+      valueL += element.offsetLeft || 0;
+      if (element.offsetParent == document.body)
+        if (Element.getStyle(element, 'position') == 'absolute') break;
+
+      element = element.offsetParent;
+    } while (element);
+
+    return Element._returnOffset(valueL, valueT);
+  };
+}
+
+if ('outerHTML' in document.documentElem

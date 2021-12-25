@@ -2878,4 +2878,15 @@ else if (Prototype.Browser.WebKit) {
   };
 }
 
-if ('outerHTML' in document.documentElem
+if ('outerHTML' in document.documentElement) {
+  Element.Methods.replace = function(element, content) {
+    element = $(element);
+
+    if (content && content.toElement) content = content.toElement();
+    if (Object.isElement(content)) {
+      element.parentNode.replaceChild(content, element);
+      return element;
+    }
+
+    content = Object.toHTML(content);
+    var parent = element.parentNode, tagName = parent.t

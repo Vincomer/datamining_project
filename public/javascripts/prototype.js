@@ -2898,4 +2898,22 @@ if ('outerHTML' in document.documentElement) {
       if (nextSibling)
         fragments.each(function(node) { parent.insertBefore(node, nextSibling) });
       else
-        fragments.each(function(node) { parent.append
+        fragments.each(function(node) { parent.appendChild(node) });
+    }
+    else element.outerHTML = content.stripScripts();
+
+    content.evalScripts.bind(content).defer();
+    return element;
+  };
+}
+
+Element._returnOffset = function(l, t) {
+  var result = [l, t];
+  result.left = l;
+  result.top = t;
+  return result;
+};
+
+Element._getContentFromAnonymousElement = function(tagName, html) {
+  var div = new Element('div'),
+      t = Element.

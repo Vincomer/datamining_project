@@ -2889,4 +2889,13 @@ if ('outerHTML' in document.documentElement) {
     }
 
     content = Object.toHTML(content);
-    var parent = element.parentNode, tagName = parent.t
+    var parent = element.parentNode, tagName = parent.tagName.toUpperCase();
+
+    if (Element._insertionTranslations.tags[tagName]) {
+      var nextSibling = element.next(),
+          fragments = Element._getContentFromAnonymousElement(tagName, content.stripScripts());
+      parent.removeChild(element);
+      if (nextSibling)
+        fragments.each(function(node) { parent.insertBefore(node, nextSibling) });
+      else
+        fragments.each(function(node) { parent.append

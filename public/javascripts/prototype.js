@@ -2933,4 +2933,15 @@ Element._insertionTranslations = {
   before: function(element, node) {
     element.parentNode.insertBefore(node, element);
   },
-  top: function(ele
+  top: function(element, node) {
+    element.insertBefore(node, element.firstChild);
+  },
+  bottom: function(element, node) {
+    element.appendChild(node);
+  },
+  after: function(element, node) {
+    element.parentNode.insertBefore(node, element.nextSibling);
+  },
+  tags: {
+    TABLE:  ['<table>',                '</table>',                   1],
+    TBODY:  ['<table><tbody>',         '</tbody></tabl

@@ -2956,4 +2956,18 @@ Element._insertionTranslations = {
   Object.extend(tags, {
     THEAD: tags.TBODY,
     TFOOT: tags.TBODY,
-  
+    TH:    tags.TD
+  });
+})();
+
+Element.Methods.Simulated = {
+  hasAttribute: function(element, attribute) {
+    attribute = Element._attributeTranslations.has[attribute] || attribute;
+    var node = $(element).getAttributeNode(attribute);
+    return !!(node && node.specified);
+  }
+};
+
+Element.Methods.ByTag = { };
+
+Object.extend(Element, Element.Methods)

@@ -2970,4 +2970,21 @@ Element.Methods.Simulated = {
 
 Element.Methods.ByTag = { };
 
-Object.extend(Element, Element.Methods)
+Object.extend(Element, Element.Methods);
+
+(function(div) {
+
+  if (!Prototype.BrowserFeatures.ElementExtensions && div['__proto__']) {
+    window.HTMLElement = { };
+    window.HTMLElement.prototype = div['__proto__'];
+    Prototype.BrowserFeatures.ElementExtensions = true;
+  }
+
+  div = null;
+
+})(document.createElement('div'));
+
+Element.extend = (function() {
+
+  function checkDeficiency(tagName) {
+    if

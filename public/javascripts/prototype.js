@@ -3013,4 +3013,11 @@ Element.extend = (function() {
   var HTMLOBJECTELEMENT_PROTOTYPE_BUGGY = checkDeficiency('object');
 
   if (Prototype.BrowserFeatures.SpecificElementExtensions) {
-    if (HTMLOBJECTELEM
+    if (HTMLOBJECTELEMENT_PROTOTYPE_BUGGY) {
+      return function(element) {
+        if (element && typeof element._extendedByPrototype == 'undefined') {
+          var t = element.tagName;
+          if (t && (/^(?:object|applet|embed)$/i.test(t))) {
+            extendElementWith(element, Element.Methods);
+            extendElementWith(element, Element.Methods.Simulated);
+            extendElementWith(el

@@ -3002,4 +3002,15 @@ Element.extend = (function() {
     return false;
   }
 
- 
+  function extendElementWith(element, methods) {
+    for (var property in methods) {
+      var value = methods[property];
+      if (Object.isFunction(value) && !(property in element))
+        element[property] = value.methodize();
+    }
+  }
+
+  var HTMLOBJECTELEMENT_PROTOTYPE_BUGGY = checkDeficiency('object');
+
+  if (Prototype.BrowserFeatures.SpecificElementExtensions) {
+    if (HTMLOBJECTELEM

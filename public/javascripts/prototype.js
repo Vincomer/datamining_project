@@ -3048,4 +3048,20 @@ Element.extend = (function() {
   }, {
     refresh: function() {
       if (!Prototype.BrowserFeatures.ElementExtensions) {
-        Ob
+        Object.extend(Methods, Element.Methods);
+        Object.extend(Methods, Element.Methods.Simulated);
+      }
+    }
+  });
+
+  extend.refresh();
+  return extend;
+})();
+
+if (document.documentElement.hasAttribute) {
+  Element.hasAttribute = function(element, attribute) {
+    return element.hasAttribute(attribute);
+  };
+}
+else {
+  Element.hasAttribute = Element.Methods.Simulated.ha

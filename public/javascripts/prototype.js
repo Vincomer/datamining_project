@@ -3033,4 +3033,19 @@ Element.extend = (function() {
 
   var extend = Object.extend(function(element) {
     if (!element || typeof element._extendedByPrototype != 'undefined' ||
-        element.nodeType != 1 || element == window) retu
+        element.nodeType != 1 || element == window) return element;
+
+    var methods = Object.clone(Methods),
+        tagName = element.tagName.toUpperCase();
+
+    if (ByTag[tagName]) Object.extend(methods, ByTag[tagName]);
+
+    extendElementWith(element, methods);
+
+    element._extendedByPrototype = Prototype.emptyFunction;
+    return element;
+
+  }, {
+    refresh: function() {
+      if (!Prototype.BrowserFeatures.ElementExtensions) {
+        Ob

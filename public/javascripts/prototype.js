@@ -3064,4 +3064,16 @@ if (document.documentElement.hasAttribute) {
   };
 }
 else {
-  Element.hasAttribute = Element.Methods.Simulated.ha
+  Element.hasAttribute = Element.Methods.Simulated.hasAttribute;
+}
+
+Element.addMethods = function(methods) {
+  var F = Prototype.BrowserFeatures, T = Element.Methods.ByTag;
+
+  if (!methods) {
+    Object.extend(Form, Form.Methods);
+    Object.extend(Form.Element, Form.Element.Methods);
+    Object.extend(Element.Methods.ByTag, {
+      "FORM":     Object.clone(Form.Methods),
+      "INPUT":    Object.clone(Form.Element.Methods),
+      "SELECT":   Object.cl

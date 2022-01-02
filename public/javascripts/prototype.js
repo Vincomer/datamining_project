@@ -3103,4 +3103,15 @@ Element.addMethods = function(methods) {
     onlyIfAbsent = onlyIfAbsent || false;
     for (var property in methods) {
       var value = methods[property];
-      if (!Object.isFunctio
+      if (!Object.isFunction(value)) continue;
+      if (!onlyIfAbsent || !(property in destination))
+        destination[property] = value.methodize();
+    }
+  }
+
+  function findDOMClass(tagName) {
+    var klass;
+    var trans = {
+      "OPTGROUP": "OptGroup", "TEXTAREA": "TextArea", "P": "Paragraph",
+      "FIELDSET": "FieldSet", "UL": "UList", "OL": "OList", "DL": "DList",
+      "DIR": "Directory", "H1": "Heading", "H2": "Head

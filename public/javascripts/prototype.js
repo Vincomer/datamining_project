@@ -3114,4 +3114,9 @@ Element.addMethods = function(methods) {
     var trans = {
       "OPTGROUP": "OptGroup", "TEXTAREA": "TextArea", "P": "Paragraph",
       "FIELDSET": "FieldSet", "UL": "UList", "OL": "OList", "DL": "DList",
-      "DIR": "Directory", "H1": "Heading", "H2": "Head
+      "DIR": "Directory", "H1": "Heading", "H2": "Heading", "H3": "Heading",
+      "H4": "Heading", "H5": "Heading", "H6": "Heading", "Q": "Quote",
+      "INS": "Mod", "DEL": "Mod", "A": "Anchor", "IMG": "Image", "CAPTION":
+      "TableCaption", "COL": "TableCol", "COLGROUP": "TableCol", "THEAD":
+      "TableSection", "TFOOT": "TableSection", "TBODY": "TableSection", "TR":
+      "TableRow", "TH": "TableCell", "TD": "Tabl

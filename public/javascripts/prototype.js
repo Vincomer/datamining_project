@@ -3127,4 +3127,18 @@ Element.addMethods = function(methods) {
     klass = 'HTML' + tagName + 'Element';
     if (window[klass]) return window[klass];
     klass = 'HTML' + tagName.capitalize() + 'Element';
-    if (window[klass]) return window[klass]
+    if (window[klass]) return window[klass];
+
+    var element = document.createElement(tagName),
+        proto = element['__proto__'] || element.constructor.prototype;
+
+    element = null;
+    return proto;
+  }
+
+  var elementPrototype = window.HTMLElement ? HTMLElement.prototype :
+   Element.prototype;
+
+  if (F.ElementExtensions) {
+    copy(Element.Methods, elementPrototype);
+    copy(Element.Methods.Simulated, elementP

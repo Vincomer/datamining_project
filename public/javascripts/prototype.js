@@ -3119,4 +3119,12 @@ Element.addMethods = function(methods) {
       "INS": "Mod", "DEL": "Mod", "A": "Anchor", "IMG": "Image", "CAPTION":
       "TableCaption", "COL": "TableCol", "COLGROUP": "TableCol", "THEAD":
       "TableSection", "TFOOT": "TableSection", "TBODY": "TableSection", "TR":
-      "TableRow", "TH": "TableCell", "TD": "Tabl
+      "TableRow", "TH": "TableCell", "TD": "TableCell", "FRAMESET":
+      "FrameSet", "IFRAME": "IFrame"
+    };
+    if (trans[tagName]) klass = 'HTML' + trans[tagName] + 'Element';
+    if (window[klass]) return window[klass];
+    klass = 'HTML' + tagName + 'Element';
+    if (window[klass]) return window[klass];
+    klass = 'HTML' + tagName.capitalize() + 'Element';
+    if (window[klass]) return window[klass]

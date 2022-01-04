@@ -3141,4 +3141,25 @@ Element.addMethods = function(methods) {
 
   if (F.ElementExtensions) {
     copy(Element.Methods, elementPrototype);
-    copy(Element.Methods.Simulated, elementP
+    copy(Element.Methods.Simulated, elementPrototype, true);
+  }
+
+  if (F.SpecificElementExtensions) {
+    for (var tag in Element.Methods.ByTag) {
+      var klass = findDOMClass(tag);
+      if (Object.isUndefined(klass)) continue;
+      copy(T[tag], klass.prototype);
+    }
+  }
+
+  Object.extend(Element, Element.Methods);
+  delete Element.ByTag;
+
+  if (Element.extend.refresh) Element.extend.refresh();
+  Element.cache = { };
+};
+
+
+document.viewport = {
+
+  g

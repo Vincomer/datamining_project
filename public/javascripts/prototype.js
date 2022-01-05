@@ -3189,4 +3189,25 @@ document.viewport = {
   function define(D) {
     if (!element) element = getRootElement();
 
-    property[D] = 'client'
+    property[D] = 'client' + D;
+
+    viewport['get' + D] = function() { return element[property[D]] };
+    return viewport['get' + D]();
+  }
+
+  viewport.getWidth  = define.curry('Width');
+
+  viewport.getHeight = define.curry('Height');
+})(document.viewport);
+
+
+Element.Storage = {
+  UID: 1
+};
+
+Element.addMethods({
+  getStorage: function(element) {
+    if (!(element = $(element))) return;
+
+    var uid;
+    if (ele

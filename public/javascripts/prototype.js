@@ -3210,4 +3210,18 @@ Element.addMethods({
     if (!(element = $(element))) return;
 
     var uid;
-    if (ele
+    if (element === window) {
+      uid = 0;
+    } else {
+      if (typeof element._prototypeUID === "undefined")
+        element._prototypeUID = Element.Storage.UID++;
+      uid = element._prototypeUID;
+    }
+
+    if (!Element.Storage[uid])
+      Element.Storage[uid] = $H();
+
+    return Element.Storage[uid];
+  },
+
+  store: function(element, key, value) {

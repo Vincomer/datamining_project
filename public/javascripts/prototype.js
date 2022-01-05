@@ -3162,4 +3162,15 @@ Element.addMethods = function(methods) {
 
 document.viewport = {
 
-  g
+  getDimensions: function() {
+    return { width: this.getWidth(), height: this.getHeight() };
+  },
+
+  getScrollOffsets: function() {
+    return Element._returnOffset(
+      window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft,
+      window.pageYOffset || document.documentElement.scrollTop  || document.body.scrollTop);
+  }
+};
+
+(function(viewpor

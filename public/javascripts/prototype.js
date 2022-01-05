@@ -3173,4 +3173,20 @@ document.viewport = {
   }
 };
 
-(function(viewpor
+(function(viewport) {
+  var B = Prototype.Browser, doc = document, element, property = {};
+
+  function getRootElement() {
+    if (B.WebKit && !doc.evaluate)
+      return document;
+
+    if (B.Opera && window.parseFloat(window.opera.version()) < 9.5)
+      return document.body;
+
+    return document.documentElement;
+  }
+
+  function define(D) {
+    if (!element) element = getRootElement();
+
+    property[D] = 'client'

@@ -3240,4 +3240,20 @@ Element.addMethods({
     if (!(element = $(element))) return;
     var hash = Element.getStorage(element), value = hash.get(key);
 
-    if (Object.isUndefined(v
+    if (Object.isUndefined(value)) {
+      hash.set(key, defaultValue);
+      value = defaultValue;
+    }
+
+    return value;
+  },
+
+  clone: function(element, deep) {
+    if (!(element = $(element))) return;
+    var clone = element.cloneNode(deep);
+    clone._prototypeUID = void 0;
+    if (deep) {
+      var descendants = Element.select(clone, '*'),
+          i = descendants.length;
+      while (i--) {
+        descendants[i]._prototypeUID 

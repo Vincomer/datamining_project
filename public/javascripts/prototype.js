@@ -3296,4 +3296,16 @@ Element.addMethods({
       return window.parseFloat(value);
     }
 
-    if
+    if (/\d/.test(value) && element.runtimeStyle) {
+      var style = element.style.left, rStyle = element.runtimeStyle.left;
+      element.runtimeStyle.left = element.currentStyle.left;
+      element.style.left = value || 0;
+      value = element.style.pixelLeft;
+      element.style.left = style;
+      element.runtimeStyle.left = rStyle;
+
+      return value;
+    }
+
+    if (value.include('%')) {
+    

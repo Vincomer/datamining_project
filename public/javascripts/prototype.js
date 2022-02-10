@@ -3256,4 +3256,26 @@ Element.addMethods({
       var descendants = Element.select(clone, '*'),
           i = descendants.length;
       while (i--) {
-        descendants[i]._prototypeUID 
+        descendants[i]._prototypeUID = void 0;
+      }
+    }
+    return Element.extend(clone);
+  },
+
+  purge: function(element) {
+    if (!(element = $(element))) return;
+    purgeElement(element);
+
+    var descendants = element.getElementsByTagName('*'),
+     i = descendants.length;
+
+    while (i--) purgeElement(descendants[i]);
+
+    return null;
+  }
+});
+
+(function() {
+
+  function toDecimal(pctString) {
+    var match =

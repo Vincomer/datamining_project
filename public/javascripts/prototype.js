@@ -3278,4 +3278,22 @@ Element.addMethods({
 (function() {
 
   function toDecimal(pctString) {
-    var match =
+    var match = pctString.match(/^(\d+)%?$/i);
+    if (!match) return null;
+    return (Number(match[1]) / 100);
+  }
+
+  function getPixelValue(value, property) {
+    if (Object.isElement(value)) {
+      element = value;
+      value = element.getStyle(property);
+    }
+    if (value === null) {
+      return null;
+    }
+
+    if ((/^(?:-)?\d+(\.\d+)?(px)?$/i).test(value)) {
+      return window.parseFloat(value);
+    }
+
+    if

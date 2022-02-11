@@ -3308,4 +3308,14 @@ Element.addMethods({
     }
 
     if (value.include('%')) {
+      var decimal = toDecimal(value);
+      var whole;
+      if (property.include('left') || property.include('right') ||
+       property.include('width')) {
+        whole = $(element.parentNode).measure('width');
+      } else if (property.include('top') || property.include('bottom') ||
+       property.include('height')) {
+        whole = $(element.parentNode).measure('height');
+      }
+
     

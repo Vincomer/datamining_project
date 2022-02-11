@@ -3318,4 +3318,21 @@ Element.addMethods({
         whole = $(element.parentNode).measure('height');
       }
 
-    
+      return whole * decimal;
+    }
+
+    return 0;
+  }
+
+  function toCSSPixels(number) {
+    if (Object.isString(number) && number.endsWith('px')) {
+      return number;
+    }
+    return number + 'px';
+  }
+
+  function isDisplayed(element) {
+    var originalElement = element;
+    while (element && element.parentNode) {
+      var display = element.getStyle('display');
+      if (display ===

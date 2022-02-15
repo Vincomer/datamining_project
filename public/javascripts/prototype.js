@@ -3384,4 +3384,19 @@ Element.addMethods({
       throw "Properties of Element.Layout are read-only.";
     },
 
-    get: function
+    get: function($super, property) {
+      var value = $super(property);
+      return value === null ? this._compute(property) : value;
+    },
+
+    _begin: function() {
+      if (this._prepared) return;
+
+      var element = this.element;
+      if (isDisplayed(element)) {
+        this._prepared = true;
+        return;
+      }
+
+      var originalStyles = {
+        position:   element.style.po

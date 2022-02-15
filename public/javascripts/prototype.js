@@ -3335,4 +3335,22 @@ Element.addMethods({
     var originalElement = element;
     while (element && element.parentNode) {
       var display = element.getStyle('display');
-      if (display ===
+      if (display === 'none') {
+        return false;
+      }
+      element = $(element.parentNode);
+    }
+    return true;
+  }
+
+  var hasLayout = Prototype.K;
+  if ('currentStyle' in document.documentElement) {
+    hasLayout = function(element) {
+      if (!element.currentStyle.hasLayout) {
+        element.style.zoom = 1;
+      }
+      return element;
+    };
+  }
+
+  function cssNameFor(key

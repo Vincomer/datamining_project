@@ -3353,4 +3353,19 @@ Element.addMethods({
     };
   }
 
-  function cssNameFor(key
+  function cssNameFor(key) {
+    if (key.include('border')) key = key + '-width';
+    return key.camelize();
+  }
+
+  Element.Layout = Class.create(Hash, {
+    initialize: function($super, element, preCompute) {
+      $super();
+      this.element = $(element);
+
+      Element.Layout.PROPERTIES.each( function(property) {
+        this._set(property, null);
+      }, this);
+
+      if (preCompute) {
+        this._preComputing = true;

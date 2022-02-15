@@ -3369,3 +3369,19 @@ Element.addMethods({
 
       if (preCompute) {
         this._preComputing = true;
+        this._begin();
+        Element.Layout.PROPERTIES.each( this._compute, this );
+        this._end();
+        this._preComputing = false;
+      }
+    },
+
+    _set: function(property, value) {
+      return Hash.prototype.set.call(this, property, value);
+    },
+
+    set: function(property, value) {
+      throw "Properties of Element.Layout are read-only.";
+    },
+
+    get: function

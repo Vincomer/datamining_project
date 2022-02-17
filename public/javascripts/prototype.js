@@ -3424,4 +3424,15 @@ Element.addMethods({
       } else if (width && (position === 'absolute' || position === 'fixed')) {
         newWidth = getPixelValue(width);
       } else {
-   
+        var parent = element.parentNode, pLayout = $(parent).getLayout();
+
+        newWidth = pLayout.get('width') -
+         this.get('margin-left') -
+         this.get('border-left') -
+         this.get('padding-left') -
+         this.get('padding-right') -
+         this.get('border-right') -
+         this.get('margin-right');
+      }
+
+     

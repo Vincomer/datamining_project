@@ -3411,4 +3411,17 @@ Element.addMethods({
        width = element.getStyle('width');
 
       element.setStyle({
-        position:  
+        position:   'absolute',
+        visibility: 'hidden',
+        display:    'block'
+      });
+
+      var positionedWidth = element.getStyle('width');
+
+      var newWidth;
+      if (width && (positionedWidth === width)) {
+        newWidth = getPixelValue(width);
+      } else if (width && (position === 'absolute' || position === 'fixed')) {
+        newWidth = getPixelValue(width);
+      } else {
+   

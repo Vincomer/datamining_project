@@ -3399,4 +3399,16 @@ Element.addMethods({
       }
 
       var originalStyles = {
-        position:   element.style.po
+        position:   element.style.position   || '',
+        width:      element.style.width      || '',
+        visibility: element.style.visibility || '',
+        display:    element.style.display    || ''
+      };
+
+      element.store('prototype_original_styles', originalStyles);
+
+      var position = element.getStyle('position'),
+       width = element.getStyle('width');
+
+      element.setStyle({
+        position:  

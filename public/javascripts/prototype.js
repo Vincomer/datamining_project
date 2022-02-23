@@ -3435,4 +3435,17 @@ Element.addMethods({
          this.get('margin-right');
       }
 
-     
+      element.setStyle({ width: newWidth + 'px' });
+
+      this._prepared = true;
+    },
+
+    _end: function() {
+      var element = this.element;
+      var originalStyles = element.retrieve('prototype_original_styles');
+      element.store('prototype_original_styles', null);
+      element.setStyle(originalStyles);
+      this._prepared = false;
+    },
+
+    _compute: function(propert

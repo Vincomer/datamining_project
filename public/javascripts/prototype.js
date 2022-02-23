@@ -3448,4 +3448,15 @@ Element.addMethods({
       this._prepared = false;
     },
 
-    _compute: function(propert
+    _compute: function(property) {
+      var COMPUTATIONS = Element.Layout.COMPUTATIONS;
+      if (!(property in COMPUTATIONS)) {
+        throw "Property not found.";
+      }
+      return this._set(property, COMPUTATIONS[property].call(this, this.element));
+    },
+
+    toObject: function() {
+      var args = $A(arguments);
+      var keys = (args.length === 0) ? Element.Layout.PROPERTIES :
+       args.

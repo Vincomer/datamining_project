@@ -3459,4 +3459,15 @@ Element.addMethods({
     toObject: function() {
       var args = $A(arguments);
       var keys = (args.length === 0) ? Element.Layout.PROPERTIES :
-       args.
+       args.join(' ').split(' ');
+      var obj = {};
+      keys.each( function(key) {
+        if (!Element.Layout.PROPERTIES.include(key)) return;
+        var value = this.get(key);
+        if (value != null) obj[key] = value;
+      }, this);
+      return obj;
+    },
+
+    toHash: function() {
+      var obj = this.toObject.apply(thi

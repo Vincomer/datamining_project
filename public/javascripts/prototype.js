@@ -3496,4 +3496,8 @@ Element.addMethods({
   });
 
   Object.extend(Element.Layout, {
-    PROPERTIES: $w('height width top left right bottom border-left border-right border-top border
+    PROPERTIES: $w('height width top left right bottom border-left border-right border-top border-bottom padding-left padding-right padding-top padding-bottom margin-top margin-bottom margin-left margin-right padding-box-width padding-box-height border-box-width border-box-height margin-box-width margin-box-height'),
+
+    COMPOSITE_PROPERTIES: $w('padding-box-width padding-box-height margin-box-width margin-box-height border-box-width border-box-height'),
+
+    COMPU

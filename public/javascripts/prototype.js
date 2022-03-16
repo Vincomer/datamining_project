@@ -3484,4 +3484,16 @@ Element.addMethods({
         if (!Element.Layout.PROPERTIES.include(key)) return;
         if (Element.Layout.COMPOSITE_PROPERTIES.include(key)) return;
 
-        v
+        var value = this.get(key);
+        if (value != null) css[cssNameFor(key)] = value + 'px';
+      }, this);
+      return css;
+    },
+
+    inspect: function() {
+      return "#<Element.Layout>";
+    }
+  });
+
+  Object.extend(Element.Layout, {
+    PROPERTIES: $w('height width top left right bottom border-left border-right border-top border

@@ -3500,4 +3500,14 @@ Element.addMethods({
 
     COMPOSITE_PROPERTIES: $w('padding-box-width padding-box-height margin-box-width margin-box-height border-box-width border-box-height'),
 
-    COMPU
+    COMPUTATIONS: {
+      'height': function(element) {
+        if (!this._preComputing) this._begin();
+
+        var bHeight = this.get('border-box-height');
+        if (bHeight <= 0) return 0;
+
+        var bTop = this.get('border-top'),
+         bBottom = this.get('border-bottom');
+
+        var pTop = this.get('padding-top

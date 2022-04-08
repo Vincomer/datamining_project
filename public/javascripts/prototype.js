@@ -3524,4 +3524,18 @@ Element.addMethods({
         var bWidth = this.get('border-box-width');
         if (bWidth <= 0) return 0;
 
-        var bLeft = this.get('bord
+        var bLeft = this.get('border-left'),
+         bRight = this.get('border-right');
+
+        var pLeft = this.get('padding-left'),
+         pRight = this.get('padding-right');
+
+        if (!this._preComputing) this._end();
+
+        return bWidth - bLeft - bRight - pLeft - pRight;
+      },
+
+      'padding-box-height': function(element) {
+        var height = this.get('height'),
+         pTop = this.get('padding-top'),
+         pBottom = this.get('padding-

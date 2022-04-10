@@ -3538,4 +3538,18 @@ Element.addMethods({
       'padding-box-height': function(element) {
         var height = this.get('height'),
          pTop = this.get('padding-top'),
-         pBottom = this.get('padding-
+         pBottom = this.get('padding-bottom');
+
+        return height + pTop + pBottom;
+      },
+
+      'padding-box-width': function(element) {
+        var width = this.get('width'),
+         pLeft = this.get('padding-left'),
+         pRight = this.get('padding-right');
+
+        return width + pLeft + pRight;
+      },
+
+      'border-box-height': function(element) {
+        return element.offsetHe

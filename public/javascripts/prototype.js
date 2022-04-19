@@ -3567,4 +3567,19 @@ Element.addMethods({
         if (bHeight <= 0) return 0;
 
         return bHeight + mTop + mBottom;
-      }
+      },
+
+      'margin-box-width': function(element) {
+        var bWidth = this.get('border-box-width'),
+         mLeft = this.get('margin-left'),
+         mRight = this.get('margin-right');
+
+        if (bWidth <= 0) return 0;
+
+        return bWidth + mLeft + mRight;
+      },
+
+      'top': function(element) {
+        var offset = element.positionedOffset();
+        return offset.top;
+   

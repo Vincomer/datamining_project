@@ -3582,4 +3582,17 @@ Element.addMethods({
       'top': function(element) {
         var offset = element.positionedOffset();
         return offset.top;
-   
+      },
+
+      'bottom': function(element) {
+        var offset = element.positionedOffset(),
+         parent = element.getOffsetParent(),
+         pHeight = parent.measure('height');
+
+        var mHeight = this.get('border-box-height');
+
+        return pHeight - mHeight - offset.top;
+      },
+
+      'left': function(element) {
+        var offset = element.posi

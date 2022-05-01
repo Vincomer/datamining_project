@@ -3610,4 +3610,19 @@ Element.addMethods({
       },
 
       'padding-top': function(element) {
-        return getPixelValue(el
+        return getPixelValue(element, 'paddingTop');
+      },
+
+      'padding-bottom': function(element) {
+        return getPixelValue(element, 'paddingBottom');
+      },
+
+      'padding-left': function(element) {
+        return getPixelValue(element, 'paddingLeft');
+      },
+
+      'padding-right': function(element) {
+        return getPixelValue(element, 'paddingRight');
+      },
+
+      'border-top': func

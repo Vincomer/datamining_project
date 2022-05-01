@@ -3625,4 +3625,14 @@ Element.addMethods({
         return getPixelValue(element, 'paddingRight');
       },
 
-      'border-top': func
+      'border-top': function(element) {
+        return Object.isNumber(element.clientTop) ? element.clientTop :
+         getPixelValue(element, 'borderTopWidth');
+      },
+
+      'border-bottom': function(element) {
+        return Object.isNumber(element.clientBottom) ? element.clientBottom :
+         getPixelValue(element, 'borderBottomWidth');
+      },
+
+      'border-left': function(e

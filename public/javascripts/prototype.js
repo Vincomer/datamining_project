@@ -3595,4 +3595,19 @@ Element.addMethods({
       },
 
       'left': function(element) {
-        var offset = element.posi
+        var offset = element.positionedOffset();
+        return offset.left;
+      },
+
+      'right': function(element) {
+        var offset = element.positionedOffset(),
+         parent = element.getOffsetParent(),
+         pWidth = parent.measure('width');
+
+        var mWidth = this.get('border-box-width');
+
+        return pWidth - mWidth - offset.left;
+      },
+
+      'padding-top': function(element) {
+        return getPixelValue(el

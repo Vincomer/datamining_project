@@ -3646,4 +3646,18 @@ Element.addMethods({
       },
 
       'margin-top': function(element) {
-        return getPixelValue(e
+        return getPixelValue(element, 'marginTop');
+      },
+
+      'margin-bottom': function(element) {
+        return getPixelValue(element, 'marginBottom');
+      },
+
+      'margin-left': function(element) {
+        return getPixelValue(element, 'marginLeft');
+      },
+
+      'margin-right': function(element) {
+        return getPixelValue(element, 'marginRight');
+      }
+  

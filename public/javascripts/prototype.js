@@ -3670,4 +3670,19 @@ Element.addMethods({
         var rect = element.getBoundingClientRect(),
          pRect = parent.getBoundingClientRect();
 
-        return (pRect.right - rect.right).round(
+        return (pRect.right - rect.right).round();
+      },
+
+      'bottom': function(element) {
+        var parent = hasLayout(element.getOffsetParent());
+        var rect = element.getBoundingClientRect(),
+         pRect = parent.getBoundingClientRect();
+
+        return (pRect.bottom - rect.bottom).round();
+      }
+    });
+  }
+
+  Element.Offset = Class.create({
+    initialize: function(left, top) {
+      this.left = 

@@ -3685,4 +3685,23 @@ Element.addMethods({
 
   Element.Offset = Class.create({
     initialize: function(left, top) {
-      this.left = 
+      this.left = left.round();
+      this.top  = top.round();
+
+      this[0] = this.left;
+      this[1] = this.top;
+    },
+
+    relativeTo: function(offset) {
+      return new Element.Offset(
+        this.left - offset.left,
+        this.top  - offset.top
+      );
+    },
+
+    inspect: function() {
+      return "#<Element.Offset left: #{left} top: #{top}>".interpolate(this);
+    },
+
+    toString: function() {
+      return "[#{left

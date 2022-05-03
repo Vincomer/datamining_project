@@ -3660,4 +3660,14 @@ Element.addMethods({
       'margin-right': function(element) {
         return getPixelValue(element, 'marginRight');
       }
-  
+    }
+  });
+
+  if ('getBoundingClientRect' in document.documentElement) {
+    Object.extend(Element.Layout.COMPUTATIONS, {
+      'right': function(element) {
+        var parent = hasLayout(element.getOffsetParent());
+        var rect = element.getBoundingClientRect(),
+         pRect = parent.getBoundingClientRect();
+
+        return (pRect.right - rect.right).round(

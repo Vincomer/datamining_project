@@ -3721,4 +3721,16 @@ Element.addMethods({
   }
 
   function getDimensions(element) {
-    var layout 
+    var layout = $(element).getLayout();
+    return {
+      width:  layout.get('width'),
+      height: layout.get('height')
+    };
+  }
+
+  function getOffsetParent(element) {
+    if (isDetached(element)) return $(document.body);
+
+    var isInline = (Element.getStyle(element, 'display') === 'inline');
+    if (!isInline && element.offsetParent) return $(element.offsetParent);
+    if (

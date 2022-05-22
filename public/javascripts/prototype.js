@@ -3733,4 +3733,17 @@ Element.addMethods({
 
     var isInline = (Element.getStyle(element, 'display') === 'inline');
     if (!isInline && element.offsetParent) return $(element.offsetParent);
-    if (
+    if (element === document.body) return $(element);
+
+    while ((element = element.parentNode) && element !== document.body) {
+      if (Element.getStyle(element, 'position') !== 'static') {
+        return (element.nodeName === 'HTML') ? $(document.body) : $(element);
+      }
+    }
+
+    return $(document.body);
+  }
+
+
+  function cumulativeOffset(element) {
+    var valueT = 0, valueL =

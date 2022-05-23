@@ -3746,4 +3746,19 @@ Element.addMethods({
 
 
   function cumulativeOffset(element) {
-    var valueT = 0, valueL =
+    var valueT = 0, valueL = 0;
+    do {
+      valueT += element.offsetTop  || 0;
+      valueL += element.offsetLeft || 0;
+      element = element.offsetParent;
+    } while (element);
+    return new Element.Offset(valueL, valueT);
+  }
+
+  function positionedOffset(element) {
+    var layout = element.getLayout();
+
+    var valueT = 0, valueL = 0;
+    do {
+      valueT += element.offsetTop  || 0;
+      valueL += el

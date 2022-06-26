@@ -3801,4 +3801,19 @@ Element.addMethods({
     do {
       if (element != docBody) {
         valueT -= element.scrollTop  || 0;
-        valueL -= element.scrollLeft 
+        valueL -= element.scrollLeft || 0;
+      }
+    } while (element = element.parentNode);
+    return new Element.Offset(valueL, valueT);
+  }
+
+  function absolutize(element) {
+    element = $(element);
+
+    if (Element.getStyle(element, 'position') === 'absolute') {
+      return element;
+    }
+
+    var offsetParent = getOffsetParent(element);
+    var eOffset = element.viewportOffset(),
+     pOffs

@@ -3829,4 +3829,20 @@ Element.addMethods({
     });
 
     element.setStyle({
-      positi
+      position: 'absolute',
+      top:    offset.top + 'px',
+      left:   offset.left + 'px',
+      width:  layout.get('width') + 'px',
+      height: layout.get('height') + 'px'
+    });
+
+    return element;
+  }
+
+  function relativize(element) {
+    element = $(element);
+    if (Element.getStyle(element, 'position') === 'relative') {
+      return element;
+    }
+
+    var origin

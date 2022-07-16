@@ -3845,4 +3845,16 @@ Element.addMethods({
       return element;
     }
 
-    var origin
+    var originalStyles =
+     element.retrieve('prototype_absolutize_original_styles');
+
+    if (originalStyles) element.setStyle(originalStyles);
+    return element;
+  }
+
+  Element.addMethods({
+    getLayout:              getLayout,
+    measure:                measure,
+    getDimensions:          getDimensions,
+    getOffsetParent:        getOffsetParent,
+    cumulative

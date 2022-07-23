@@ -3857,4 +3857,16 @@ Element.addMethods({
     measure:                measure,
     getDimensions:          getDimensions,
     getOffsetParent:        getOffsetParent,
-    cumulative
+    cumulativeOffset:       cumulativeOffset,
+    positionedOffset:       positionedOffset,
+    cumulativeScrollOffset: cumulativeScrollOffset,
+    viewportOffset:         viewportOffset,
+    absolutize:             absolutize,
+    relativize:             relativize
+  });
+
+  function isBody(element) {
+    return element.nodeName.toUpperCase() === 'BODY';
+  }
+
+  functi

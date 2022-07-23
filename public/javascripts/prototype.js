@@ -3869,4 +3869,16 @@ Element.addMethods({
     return element.nodeName.toUpperCase() === 'BODY';
   }
 
-  functi
+  function isDetached(element) {
+    return element !== document.body &&
+     !Element.descendantOf(element, document.body);
+  }
+
+  if ('getBoundingClientRect' in document.documentElement) {
+    Element.addMethods({
+      viewportOffset: function(element) {
+        element = $(element);
+        if (isDetached(element)) return new Element.Offset(0, 0);
+
+        var rect  = element.getBoundingClientRect(),
+         docEl = 

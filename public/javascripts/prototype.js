@@ -3881,4 +3881,15 @@ Element.addMethods({
         if (isDetached(element)) return new Element.Offset(0, 0);
 
         var rect  = element.getBoundingClientRect(),
-         docEl = 
+         docEl = document.documentElement;
+        return new Element.Offset(rect.left - docEl.clientLeft,
+         rect.top - docEl.clientTop);
+      },
+
+      positionedOffset: function(element) {
+        element = $(element);
+        var parent = element.getOffsetParent();
+        if (isDetached(element)) return new Element.Offset(0, 0);
+
+        if (element.offsetParent &&
+         element.offsetParent.nodeName.t

@@ -3892,4 +3892,14 @@ Element.addMethods({
         if (isDetached(element)) return new Element.Offset(0, 0);
 
         if (element.offsetParent &&
-         element.offsetParent.nodeName.t
+         element.offsetParent.nodeName.toUpperCase() === 'HTML') {
+          return positionedOffset(element);
+        }
+
+        var eOffset = element.viewportOffset(),
+         pOffset = isBody(parent) ? viewportOffset(parent) :
+          parent.viewportOffset();
+        var retOffset = eOffset.relativeTo(pOffset);
+
+        var layout = element.getLayout();
+        var top  = retOffset.

@@ -3902,4 +3902,19 @@ Element.addMethods({
         var retOffset = eOffset.relativeTo(pOffset);
 
         var layout = element.getLayout();
-        var top  = retOffset.
+        var top  = retOffset.top  - layout.get('margin-top');
+        var left = retOffset.left - layout.get('margin-left');
+
+        return new Element.Offset(left, top);
+      }
+    });
+  }
+})();
+window.$$ = function() {
+  var expression = $A(arguments).join(', ');
+  return Prototype.Selector.select(expression, document);
+};
+
+Prototype.Selector = (function() {
+
+  function sele

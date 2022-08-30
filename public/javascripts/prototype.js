@@ -3929,4 +3929,24 @@ Prototype.Selector = (function() {
     index = index || 0;
     var match = Prototype.Selector.match, length = elements.length, matchIndex = 0, i;
 
-    for (i = 0; i < lengt
+    for (i = 0; i < length; i++) {
+      if (match(elements[i], expression) && index == matchIndex++) {
+        return Element.extend(elements[i]);
+      }
+    }
+  }
+
+  function extendElements(elements) {
+    for (var i = 0, length = elements.length; i < length; i++) {
+      Element.extend(elements[i]);
+    }
+    return elements;
+  }
+
+
+  var K = Prototype.K;
+
+  return {
+    select: select,
+    match: match,
+    find: fin

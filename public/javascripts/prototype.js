@@ -3949,4 +3949,18 @@ Prototype.Selector = (function() {
   return {
     select: select,
     match: match,
-    find: fin
+    find: find,
+    extendElements: (Element.extend === K) ? K : extendElements,
+    extendElement: Element.extend
+  };
+})();
+Prototype._original_property = window.Sizzle;
+/*!
+ * Sizzle CSS Selector Engine - v1.0
+ *  Copyright 2009, The Dojo Foundation
+ *  Released under the MIT, BSD, and GPL Licenses.
+ *  More information: http://sizzlejs.com/
+ */
+(function(){
+
+var chunker = /((?:\((?:\([^

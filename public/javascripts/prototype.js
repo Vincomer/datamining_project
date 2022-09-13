@@ -3990,4 +3990,23 @@ var Sizzle = function(selector, context, results, seed) {
 		soFar = selector;
 
 	while ( (chunker.exec(""), m = chunker.exec(soFar)) !== null ) {
-		soFa
+		soFar = m[3];
+
+		parts.push( m[1] );
+
+		if ( m[2] ) {
+			extra = m[3];
+			break;
+		}
+	}
+
+	if ( parts.length > 1 && origPOS.exec( selector ) ) {
+		if ( parts.length === 2 && Expr.relative[ parts[0] ] ) {
+			set = posProcess( parts[0] + parts[1], context );
+		} else {
+			set = Expr.relative[ parts[0] ] ?
+				[ context ] :
+				Sizzle( parts.shift(), context );
+
+			while ( parts.length ) {
+				sel

@@ -3963,4 +3963,16 @@ Prototype._original_property = window.Sizzle;
  */
 (function(){
 
-var chunker = /((?:\((?:\([^
+var chunker = /((?:\((?:\([^()]+\)|[^()]+)+\)|\[(?:\[[^[\]]*\]|['"][^'"]*['"]|[^[\]'"]+)+\]|\\.|[^ >+~,(\[\\]+)+|[>+~])(\s*,\s*)?((?:.|\r|\n)*)/g,
+	done = 0,
+	toString = Object.prototype.toString,
+	hasDuplicate = false,
+	baseHasDuplicate = true;
+
+[0, 0].sort(function(){
+	baseHasDuplicate = false;
+	return 0;
+});
+
+var Sizzle = function(selector, context, results, seed) {
+	results = results || [];

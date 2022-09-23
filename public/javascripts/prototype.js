@@ -4009,4 +4009,16 @@ var Sizzle = function(selector, context, results, seed) {
 				Sizzle( parts.shift(), context );
 
 			while ( parts.length ) {
-				sel
+				selector = parts.shift();
+
+				if ( Expr.relative[ selector ] )
+					selector += parts.shift();
+
+				set = posProcess( selector, set );
+			}
+		}
+	} else {
+		if ( !seed && parts.length > 1 && context.nodeType === 9 && !contextXML &&
+				Expr.match.ID.test(parts[0]) && !Expr.match.ID.test(parts[parts.length - 1]) ) {
+			var ret = Sizzle.find( parts.shift(), context, contextXML );
+			context = ret.expr ? 

@@ -4085,4 +4085,23 @@ var Sizzle = function(selector, context, results, seed) {
 	}
 
 	if ( extra ) {
+		Sizzle( extra, origContext, results, seed );
+		Sizzle.uniqueSort( results );
+	}
+
+	return results;
+};
+
+Sizzle.uniqueSort = function(results){
+	if ( sortOrder ) {
+		hasDuplicate = baseHasDuplicate;
+		results.sort(sortOrder);
+
+		if ( hasDuplicate ) {
+			for ( var i = 1; i < results.length; i++ ) {
+				if ( results[i] === results[i-1] ) {
+					results.splice(i--, 1);
+				}
+			}
+		}
 	

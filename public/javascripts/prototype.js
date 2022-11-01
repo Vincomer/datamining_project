@@ -4104,4 +4104,24 @@ Sizzle.uniqueSort = function(results){
 				}
 			}
 		}
-	
+	}
+
+	return results;
+};
+
+Sizzle.matches = function(expr, set){
+	return Sizzle(expr, null, null, set);
+};
+
+Sizzle.find = function(expr, context, isXML){
+	var set, match;
+
+	if ( !expr ) {
+		return [];
+	}
+
+	for ( var i = 0, l = Expr.order.length; i < l; i++ ) {
+		var type = Expr.order[i], match;
+
+		if ( (match = Expr.leftMatch[ type ].exec( expr )) ) {
+			var left = match

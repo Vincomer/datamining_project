@@ -4155,3 +4155,19 @@ Sizzle.filter = function(expr, set, inplace, not){
 				var filter = Expr.filter[ type ], found, item;
 				anyFound = false;
 
+				if ( curLoop == result ) {
+					result = [];
+				}
+
+				if ( Expr.preFilter[ type ] ) {
+					match = Expr.preFilter[ type ]( match, curLoop, inplace, result, not, isXMLFilter );
+
+					if ( !match ) {
+						anyFound = found = true;
+					} else if ( match === true ) {
+						continue;
+					}
+				}
+
+				if ( match ) {
+					for ( var i = 0; (item = curLoop[i]) != null; i++ ) 

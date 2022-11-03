@@ -4189,4 +4189,28 @@ Sizzle.filter = function(expr, set, inplace, not){
 					}
 				}
 
-				if ( found !== undefin
+				if ( found !== undefined ) {
+					if ( !inplace ) {
+						curLoop = result;
+					}
+
+					expr = expr.replace( Expr.match[ type ], "" );
+
+					if ( !anyFound ) {
+						return [];
+					}
+
+					break;
+				}
+			}
+		}
+
+		if ( expr == old ) {
+			if ( anyFound == null ) {
+				throw "Syntax error, unrecognized expression: " + expr;
+			} else {
+				break;
+			}
+		}
+
+		old = expr

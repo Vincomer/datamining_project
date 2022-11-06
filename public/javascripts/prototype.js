@@ -4213,4 +4213,18 @@ Sizzle.filter = function(expr, set, inplace, not){
 			}
 		}
 
-		old = expr
+		old = expr;
+	}
+
+	return curLoop;
+};
+
+var Expr = Sizzle.selectors = {
+	order: [ "ID", "NAME", "TAG" ],
+	match: {
+		ID: /#((?:[\w\u00c0-\uFFFF-]|\\.)+)/,
+		CLASS: /\.((?:[\w\u00c0-\uFFFF-]|\\.)+)/,
+		NAME: /\[name=['"]*((?:[\w\u00c0-\uFFFF-]|\\.)+)['"]*\]/,
+		ATTR: /\[\s*((?:[\w\u00c0-\uFFFF-]|\\.)+)\s*(?:(\S?=)\s*(['"]*)(.*?)\3|)\s*\]/,
+		TAG: /^((?:[\w\u00c0-\uFFFF\*-]|\\.)+)/,
+		CHILD: /:(only|

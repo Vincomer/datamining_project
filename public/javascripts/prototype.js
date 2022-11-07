@@ -4238,4 +4238,19 @@ var Expr = Sizzle.selectors = {
 	},
 	attrHandle: {
 		href: function(elem){
-			return elem.getAttribut
+			return elem.getAttribute("href");
+		}
+	},
+	relative: {
+		"+": function(checkSet, part, isXML){
+			var isPartStr = typeof part === "string",
+				isTag = isPartStr && !/\W/.test(part),
+				isPartStrNotTag = isPartStr && !isTag;
+
+			if ( isTag && !isXML ) {
+				part = part.toUpperCase();
+			}
+
+			for ( var i = 0, l = checkSet.length, elem; i < l; i++ ) {
+				if ( (elem = checkSet[i]) ) {
+					while ( (elem = ele

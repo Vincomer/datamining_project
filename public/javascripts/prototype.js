@@ -4268,4 +4268,17 @@ var Expr = Sizzle.selectors = {
 		">": function(checkSet, part, isXML){
 			var isPartStr = typeof part === "string";
 
-			if ( isPartStr && !/\W/.tes
+			if ( isPartStr && !/\W/.test(part) ) {
+				part = isXML ? part : part.toUpperCase();
+
+				for ( var i = 0, l = checkSet.length; i < l; i++ ) {
+					var elem = checkSet[i];
+					if ( elem ) {
+						var parent = elem.parentNode;
+						checkSet[i] = parent.nodeName === part ? parent : false;
+					}
+				}
+			} else {
+				for ( var i = 0, l = checkSet.length; i < l; i++ ) {
+					var elem = checkSet[i];
+					if ( elem 

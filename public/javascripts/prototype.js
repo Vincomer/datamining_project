@@ -4297,4 +4297,18 @@ var Expr = Sizzle.selectors = {
 			var doneName = done++, checkFn = dirCheck;
 
 			if ( !/\W/.test(part) ) {
-				var nodeCheck = part = isXML ? part : part.toUpp
+				var nodeCheck = part = isXML ? part : part.toUpperCase();
+				checkFn = dirNodeCheck;
+			}
+
+			checkFn("parentNode", part, doneName, checkSet, nodeCheck, isXML);
+		},
+		"~": function(checkSet, part, isXML){
+			var doneName = done++, checkFn = dirCheck;
+
+			if ( typeof part === "string" && !/\W/.test(part) ) {
+				var nodeCheck = part = isXML ? part : part.toUpperCase();
+				checkFn = dirNodeCheck;
+			}
+
+			checkFn("previousSibling", 

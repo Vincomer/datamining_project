@@ -4323,4 +4323,20 @@ var Expr = Sizzle.selectors = {
 		},
 		NAME: function(match, context, isXML){
 			if ( typeof context.getElementsByName !== "undefined" ) {
-				var ret = [], resu
+				var ret = [], results = context.getElementsByName(match[1]);
+
+				for ( var i = 0, l = results.length; i < l; i++ ) {
+					if ( results[i].getAttribute("name") === match[1] ) {
+						ret.push( results[i] );
+					}
+				}
+
+				return ret.length === 0 ? null : ret;
+			}
+		},
+		TAG: function(match, context){
+			return context.getElementsByTagName(match[1]);
+		}
+	},
+	preFilter: {
+		CLASS: function(match, curLoop, i

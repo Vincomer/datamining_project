@@ -4352,4 +4352,20 @@ var Expr = Sizzle.selectors = {
 						if ( !inplace )
 							result.push( elem );
 					} else if ( inplace ) {
-						
+						curLoop[i] = false;
+					}
+				}
+			}
+
+			return false;
+		},
+		ID: function(match){
+			return match[1].replace(/\\/g, "");
+		},
+		TAG: function(match, curLoop){
+			for ( var i = 0; curLoop[i] === false; i++ ){}
+			return curLoop[i] && isXML(curLoop[i]) ? match[1] : match[1].toUpperCase();
+		},
+		CHILD: function(match){
+			if ( match[1] == "nth" ) {
+				var test = /(-?)(\d*

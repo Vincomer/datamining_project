@@ -4368,4 +4368,16 @@ var Expr = Sizzle.selectors = {
 		},
 		CHILD: function(match){
 			if ( match[1] == "nth" ) {
-				var test = /(-?)(\d*
+				var test = /(-?)(\d*)n((?:\+|-)?\d*)/.exec(
+					match[2] == "even" && "2n" || match[2] == "odd" && "2n+1" ||
+					!/\D/.test( match[2] ) && "0n+" + match[2] || match[2]);
+
+				match[2] = (test[1] + (test[2] || 1)) - 0;
+				match[3] = test[3] - 0;
+			}
+
+			match[0] = done++;
+
+			return match;
+		},
+		ATTR: function(match, curLoop, inplace, result, not, isXML)

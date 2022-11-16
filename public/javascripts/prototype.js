@@ -4395,4 +4395,19 @@ var Expr = Sizzle.selectors = {
 		},
 		PSEUDO: function(match, curLoop, inplace, result, not){
 			if ( match[1] === "not" ) {
-				if ( ( chunker.exec(match[3]) || "" ).length > 1 || /
+				if ( ( chunker.exec(match[3]) || "" ).length > 1 || /^\w/.test(match[3]) ) {
+					match[3] = Sizzle(match[3], null, null, curLoop);
+				} else {
+					var ret = Sizzle.filter(match[3], curLoop, inplace, true ^ not);
+					if ( !inplace ) {
+						result.push.apply( result, ret );
+					}
+					return false;
+				}
+			} else if ( Expr.match.POS.test( match[0] ) || Expr.match.CHILD.test( match[0] ) ) {
+				return true;
+			}
+
+			return match;
+		},
+		POS: funct

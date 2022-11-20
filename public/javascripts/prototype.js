@@ -4410,4 +4410,20 @@ var Expr = Sizzle.selectors = {
 
 			return match;
 		},
-		POS: funct
+		POS: function(match){
+			match.unshift( true );
+			return match;
+		}
+	},
+	filters: {
+		enabled: function(elem){
+			return elem.disabled === false && elem.type !== "hidden";
+		},
+		disabled: function(elem){
+			return elem.disabled === true;
+		},
+		checked: function(elem){
+			return elem.checked === true;
+		},
+		selected: function(elem){
+			elem.parentNode.selec

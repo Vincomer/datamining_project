@@ -4599,4 +4599,21 @@ var Expr = Sizzle.selectors = {
 				type === "$=" ?
 				value.substr(value.length - check.length) === check :
 				type === "|=" ?
-				value === check || value.substr(0, check.length + 1) =
+				value === check || value.substr(0, check.length + 1) === check + "-" :
+				false;
+		},
+		POS: function(elem, match, i, array){
+			var name = match[2], filter = Expr.setFilters[ name ];
+
+			if ( filter ) {
+				return filter( elem, i, match, array );
+			}
+		}
+	}
+};
+
+var origPOS = Expr.match.POS;
+
+for ( var type in Expr.match ) {
+	Expr.match[ type ] = new RegExp( Expr.match[ type ].source + /(?![^\[]*\])(?![^\(]*\))/.source );
+	Expr.

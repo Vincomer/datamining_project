@@ -4510,4 +4510,22 @@ var Expr = Sizzle.selectors = {
 				var not = match[3];
 
 				for ( var i = 0, l = not.length; i < l; i++ ) {
-					if ( not[i] 
+					if ( not[i] === elem ) {
+						return false;
+					}
+				}
+
+				return true;
+			}
+		},
+		CHILD: function(elem, match){
+			var type = match[1], node = elem;
+			switch (type) {
+				case 'only':
+				case 'first':
+					while ( (node = node.previousSibling) )  {
+						if ( node.nodeType === 1 ) return false;
+					}
+					if ( type == 'first') return true;
+					node = elem;
+				case 

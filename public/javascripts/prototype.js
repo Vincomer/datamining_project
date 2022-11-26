@@ -4558,4 +4558,17 @@ var Expr = Sizzle.selectors = {
 						return diff == 0;
 					} else {
 						return ( diff % first == 0 && diff / first >= 0 );
-			
+					}
+			}
+		},
+		ID: function(elem, match){
+			return elem.nodeType === 1 && elem.getAttribute("id") === match;
+		},
+		TAG: function(elem, match){
+			return (match === "*" && elem.nodeType === 1) || elem.nodeName === match;
+		},
+		CLASS: function(elem, match){
+			return (" " + (elem.className || elem.getAttribute("class")) + " ")
+				.indexOf( match ) > -1;
+		},
+		ATT

@@ -4544,4 +4544,18 @@ var Expr = Sizzle.selectors = {
 						parent = elem.parentNode;
 
 					if ( parent && (parent.sizcache !== doneName || !elem.nodeIndex) ) {
-				
+						var count = 0;
+						for ( node = parent.firstChild; node; node = node.nextSibling ) {
+							if ( node.nodeType === 1 ) {
+								node.nodeIndex = ++count;
+							}
+						}
+						parent.sizcache = doneName;
+					}
+
+					var diff = elem.nodeIndex - last;
+					if ( first == 0 ) {
+						return diff == 0;
+					} else {
+						return ( diff % first == 0 && diff / first >= 0 );
+			

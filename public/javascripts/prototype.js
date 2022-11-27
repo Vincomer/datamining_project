@@ -4668,4 +4668,24 @@ if ( document.documentElement.compareDocumentPosition ) {
 
 		var ret = a.compareDocumentPosition(b) & 4 ? -1 : a === b ? 0 : 1;
 		if ( ret === 0 ) {
-			hasDuplica
+			hasDuplicate = true;
+		}
+		return ret;
+	};
+} else if ( "sourceIndex" in document.documentElement ) {
+	sortOrder = function( a, b ) {
+		if ( !a.sourceIndex || !b.sourceIndex ) {
+			if ( a == b ) {
+				hasDuplicate = true;
+			}
+			return 0;
+		}
+
+		var ret = a.sourceIndex - b.sourceIndex;
+		if ( ret === 0 ) {
+			hasDuplicate = true;
+		}
+		return ret;
+	};
+} else if ( document.createRange ) {
+	sortOrder = 

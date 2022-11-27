@@ -4649,4 +4649,23 @@ try {
 					ret.push( array[i] );
 				}
 			}
-		
+		}
+
+		return ret;
+	};
+}
+
+var sortOrder;
+
+if ( document.documentElement.compareDocumentPosition ) {
+	sortOrder = function( a, b ) {
+		if ( !a.compareDocumentPosition || !b.compareDocumentPosition ) {
+			if ( a == b ) {
+				hasDuplicate = true;
+			}
+			return 0;
+		}
+
+		var ret = a.compareDocumentPosition(b) & 4 ? -1 : a === b ? 0 : 1;
+		if ( ret === 0 ) {
+			hasDuplica

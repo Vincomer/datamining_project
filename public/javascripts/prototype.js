@@ -4742,4 +4742,24 @@ if ( document.documentElement.compareDocumentPosition ) {
 
 	if ( div.getElementsByTagName("*").length > 0 ) {
 		Expr.find.TAG = function(match, context){
-			var results = 
+			var results = context.getElementsByTagName(match[1]);
+
+			if ( match[1] === "*" ) {
+				var tmp = [];
+
+				for ( var i = 0; results[i]; i++ ) {
+					if ( results[i].nodeType === 1 ) {
+						tmp.push( results[i] );
+					}
+				}
+
+				results = tmp;
+			}
+
+			return results;
+		};
+	}
+
+	div.innerHTML = "<a href='#'></a>";
+	if ( div.firstChild && typeof div.firstChild.getAttribute !== "undefined" &&
+			div.firstChild.getAttribu

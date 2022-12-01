@@ -4702,4 +4702,21 @@ if ( document.documentElement.compareDocumentPosition ) {
 		bRange.setStart(b, 0);
 		bRange.setEnd(b, 0);
 		var ret = aRange.compareBoundaryPoints(Range.START_TO_END, bRange);
-		
+		if ( ret === 0 ) {
+			hasDuplicate = true;
+		}
+		return ret;
+	};
+}
+
+(function(){
+	var form = document.createElement("div"),
+		id = "script" + (new Date).getTime();
+	form.innerHTML = "<a name='" + id + "'/>";
+
+	var root = document.documentElement;
+	root.insertBefore( form, root.firstChild );
+
+	if ( !!document.getElementById( id ) ) {
+		Expr.find.ID = function(match, context, isXML){
+			if ( typ

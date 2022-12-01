@@ -4775,4 +4775,21 @@ if ( document.querySelectorAll ) (function(){
 	var oldSizzle = Sizzle, div = document.createElement("div");
 	div.innerHTML = "<p class='TEST'></p>";
 
-	if ( div.querySelectorAll && div.querySelectorA
+	if ( div.querySelectorAll && div.querySelectorAll(".TEST").length === 0 ) {
+		return;
+	}
+
+	Sizzle = function(query, context, extra, seed){
+		context = context || document;
+
+		if ( !seed && context.nodeType === 9 && !isXML(context) ) {
+			try {
+				return makeArray( context.querySelectorAll(query), extra );
+			} catch(e){}
+		}
+
+		return oldSizzle(query, context, extra, seed);
+	};
+
+	for ( var prop in oldSizzle ) {
+		Sizzle[ prop ] = o

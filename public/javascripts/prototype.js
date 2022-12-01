@@ -4719,4 +4719,11 @@ if ( document.documentElement.compareDocumentPosition ) {
 
 	if ( !!document.getElementById( id ) ) {
 		Expr.find.ID = function(match, context, isXML){
-			if ( typ
+			if ( typeof context.getElementById !== "undefined" && !isXML ) {
+				var m = context.getElementById(match[1]);
+				return m ? m.id === match[1] || typeof m.getAttributeNode !== "undefined" && m.getAttributeNode("id").nodeValue === match[1] ? [m] : undefined : [];
+			}
+		};
+
+		Expr.filter.ID = function(elem, match){
+			var node = typeof elem.getAttributeNode !== "undefined" && elem.getAt

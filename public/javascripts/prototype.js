@@ -4792,4 +4792,17 @@ if ( document.querySelectorAll ) (function(){
 	};
 
 	for ( var prop in oldSizzle ) {
-		Sizzle[ prop ] = o
+		Sizzle[ prop ] = oldSizzle[ prop ];
+	}
+
+	div = null; // release memory in IE
+})();
+
+if ( document.getElementsByClassName && document.documentElement.getElementsByClassName ) (function(){
+	var div = document.createElement("div");
+	div.innerHTML = "<div class='test e'></div><div class='test'></div>";
+
+	if ( div.getElementsByClassName("e").length === 0 )
+		return;
+
+	div.lastChild.className = "e

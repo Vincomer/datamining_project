@@ -4805,4 +4805,20 @@ if ( document.getElementsByClassName && document.documentElement.getElementsByCl
 	if ( div.getElementsByClassName("e").length === 0 )
 		return;
 
-	div.lastChild.className = "e
+	div.lastChild.className = "e";
+
+	if ( div.getElementsByClassName("e").length === 1 )
+		return;
+
+	Expr.order.splice(1, 0, "CLASS");
+	Expr.find.CLASS = function(match, context, isXML) {
+		if ( typeof context.getElementsByClassName !== "undefined" && !isXML ) {
+			return context.getElementsByClassName(match[1]);
+		}
+	};
+
+	div = null; // release memory in IE
+})();
+
+function dirNodeCheck( dir, cur, doneName, checkSet, nodeCheck, isXML ) {
+	

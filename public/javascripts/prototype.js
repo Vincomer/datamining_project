@@ -4875,4 +4875,28 @@ function dirCheck( dir, cur, doneName, checkSet, nodeCheck, isXML ) {
 				}
 
 				if ( elem.nodeType === 1 ) {
-					if ( !isXM
+					if ( !isXML ) {
+						elem.sizcache = doneName;
+						elem.sizset = i;
+					}
+					if ( typeof cur !== "string" ) {
+						if ( elem === cur ) {
+							match = true;
+							break;
+						}
+
+					} else if ( Sizzle.filter( cur, [elem] ).length > 0 ) {
+						match = elem;
+						break;
+					}
+				}
+
+				elem = elem[dir];
+			}
+
+			checkSet[i] = match;
+		}
+	}
+}
+
+var contains = document.com

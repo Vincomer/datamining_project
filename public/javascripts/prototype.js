@@ -4941,4 +4941,23 @@ window.Sizzle = Sizzle;
   }
 
   function match(element, selector) {
-    return engine.matches(
+    return engine.matches(selector, [element]).length == 1;
+  }
+
+  Prototype.Selector.engine = engine;
+  Prototype.Selector.select = select;
+  Prototype.Selector.match = match;
+})(Sizzle);
+
+window.Sizzle = Prototype._original_property;
+delete Prototype._original_property;
+
+var Form = {
+  reset: function(form) {
+    form = $(form);
+    form.reset();
+    return form;
+  },
+
+  serializeElements: function(elements, options) {
+ 

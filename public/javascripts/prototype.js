@@ -4973,4 +4973,23 @@ var Form = {
             if (!Object.isArray(result[key])) result[key] = [result[key]];
             result[key].push(value);
           }
-          else result[key] = va
+          else result[key] = value;
+        }
+      }
+      return result;
+    });
+
+    return options.hash ? data : Object.toQueryString(data);
+  }
+};
+
+Form.Methods = {
+  serialize: function(form, options) {
+    return Form.serializeElements(Form.getElements(form), options);
+  },
+
+  getElements: function(form) {
+    var elements = $(form).getElementsByTagName('*'),
+        element,
+        arr = [ ],
+        serializers 

@@ -5013,4 +5013,23 @@ Form.Methods = {
       var input = inputs[i];
       if ((typeName && input.type != typeName) || (name && input.name != name))
         continue;
-      matchingInputs.push(Element.ex
+      matchingInputs.push(Element.extend(input));
+    }
+
+    return matchingInputs;
+  },
+
+  disable: function(form) {
+    form = $(form);
+    Form.getElements(form).invoke('disable');
+    return form;
+  },
+
+  enable: function(form) {
+    form = $(form);
+    Form.getElements(form).invoke('enable');
+    return form;
+  },
+
+  findFirstElement: function(form) {
+    var elements = $(form).getElements().findAll(

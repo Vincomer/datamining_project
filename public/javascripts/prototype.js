@@ -4992,4 +4992,17 @@ Form.Methods = {
     var elements = $(form).getElementsByTagName('*'),
         element,
         arr = [ ],
-        serializers 
+        serializers = Form.Element.Serializers;
+    for (var i = 0; element = elements[i]; i++) {
+      arr.push(element);
+    }
+    return arr.inject([], function(elements, child) {
+      if (serializers[child.tagName.toLowerCase()])
+        elements.push(Element.extend(child));
+      return elements;
+    })
+  },
+
+  getInputs: function(form, typeName, name) {
+    form = $(form);
+    var i

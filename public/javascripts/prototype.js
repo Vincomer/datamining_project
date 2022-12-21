@@ -5102,4 +5102,21 @@ Form.Element.Methods = {
   getValue: function(element) {
     element = $(element);
     var method = element.tagName.toLowerCase();
-    return Form.Element.Ser
+    return Form.Element.Serializers[method](element);
+  },
+
+  setValue: function(element, value) {
+    element = $(element);
+    var method = element.tagName.toLowerCase();
+    Form.Element.Serializers[method](element, value);
+    return element;
+  },
+
+  clear: function(element) {
+    $(element).value = '';
+    return element;
+  },
+
+  present: function(element) {
+    return $(element).value != '';
+  }

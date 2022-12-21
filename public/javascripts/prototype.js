@@ -5065,4 +5065,27 @@ Form.Methods = {
     if (form.hasAttribute('method') && !options.method)
       options.method = form.method;
 
-    return new Ajax.Request(ac
+    return new Ajax.Request(action, options);
+  }
+};
+
+/*--------------------------------------------------------------------------*/
+
+
+Form.Element = {
+  focus: function(element) {
+    $(element).focus();
+    return element;
+  },
+
+  select: function(element) {
+    $(element).select();
+    return element;
+  }
+};
+
+Form.Element.Methods = {
+
+  serialize: function(element) {
+    element = $(element);
+    if (!element.d

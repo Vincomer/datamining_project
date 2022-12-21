@@ -5053,4 +5053,16 @@ Form.Methods = {
   request: function(form, options) {
     form = $(form), options = Object.clone(options || { });
 
-    var params = options.parameters, action = form.readAttribute('action') || 
+    var params = options.parameters, action = form.readAttribute('action') || '';
+    if (action.blank()) action = window.location.href;
+    options.parameters = form.serialize(true);
+
+    if (params) {
+      if (Object.isString(params)) params = params.toQueryParams();
+      Object.extend(options.parameters, params);
+    }
+
+    if (form.hasAttribute('method') && !options.method)
+      options.method = form.method;
+
+    return new Ajax.Request(ac

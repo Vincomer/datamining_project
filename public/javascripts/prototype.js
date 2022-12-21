@@ -5135,4 +5135,22 @@ Form.Element.Methods = {
   disable: function(element) {
     element = $(element);
     element.disabled = true;
- 
+    return element;
+  },
+
+  enable: function(element) {
+    element = $(element);
+    element.disabled = false;
+    return element;
+  }
+};
+
+/*--------------------------------------------------------------------------*/
+
+var Field = Form.Element;
+
+var $F = Form.Element.Methods.getValue;
+
+/*--------------------------------------------------------------------------*/
+
+Form.Element.Seria

@@ -5119,4 +5119,20 @@ Form.Element.Methods = {
 
   present: function(element) {
     return $(element).value != '';
-  }
+  },
+
+  activate: function(element) {
+    element = $(element);
+    try {
+      element.focus();
+      if (element.select && (element.tagName.toLowerCase() != 'input' ||
+          !(/^(?:button|reset|submit)$/i.test(element.type))))
+        element.select();
+    } catch (e) { }
+    return element;
+  },
+
+  disable: function(element) {
+    element = $(element);
+    element.disabled = true;
+ 

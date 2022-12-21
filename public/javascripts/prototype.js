@@ -5088,4 +5088,18 @@ Form.Element.Methods = {
 
   serialize: function(element) {
     element = $(element);
-    if (!element.d
+    if (!element.disabled && element.name) {
+      var value = element.getValue();
+      if (value != undefined) {
+        var pair = { };
+        pair[element.name] = value;
+        return Object.toQueryString(pair);
+      }
+    }
+    return '';
+  },
+
+  getValue: function(element) {
+    element = $(element);
+    var method = element.tagName.toLowerCase();
+    return Form.Element.Ser

@@ -5040,4 +5040,17 @@ Form.Methods = {
     }).sortBy(function(element) { return element.tabIndex }).first();
 
     return firstByIndex ? firstByIndex : elements.find(function(element) {
-      retu
+      return /^(?:input|select|textarea)$/i.test(element.tagName);
+    });
+  },
+
+  focusFirstElement: function(form) {
+    form = $(form);
+    form.findFirstElement().activate();
+    return form;
+  },
+
+  request: function(form, options) {
+    form = $(form), options = Object.clone(options || { });
+
+    var params = options.parameters, action = form.readAttribute('action') || 

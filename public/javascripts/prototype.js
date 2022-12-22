@@ -5165,4 +5165,18 @@ Form.Element.Serializers = {
   },
 
   inputSelector: function(element, value) {
-    if (Object.isUndefined(value)) return element.checked 
+    if (Object.isUndefined(value)) return element.checked ? element.value : null;
+    else element.checked = !!value;
+  },
+
+  textarea: function(element, value) {
+    if (Object.isUndefined(value)) return element.value;
+    else element.value = value;
+  },
+
+  select: function(element, value) {
+    if (Object.isUndefined(value))
+      return this[element.type == 'select-one' ?
+        'selectOne' : 'selectMany'](element);
+    else {
+   

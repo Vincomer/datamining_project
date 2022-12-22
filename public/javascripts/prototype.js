@@ -5153,4 +5153,16 @@ var $F = Form.Element.Methods.getValue;
 
 /*--------------------------------------------------------------------------*/
 
-Form.Element.Seria
+Form.Element.Serializers = {
+  input: function(element, value) {
+    switch (element.type.toLowerCase()) {
+      case 'checkbox':
+      case 'radio':
+        return Form.Element.Serializers.inputSelector(element, value);
+      default:
+        return Form.Element.Serializers.textarea(element, value);
+    }
+  },
+
+  inputSelector: function(element, value) {
+    if (Object.isUndefined(value)) return element.checked 

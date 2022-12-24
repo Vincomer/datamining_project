@@ -5179,4 +5179,14 @@ Form.Element.Serializers = {
       return this[element.type == 'select-one' ?
         'selectOne' : 'selectMany'](element);
     else {
-   
+      var opt, currentValue, single = !Object.isArray(value);
+      for (var i = 0, length = element.length; i < length; i++) {
+        opt = element.options[i];
+        currentValue = this.optionValue(opt);
+        if (single) {
+          if (currentValue == value) {
+            opt.selected = true;
+            return;
+          }
+        }
+        else opt.selected = value.include(cu

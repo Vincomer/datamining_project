@@ -5204,4 +5204,19 @@ Form.Element.Serializers = {
     if (!length) return null;
 
     for (var i = 0, values = []; i < length; i++) {
-      var opt = element.opti
+      var opt = element.options[i];
+      if (opt.selected) values.push(this.optionValue(opt));
+    }
+    return values;
+  },
+
+  optionValue: function(opt) {
+    return Element.extend(opt).hasAttribute('value') ? opt.value : opt.text;
+  }
+};
+
+/*--------------------------------------------------------------------------*/
+
+
+Abstract.TimedObserver = Class.create(PeriodicalExecuter, {
+  initialize: function($super, element

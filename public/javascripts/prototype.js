@@ -5219,4 +5219,14 @@ Form.Element.Serializers = {
 
 
 Abstract.TimedObserver = Class.create(PeriodicalExecuter, {
-  initialize: function($super, element
+  initialize: function($super, element, frequency, callback) {
+    $super(callback, frequency);
+    this.element   = $(element);
+    this.lastValue = this.getValue();
+  },
+
+  execute: function() {
+    var value = this.getValue();
+    if (Object.isString(this.lastValue) && Object.isString(value) ?
+        this.lastValue != value : String(this.lastValue) != String(value)) {
+      this.callba

@@ -5229,4 +5229,22 @@ Abstract.TimedObserver = Class.create(PeriodicalExecuter, {
     var value = this.getValue();
     if (Object.isString(this.lastValue) && Object.isString(value) ?
         this.lastValue != value : String(this.lastValue) != String(value)) {
-      this.callba
+      this.callback(this.element, value);
+      this.lastValue = value;
+    }
+  }
+});
+
+Form.Element.Observer = Class.create(Abstract.TimedObserver, {
+  getValue: function() {
+    return Form.Element.getValue(this.element);
+  }
+});
+
+Form.Observer = Class.create(Abstract.TimedObserver, {
+  getValue: function() {
+    return Form.serialize(this.element);
+  }
+});
+
+/*------------------------------------------

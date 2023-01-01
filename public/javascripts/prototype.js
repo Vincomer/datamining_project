@@ -5276,4 +5276,18 @@ Abstract.EventObserver = Class.create({
   registerCallback: function(element) {
     if (element.type) {
       switch (element.type.toLowerCase()) {
-        c
+        case 'checkbox':
+        case 'radio':
+          Event.observe(element, 'click', this.onElementEvent.bind(this));
+          break;
+        default:
+          Event.observe(element, 'change', this.onElementEvent.bind(this));
+          break;
+      }
+    }
+  }
+});
+
+Form.Element.EventObserver = Class.create(Abstract.EventObserver, {
+  getValue: function() {
+    retu

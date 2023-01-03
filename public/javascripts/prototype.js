@@ -5309,4 +5309,21 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
     KEY_LEFT:     37,
     KEY_UP:       38,
     KEY_RIGHT:    39,
-    KEY_DOW
+    KEY_DOWN:     40,
+    KEY_DELETE:   46,
+    KEY_HOME:     36,
+    KEY_END:      35,
+    KEY_PAGEUP:   33,
+    KEY_PAGEDOWN: 34,
+    KEY_INSERT:   45,
+
+    cache: {}
+  };
+
+  var docEl = document.documentElement;
+  var MOUSEENTER_MOUSELEAVE_EVENTS_SUPPORTED = 'onmouseenter' in docEl
+    && 'onmouseleave' in docEl;
+
+  var _isButton;
+  if (Prototype.Browser.IE) {
+    var buttonMap = { 0: 1, 1:

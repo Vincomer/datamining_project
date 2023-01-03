@@ -5290,4 +5290,23 @@ Abstract.EventObserver = Class.create({
 
 Form.Element.EventObserver = Class.create(Abstract.EventObserver, {
   getValue: function() {
-    retu
+    return Form.Element.getValue(this.element);
+  }
+});
+
+Form.EventObserver = Class.create(Abstract.EventObserver, {
+  getValue: function() {
+    return Form.serialize(this.element);
+  }
+});
+(function() {
+
+  var Event = {
+    KEY_BACKSPACE: 8,
+    KEY_TAB:       9,
+    KEY_RETURN:   13,
+    KEY_ESC:      27,
+    KEY_LEFT:     37,
+    KEY_UP:       38,
+    KEY_RIGHT:    39,
+    KEY_DOW

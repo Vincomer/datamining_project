@@ -5326,4 +5326,17 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
 
   var _isButton;
   if (Prototype.Browser.IE) {
-    var buttonMap = { 0: 1, 1:
+    var buttonMap = { 0: 1, 1: 4, 2: 2 };
+    _isButton = function(event, code) {
+      return event.button === buttonMap[code];
+    };
+  } else if (Prototype.Browser.WebKit) {
+    _isButton = function(event, code) {
+      switch (code) {
+        case 0: return event.which == 1 && !event.metaKey;
+        case 1: return event.which == 1 && event.metaKey;
+        default: return false;
+      }
+    };
+  } else {
+    _isBut

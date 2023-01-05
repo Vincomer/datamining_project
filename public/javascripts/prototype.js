@@ -5351,4 +5351,16 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
   function isRightClick(event)  { return _isButton(event, 2) }
 
   function element(event) {
-    event = Event
+    event = Event.extend(event);
+
+    var node = event.target, type = event.type,
+     currentTarget = event.currentTarget;
+
+    if (currentTarget && currentTarget.tagName) {
+      if (type === 'load' || type === 'error' ||
+        (type === 'click' && currentTarget.tagName.toLowerCase() === 'input'
+          && currentTarget.type === 'radio'))
+            node = currentTarget;
+    }
+
+    if (node.nodeTyp

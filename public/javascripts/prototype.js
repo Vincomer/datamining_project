@@ -5339,4 +5339,16 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
       }
     };
   } else {
-    _isBut
+    _isButton = function(event, code) {
+      return event.which ? (event.which === code + 1) : (event.button === code);
+    };
+  }
+
+  function isLeftClick(event)   { return _isButton(event, 0) }
+
+  function isMiddleClick(event) { return _isButton(event, 1) }
+
+  function isRightClick(event)  { return _isButton(event, 2) }
+
+  function element(event) {
+    event = Event

@@ -5428,4 +5428,19 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
 
 
   var methods = Object.keys(Event.Methods).inject({ }, function(m, name) {
-    m[name] = Ev
+    m[name] = Event.Methods[name].methodize();
+    return m;
+  });
+
+  if (Prototype.Browser.IE) {
+    function _relatedTarget(event) {
+      var element;
+      switch (event.type) {
+        case 'mouseover': element = event.fromElement; break;
+        case 'mouseout':  element = event.toElement;   break;
+        default: return null;
+      }
+      return Element.extend(element);
+    }
+
+    Object.ext

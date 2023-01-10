@@ -5453,4 +5453,17 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
       if (!event) return false;
       if (event._extendedByPrototype) return event;
 
-      event._extendedByPrototype = Protot
+      event._extendedByPrototype = Prototype.emptyFunction;
+      var pointer = Event.pointer(event);
+
+      Object.extend(event, {
+        target: event.srcElement || element,
+        relatedTarget: _relatedTarget(event),
+        pageX:  pointer.x,
+        pageY:  pointer.y
+      });
+
+      return Object.extend(event, methods);
+    };
+  } else {
+    Event.prototype = window.Event.prototype || document.createEvent('HTMLE

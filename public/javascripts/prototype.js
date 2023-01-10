@@ -5393,4 +5393,19 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
       (docElement.clientLeft || 0));
   }
 
-  function 
+  function pointerY(event) {
+    var docElement = document.documentElement,
+     body = document.body || { scrollTop: 0 };
+
+    return  event.pageY || (event.clientY +
+       (docElement.scrollTop || body.scrollTop) -
+       (docElement.clientTop || 0));
+  }
+
+
+  function stop(event) {
+    Event.extend(event);
+    event.preventDefault();
+    event.stopPropagation();
+
+    event.stopped = t

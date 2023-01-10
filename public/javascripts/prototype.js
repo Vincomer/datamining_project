@@ -5376,4 +5376,21 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
       if (Object.isElement(element) && Prototype.Selector.match(element, expression)) {
         return Element.extend(element);
       }
-      eleme
+      element = element.parentNode;
+    }
+  }
+
+  function pointer(event) {
+    return { x: pointerX(event), y: pointerY(event) };
+  }
+
+  function pointerX(event) {
+    var docElement = document.documentElement,
+     body = document.body || { scrollLeft: 0 };
+
+    return event.pageX || (event.clientX +
+      (docElement.scrollLeft || body.scrollLeft) -
+      (docElement.clientLeft || 0));
+  }
+
+  function 

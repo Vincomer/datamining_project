@@ -5443,4 +5443,14 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
       return Element.extend(element);
     }
 
-    Object.ext
+    Object.extend(methods, {
+      stopPropagation: function() { this.cancelBubble = true },
+      preventDefault:  function() { this.returnValue = false },
+      inspect: function() { return '[object Event]' }
+    });
+
+    Event.extend = function(event, element) {
+      if (!event) return false;
+      if (event._extendedByPrototype) return event;
+
+      event._extendedByPrototype = Protot

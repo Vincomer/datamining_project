@@ -5408,4 +5408,24 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
     event.preventDefault();
     event.stopPropagation();
 
-    event.stopped = t
+    event.stopped = true;
+  }
+
+  Event.Methods = {
+    isLeftClick: isLeftClick,
+    isMiddleClick: isMiddleClick,
+    isRightClick: isRightClick,
+
+    element: element,
+    findElement: findElement,
+
+    pointer: pointer,
+    pointerX: pointerX,
+    pointerY: pointerY,
+
+    stop: stop
+  };
+
+
+  var methods = Object.keys(Event.Methods).inject({ }, function(m, name) {
+    m[name] = Ev

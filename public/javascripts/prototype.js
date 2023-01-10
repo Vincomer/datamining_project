@@ -5363,4 +5363,17 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
             node = currentTarget;
     }
 
-    if (node.nodeTyp
+    if (node.nodeType == Node.TEXT_NODE)
+      node = node.parentNode;
+
+    return Element.extend(node);
+  }
+
+  function findElement(event, expression) {
+    var element = Event.element(event);
+    if (!expression) return element;
+    while (element) {
+      if (Object.isElement(element) && Prototype.Selector.match(element, expression)) {
+        return Element.extend(element);
+      }
+      eleme

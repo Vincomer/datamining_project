@@ -5466,4 +5466,17 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
       return Object.extend(event, methods);
     };
   } else {
-    Event.prototype = window.Event.prototype || document.createEvent('HTMLE
+    Event.prototype = window.Event.prototype || document.createEvent('HTMLEvents').__proto__;
+    Object.extend(Event.prototype, methods);
+    Event.extend = Prototype.K;
+  }
+
+  function _createResponder(element, eventName, handler) {
+    var registry = Element.retrieve(element, 'prototype_event_registry');
+
+    if (Object.isUndefined(registry)) {
+      CACHE.push(element);
+      registry = Element.retrieve(element, 'prototype_event_registry', $H());
+    }
+
+    var respond

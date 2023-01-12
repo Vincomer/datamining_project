@@ -5479,4 +5479,15 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
       registry = Element.retrieve(element, 'prototype_event_registry', $H());
     }
 
-    var respond
+    var respondersForEvent = registry.get(eventName);
+    if (Object.isUndefined(respondersForEvent)) {
+      respondersForEvent = [];
+      registry.set(eventName, respondersForEvent);
+    }
+
+    if (respondersForEvent.pluck('handler').include(handler)) return false;
+
+    var responder;
+    if (eventName.include(":")) {
+      responder = function(event) {
+        if (Object.isUndefi

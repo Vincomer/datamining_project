@@ -5502,4 +5502,18 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
     } else {
       if (!MOUSEENTER_MOUSELEAVE_EVENTS_SUPPORTED &&
        (eventName === "mouseenter" || eventName === "mouseleave")) {
-        if (eventName === "mouseenter" || eventName ==
+        if (eventName === "mouseenter" || eventName === "mouseleave") {
+          responder = function(event) {
+            Event.extend(event, element);
+
+            var parent = event.relatedTarget;
+            while (parent && parent !== element) {
+              try { parent = parent.parentNode; }
+              catch(e) { parent = element; }
+            }
+
+            if (parent === element) return;
+
+            handler.call(element, event);
+          };
+   

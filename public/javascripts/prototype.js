@@ -5532,4 +5532,21 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
 
   function _destroyCache() {
     for (var i = 0, length = CACHE.length; i < length; i++) {
-      Event.stopObserving(CACHE[i
+      Event.stopObserving(CACHE[i]);
+      CACHE[i] = null;
+    }
+  }
+
+  var CACHE = [];
+
+  if (Prototype.Browser.IE)
+    window.attachEvent('onunload', _destroyCache);
+
+  if (Prototype.Browser.WebKit)
+    window.addEventListener('unload', Prototype.emptyFunction, false);
+
+
+  var _getDOMEventName = Prototype.K,
+      translations = { mouseenter: "mouseover", mouseleave: "mouseout" };
+
+  if (!MOUSEENTER_MOUSELEA

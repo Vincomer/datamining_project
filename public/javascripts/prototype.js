@@ -5605,4 +5605,15 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
       return element;
     }
 
-    var responder = responders.find( function(r) { return r.handler =
+    var responder = responders.find( function(r) { return r.handler === handler; });
+    if (!responder) return element;
+
+    if (eventName.include(':')) {
+      if (element.removeEventListener)
+        element.removeEventListener("dataavailable", responder, false);
+      else {
+        element.detachEvent("ondataavailable", responder);
+        element.detachEvent("onfilterchange",  responder);
+      }
+    } else {
+      var actualE

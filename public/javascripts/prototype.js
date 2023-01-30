@@ -5573,4 +5573,20 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
       var actualEventName = _getDOMEventName(eventName);
 
       if (element.addEventListener)
-        element.addEventListener(actualEventNa
+        element.addEventListener(actualEventName, responder, false);
+      else
+        element.attachEvent("on" + actualEventName, responder);
+    }
+
+    return element;
+  }
+
+  function stopObserving(element, eventName, handler) {
+    element = $(element);
+
+    var registry = Element.retrieve(element, 'prototype_event_registry');
+    if (!registry) return element;
+
+    if (!eventName) {
+      registry.each( function(pair) {
+        var eventName = pair.

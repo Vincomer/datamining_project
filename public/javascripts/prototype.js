@@ -5589,4 +5589,20 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
 
     if (!eventName) {
       registry.each( function(pair) {
-        var eventName = pair.
+        var eventName = pair.key;
+        stopObserving(element, eventName);
+      });
+      return element;
+    }
+
+    var responders = registry.get(eventName);
+    if (!responders) return element;
+
+    if (!handler) {
+      responders.each(function(r) {
+        stopObserving(element, eventName, r.handler);
+      });
+      return element;
+    }
+
+    var responder = responders.find( function(r) { return r.handler =

@@ -5659,4 +5659,19 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
 
   Event.Handler = Class.create({
     initialize: function(element, eventName, selector, callback) {
-      this.element
+      this.element   = $(element);
+      this.eventName = eventName;
+      this.selector  = selector;
+      this.callback  = callback;
+      this.handler   = this.handleEvent.bind(this);
+    },
+
+    start: function() {
+      Event.observe(this.element, this.eventName, this.handler);
+      return this;
+    },
+
+    stop: function() {
+      Event.stopObserving(this.element, this.eventName, this.handler);
+      return this;
+   

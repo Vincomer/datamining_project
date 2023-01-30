@@ -5563,4 +5563,14 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
     if (!responder) return element;
 
     if (eventName.include(':')) {
-     
+      if (element.addEventListener)
+        element.addEventListener("dataavailable", responder, false);
+      else {
+        element.attachEvent("ondataavailable", responder);
+        element.attachEvent("onfilterchange", responder);
+      }
+    } else {
+      var actualEventName = _getDOMEventName(eventName);
+
+      if (element.addEventListener)
+        element.addEventListener(actualEventNa

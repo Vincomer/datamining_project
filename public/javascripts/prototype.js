@@ -5632,4 +5632,15 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
     element = $(element);
 
     if (Object.isUndefined(bubble))
-      bubble
+      bubble = true;
+
+    if (element == document && document.createEvent && !element.dispatchEvent)
+      element = document.documentElement;
+
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent('dataavailable', true, true);
+    } else {
+      event = document.createEventObject();
+      event.eventType = bubble ? 'ondataavailabl

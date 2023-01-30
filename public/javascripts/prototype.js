@@ -5616,4 +5616,20 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
         element.detachEvent("onfilterchange",  responder);
       }
     } else {
-      var actualE
+      var actualEventName = _getDOMEventName(eventName);
+      if (element.removeEventListener)
+        element.removeEventListener(actualEventName, responder, false);
+      else
+        element.detachEvent('on' + actualEventName, responder);
+    }
+
+    registry.set(eventName, responders.without(responder));
+
+    return element;
+  }
+
+  function fire(element, eventName, memo, bubble) {
+    element = $(element);
+
+    if (Object.isUndefined(bubble))
+      bubble

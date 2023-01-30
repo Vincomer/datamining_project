@@ -5549,4 +5549,18 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
   var _getDOMEventName = Prototype.K,
       translations = { mouseenter: "mouseover", mouseleave: "mouseout" };
 
-  if (!MOUSEENTER_MOUSELEA
+  if (!MOUSEENTER_MOUSELEAVE_EVENTS_SUPPORTED) {
+    _getDOMEventName = function(eventName) {
+      return (translations[eventName] || eventName);
+    };
+  }
+
+  function observe(element, eventName, handler) {
+    element = $(element);
+
+    var responder = _createResponder(element, eventName, handler);
+
+    if (!responder) return element;
+
+    if (eventName.include(':')) {
+     

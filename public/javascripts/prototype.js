@@ -5643,4 +5643,20 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
       event.initEvent('dataavailable', true, true);
     } else {
       event = document.createEventObject();
-      event.eventType = bubble ? 'ondataavailabl
+      event.eventType = bubble ? 'ondataavailable' : 'onfilterchange';
+    }
+
+    event.eventName = eventName;
+    event.memo = memo || { };
+
+    if (document.createEvent)
+      element.dispatchEvent(event);
+    else
+      element.fireEvent(event.eventType, event);
+
+    return Event.extend(event);
+  }
+
+  Event.Handler = Class.create({
+    initialize: function(element, eventName, selector, callback) {
+      this.element

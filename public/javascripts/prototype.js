@@ -5705,4 +5705,26 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
 
     observe:       observe,
 
-    stopObse
+    stopObserving: stopObserving,
+
+    on:            on
+  });
+
+  Object.extend(document, {
+    fire:          fire.methodize(),
+
+    observe:       observe.methodize(),
+
+    stopObserving: stopObserving.methodize(),
+
+    on:            on.methodize(),
+
+    loaded:        false
+  });
+
+  if (window.Event) Object.extend(window.Event, Event);
+  else window.Event = Event;
+})();
+
+(function() {
+  /* Support 

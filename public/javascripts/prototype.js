@@ -5674,4 +5674,16 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
     stop: function() {
       Event.stopObserving(this.element, this.eventName, this.handler);
       return this;
-   
+    },
+
+    handleEvent: function(event) {
+      var element = event.findElement(this.selector);
+      if (element) this.callback.call(this.element, event, element);
+    }
+  });
+
+  function on(element, eventName, selector, callback) {
+    element = $(element);
+    if (Object.isFunction(selector) && Object.isUndefined(callback)) {
+      callback = selector, selector = null;
+ 

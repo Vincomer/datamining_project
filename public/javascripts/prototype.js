@@ -5686,4 +5686,23 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
     element = $(element);
     if (Object.isFunction(selector) && Object.isUndefined(callback)) {
       callback = selector, selector = null;
- 
+    }
+
+    return new Event.Handler(element, eventName, selector, callback).start();
+  }
+
+  Object.extend(Event, Event.Methods);
+
+  Object.extend(Event, {
+    fire:          fire,
+    observe:       observe,
+    stopObserving: stopObserving,
+    on:            on
+  });
+
+  Element.addMethods({
+    fire:          fire,
+
+    observe:       observe,
+
+    stopObse

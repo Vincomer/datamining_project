@@ -5740,4 +5740,20 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
   }
 
   function checkReadyState() {
-    if (document.readyState === '
+    if (document.readyState === 'complete') {
+      document.stopObserving('readystatechange', checkReadyState);
+      fireContentLoadedEvent();
+    }
+  }
+
+  function pollDoScroll() {
+    try { document.documentElement.doScroll('left'); }
+    catch(e) {
+      timer = pollDoScroll.defer();
+      return;
+    }
+    fireContentLoadedEvent();
+  }
+
+  if (document.addEventListener) {
+    document.addEventListene

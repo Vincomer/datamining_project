@@ -5756,4 +5756,18 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
   }
 
   if (document.addEventListener) {
-    document.addEventListene
+    document.addEventListener('DOMContentLoaded', fireContentLoadedEvent, false);
+  } else {
+    document.observe('readystatechange', checkReadyState);
+    if (window == top)
+      timer = pollDoScroll.defer();
+  }
+
+  Event.observe(window, 'load', fireContentLoadedEvent);
+})();
+
+Element.addMethods();
+
+/*------------------------------- DEPRECATED -------------------------------*/
+
+Hash.toQueryString = Object.t

@@ -5786,4 +5786,20 @@ var Insertion = {
   },
 
   Bottom: function(element, content) {
-    return Element.insert(element, {
+    return Element.insert(element, {bottom:content});
+  },
+
+  After: function(element, content) {
+    return Element.insert(element, {after:content});
+  }
+};
+
+var $continue = new Error('"throw $continue" is deprecated, use "return" instead');
+
+var Position = {
+  includeScrollOffsets: false,
+
+  prepare: function() {
+    this.deltaX =  window.pageXOffset
+                || document.documentElement.scrollLeft
+       

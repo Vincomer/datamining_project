@@ -5815,4 +5815,15 @@ var Position = {
       return this.withinIncludingScrolloffsets(element, x, y);
     this.xcomp = x;
     this.ycomp = y;
-    th
+    this.offset = Element.cumulativeOffset(element);
+
+    return (y >= this.offset[1] &&
+            y <  this.offset[1] + element.offsetHeight &&
+            x >= this.offset[0] &&
+            x <  this.offset[0] + element.offsetWidth);
+  },
+
+  withinIncludingScrolloffsets: function(element, x, y) {
+    var offsetcache = Element.cumulativeScrollOffset(element);
+
+    this.xcomp = x + of

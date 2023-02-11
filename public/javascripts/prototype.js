@@ -5837,4 +5837,14 @@ var Position = {
   },
 
   overlap: function(mode, element) {
-   
+    if (!mode) return 0;
+    if (mode == 'vertical')
+      return ((this.offset[1] + element.offsetHeight) - this.ycomp) /
+        element.offsetHeight;
+    if (mode == 'horizontal')
+      return ((this.offset[0] + element.offsetWidth) - this.xcomp) /
+        element.offsetWidth;
+  },
+
+
+  cumulativeOffset: Element.Methods.cumulativeOffset,

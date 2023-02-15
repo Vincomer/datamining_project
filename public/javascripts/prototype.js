@@ -5883,4 +5883,12 @@ if (!document.getElementsByClassName) document.getElementsByClassName = function
   instanceMethods.getElementsByClassName = Prototype.BrowserFeatures.XPath ?
   function(element, className) {
     className = className.toString().strip();
-    var cond = /\s/.test(className) ? $w(className)
+    var cond = /\s/.test(className) ? $w(className).map(iter).join('') : iter(className);
+    return cond ? document._getElementsByXPath('.//*' + cond, element) : [];
+  } : function(element, className) {
+    className = className.toString().strip();
+    var elements = [], classNames = (/\s/.test(className) ? $w(className) : null);
+    if (!classNames && !className) return elements;
+
+    var nodes = $(element).getElementsByTagName('*');
+    className = ' ' + classN

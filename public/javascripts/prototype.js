@@ -5902,3 +5902,18 @@ if (!document.getElementsByClassName) document.getElementsByClassName = function
     }
     return elements;
   };
+
+  return function(className, parentElement) {
+    return $(parentElement || document.body).getElementsByClassName(className);
+  };
+}(Element.Methods);
+
+/*--------------------------------------------------------------------------*/
+
+Element.ClassNames = Class.create();
+Element.ClassNames.prototype = {
+  initialize: function(element) {
+    this.element = $(element);
+  },
+
+  _each: function(iterato

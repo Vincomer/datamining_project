@@ -5891,4 +5891,14 @@ if (!document.getElementsByClassName) document.getElementsByClassName = function
     if (!classNames && !className) return elements;
 
     var nodes = $(element).getElementsByTagName('*');
-    className = ' ' + classN
+    className = ' ' + className + ' ';
+
+    for (var i = 0, child, cn; child = nodes[i]; i++) {
+      if (child.className && (cn = ' ' + child.className + ' ') && (cn.include(className) ||
+          (classNames && classNames.all(function(name) {
+            return !name.toString().blank() && cn.include(' ' + name + ' ');
+          }))))
+        elements.push(Element.extend(child));
+    }
+    return elements;
+  };

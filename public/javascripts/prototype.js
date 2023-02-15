@@ -5863,4 +5863,16 @@ var Position = {
 
   realOffset: Element.Methods.cumulativeScrollOffset,
 
-  offsetParent: Element.Methods.get
+  offsetParent: Element.Methods.getOffsetParent,
+
+  page: Element.Methods.viewportOffset,
+
+  clone: function(source, target, options) {
+    options = options || { };
+    return Element.clonePosition(target, source, options);
+  }
+};
+
+/*--------------------------------------------------------------------------*/
+
+if (!document.getElementsByClassName) document.getElementsByClassName = function(instan

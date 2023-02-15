@@ -5931,4 +5931,21 @@ Element.ClassNames.prototype = {
     this.set($A(this).concat(classNameToAdd).join(' '));
   },
 
-  remove: function(classNameToR
+  remove: function(classNameToRemove) {
+    if (!this.include(classNameToRemove)) return;
+    this.set($A(this).without(classNameToRemove).join(' '));
+  },
+
+  toString: function() {
+    return $A(this).join(' ');
+  }
+};
+
+Object.extend(Element.ClassNames.prototype, Enumerable);
+
+/*--------------------------------------------------------------------------*/
+
+(function() {
+  window.Selector = Class.create({
+    initialize: function(expression) {
+      this.expre

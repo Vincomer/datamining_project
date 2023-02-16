@@ -5948,4 +5948,20 @@ Object.extend(Element.ClassNames.prototype, Enumerable);
 (function() {
   window.Selector = Class.create({
     initialize: function(expression) {
-      this.expre
+      this.expression = expression.strip();
+    },
+
+    findElements: function(rootElement) {
+      return Prototype.Selector.select(this.expression, rootElement);
+    },
+
+    match: function(element) {
+      return Prototype.Selector.match(element, this.expression);
+    },
+
+    toString: function() {
+      return this.expression;
+    },
+
+    inspect: function() {
+      return "#<Selector: " + 

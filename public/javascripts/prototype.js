@@ -5964,4 +5964,18 @@ Object.extend(Element.ClassNames.prototype, Enumerable);
     },
 
     inspect: function() {
-      return "#<Selector: " + 
+      return "#<Selector: " + this.expression + ">";
+    }
+  });
+
+  Object.extend(Selector, {
+    matchElements: function(elements, expression) {
+      var match = Prototype.Selector.match,
+          results = [];
+
+      for (var i = 0, length = elements.length; i < length; i++) {
+        var element = elements[i];
+        if (match(element, expression)) {
+          results.push(Element.extend(element));
+        }
+    

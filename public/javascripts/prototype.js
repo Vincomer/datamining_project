@@ -5978,4 +5978,15 @@ Object.extend(Element.ClassNames.prototype, Enumerable);
         if (match(element, expression)) {
           results.push(Element.extend(element));
         }
-    
+      }
+      return results;
+    },
+
+    findElement: function(elements, expression, index) {
+      index = index || 0;
+      var matchIndex = 0, element;
+      for (var i = 0, length = elements.length; i < length; i++) {
+        element = elements[i];
+        if (Prototype.Selector.match(element, expression) && index === matchIndex++) {
+          return Element.extend(element);
+  

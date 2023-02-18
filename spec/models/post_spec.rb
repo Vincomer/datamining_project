@@ -125,3 +125,21 @@ describe Post do
         "reject 34=-867 8289 reject",
         "reject 3467.8289 reject",
         "reject 3 4 1 - 6133 reject",
+        "reject 4 1 8 6 7 8 2 8 9 reject",
+        "rejeCT :4:7..2:4:9..3:9:7:6  REject",
+        "reject 34901-5789 reject",
+        "reject (341separated) 867-8289 reject",
+        "reject (3) 87-8289 reject",
+        "reject 341-86-8289 reject",
+        "reject 341 867 289 reject",
+        "reject 341.867.82\\n89 reject",
+        "reject 341 867-889 reject",
+        "reject 341-87 8289 reject",
+        "reject 31-867.8289 reject",
+        "reject 3  1 8 6 7 8 2 8 9 reject",
+        "reject :4:7..2:4:9..3:9:7:6  reject",
+        "no phone number here"
+      ]
+  end
+
+end

@@ -5989,4 +5989,13 @@ Object.extend(Element.ClassNames.prototype, Enumerable);
         element = elements[i];
         if (Prototype.Selector.match(element, expression) && index === matchIndex++) {
           return Element.extend(element);
-  
+        }
+      }
+    },
+
+    findChildElements: function(element, expressions) {
+      var selector = expressions.toArray().join(', ');
+      return Prototype.Selector.select(selector, element || document);
+    }
+  });
+})();

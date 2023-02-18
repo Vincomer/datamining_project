@@ -153,3 +153,40 @@
 
     var inputs = element.select("input[type=submit][data-disable-with]");
     inputs.each(function(input) {
+      input.disabled = true;
+      input.writeAttribute('data-original-value', input.value);
+      input.value = input.readAttribute('data-disable-with');
+    });
+
+    var element = event.findElement("form[data-remote]");
+    if (element) {
+      handleRemote(element);
+      event.stop();
+    }
+  });
+
+  document.on("ajax:after", "form", function(event, element) {
+    var inputs = element.select("input[type=submit][disabled=true][data-disable-with]");
+    inputs.each(function(input) {
+      input.value = input.readAttribute('data-original-value');
+      input.removeAttribute('data-original-value');
+      input.disabled = false;
+    });
+  });
+
+  Ajax.Responders.register({
+    onCreate: function(request) {
+      var csrf_meta_tag = $$('meta[name=csrf-token]')[0];
+
+      if (csrf_meta_tag) {
+        var header = 'X-CSRF-Token',
+            token = csrf_meta_tag.readAttribute('content');
+
+        if (!request.options.requestHeaders) {
+          request.options.requestHeaders = {};
+        }
+        request.options.requestHeaders[header] = token;
+      }
+    }
+  });
+})();
